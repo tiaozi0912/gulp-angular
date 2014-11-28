@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  var app = angular.module('AgoraApp', ['ui.router', 'templates']);
+  var app = window.angular.module('AgoraApp', ['ui.router', 'templates']);
 
   // route:
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -12,7 +12,7 @@
     });
 
     // for any unmatched url
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
       .state('home', {
