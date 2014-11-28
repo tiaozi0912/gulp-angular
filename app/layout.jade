@@ -20,31 +20,33 @@ html.no-js
     script(src='../bower_components/modernizr/modernizr.js')
     // endbuild
 
-  body
+  body(ng-app="AgoraApp")
     | <!--[if lt IE 10]>
     |     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     | <![endif]-->
 
-    .container
-      .header
-        ul.nav.nav-pills.pull-right
-          li.active: a(href='#') Home
-          li: a(href='#') About
-          li: a(href='#') Contact
+    .header
+      ul.nav.nav-pills.pull-right
+        li.active: a(href='#') Home
+        li: a(href='#') About
+        li: a(href='#') Contact
 
-        h3.text-muted My Webapp
+      h3.text-muted My Webapp
 
-        .jumbotron
-          h1 'Allo, 'Allo!
-          p.lead Always a pleasure scaffolding your apps.
-          p: a.btn.btn-lg.btn-success(href='#') Splendid!
+      .jumbotron
+        h1 'Allo, 'Allo!
+        p.lead Always a pleasure scaffolding your apps.
+        p: a.btn.btn-lg.btn-success(href='#') Splendid!
 
-      block content
+    block content
 
-      .footer
-        p ♥ from the Yeoman team
+    .footer
+      p ♥ from the Yeoman team
 
     // build:js scripts/main.js
+    script(src='../bower_components/angular/angular.js')
+    script(src='../bower_components/angular-ui-router/release/angular-ui-router.js')
+    script(src='scripts/templates.js')
     script(src='scripts/main.js')
     // endbuild
 

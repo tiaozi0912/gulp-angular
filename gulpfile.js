@@ -22,21 +22,32 @@ gulp.task('jshint', function () {
     .pipe($.jshint.reporter('fail'));
 });
 
-//compile .jade files to .html files in .tmp
+// compile index.jade files to .html files in .tmp
 gulp.task('views', function () {
-    return gulp.src(['app/*.jade', '!app/layout.jade'])
+    return gulp.src(['app/index.jade'])
         .pipe($.jade({pretty: true}))
         .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('html', ['views', 'styles'], function () {
+// compile all jades templates and wraps thos in angular templateCache
+gulp.task('templates', function() {
+  return gulp.src([
+    'app/templates/*.jade'
+  ])
+  .pipe($.jade({pretty: true}).on('error', $.util.log))
+  .pipe($.angularTemplatecache('templates.js', {standalone: true}))
+  .pipe(gulp.dest('app/scripts'));
+});
+
+// call in the build task to compile views, templates, stylesheets and scripts
+gulp.task('html', ['views', 'styles', 'templates'], function () {
   var lazypipe = require('lazypipe');
   var cssChannel = lazypipe()
     .pipe($.csso)
     .pipe($.replace, 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts');
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
-  return gulp.src('.tmp/*.html')
+  return gulp.src('.tmp/index.html')
     .pipe(assets)
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', cssChannel()))
@@ -65,14 +76,14 @@ gulp.task('fonts', function () {
 gulp.task('extras', function () {
   return gulp.src([
     'app/*.*',
-    '!app/*.jade',
+    '!app/**/*.jade',
     'node_modules/apache-server-configs/dist/.htaccess'
   ], {
     dot: true
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
+gulp.task('clean', require('del').bind(null, ['.tmp', 'dist', 'app/scripts/templates']));
 
 gulp.task('connect', ['styles'], function () {
   var serveStatic = require('serve-static');
@@ -93,7 +104,7 @@ gulp.task('connect', ['styles'], function () {
     });
 });
 
-gulp.task('serve', ['connect', 'views', 'watch'], function () {
+gulp.task('serve', ['connect', 'views', 'templates', 'watch'], function () {
   require('opn')('http://localhost:9000');
 });
 
@@ -121,7 +132,8 @@ gulp.task('watch', ['connect'], function () {
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
-  gulp.watch('app/*.jade', ['views']);
+  gulp.watch('app/templates/*.jade', ['templates']);
+  gulp.watch(['app/index.jade', 'app/layout.jade'], ['views', 'templates']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
 });
