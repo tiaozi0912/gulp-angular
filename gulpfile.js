@@ -74,11 +74,12 @@ gulp.task('sprite', function () {
     .pipe(sprite({
       name: 'sprite',
       style: '_sprite.scss',
-      cssPath: './images',
+      cssPath: '/images',
       retina: true,
       processor: 'scss',
       prefix: 'sprite-icon'
     }))
+    .pipe($.if('*.png', gulp.dest('app/images')))
     .pipe($.if('*.png', gulp.dest('dist/images'), gulp.dest('app/styles')));
 });
 
