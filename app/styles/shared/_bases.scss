@@ -1,0 +1,11 @@
+.page-section {
+  padding-top: $section-padding-sm;
+  padding-bottom: $section-padding-sm;
+}
+
+@include mq($screen-sm) {
+  .page-section {
+    padding-top: $section-padding;
+    padding-bottom: $section-padding;
+  }
+}
