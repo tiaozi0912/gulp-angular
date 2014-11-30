@@ -5,7 +5,7 @@
   var app = window.angular.module('AgoraApp', ['ui.router', 'templates']);
 
   // route:
-  app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
+  app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
@@ -17,9 +17,13 @@
     $stateProvider
       .state('home', {
         url: '/',
-        templateProvider: ['$templateCache', function($templateCache) {
+        controller: function($scope) {
+          $scope.a = 'a';
+          window.console.log('home page');
+        },
+        templateProvider: function($templateCache) {
           return $templateCache.get('home.html');
-        }]
+        }
       })
       .state('docs', {
         url: '/docs',
@@ -33,6 +37,6 @@
           return $templateCache.get('help.html');
         }]
       });
-  }]);
+  });
 
 })();
