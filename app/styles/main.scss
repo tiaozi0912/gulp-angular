@@ -4,6 +4,9 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+// generated sprite scss
+@import "sprite";
+
 @import "shared/variables";
 @import "shared/mixins";
 @import "shared/typography";

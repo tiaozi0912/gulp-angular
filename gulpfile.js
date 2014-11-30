@@ -2,6 +2,7 @@
 'use strict';
 // generated on 2014-11-28 using generator-gulp-webapp 0.2.0
 var gulp = require('gulp');
+var sprite = require('css-sprite').stream;
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
@@ -40,7 +41,7 @@ gulp.task('templates', function() {
 });
 
 // call in the build task to compile views, templates, stylesheets and scripts
-gulp.task('html', ['views', 'styles', 'templates'], function () {
+gulp.task('html', ['sprite', 'views', 'styles', 'templates'], function () {
   var lazypipe = require('lazypipe');
   var cssChannel = lazypipe()
     .pipe($.csso)
@@ -67,6 +68,20 @@ gulp.task('images', function () {
     .pipe(gulp.dest('dist/images'));
 });
 
+// generate sprite.png and _sprite.scss
+gulp.task('sprite', function () {
+  return gulp.src('app/images/sprite/*.png')
+    .pipe(sprite({
+      name: 'sprite',
+      style: '_sprite.scss',
+      cssPath: './images',
+      retina: true,
+      processor: 'scss',
+      prefix: 'sprite-icon'
+    }))
+    .pipe($.if('*.png', gulp.dest('dist/images'), gulp.dest('app/styles')));
+});
+
 gulp.task('fonts', function () {
   return gulp.src(require('main-bower-files')().concat('app/fonts/**/*'))
     .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
@@ -84,7 +99,7 @@ gulp.task('extras', function () {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', require('del').bind(null, ['.tmp', 'dist', 'app/scripts/templates']));
+gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('connect', ['styles'], function () {
   var serveStatic = require('serve-static');
@@ -105,7 +120,7 @@ gulp.task('connect', ['styles'], function () {
     });
 });
 
-gulp.task('serve', ['connect', 'views', 'templates', 'watch'], function () {
+gulp.task('serve', ['connect', 'views', 'templates', 'sprite', 'watch'], function () {
   //require('opn')('http://localhost:9000');
 });
 
@@ -135,6 +150,7 @@ gulp.task('watch', ['connect'], function () {
 
   gulp.watch('app/templates/*.jade', ['templates']);
   gulp.watch(['app/index.jade', 'app/layout.jade'], ['views', 'templates']);
+  gulp.watch('app/images/sprite/*.png', ['sprite']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
 });
