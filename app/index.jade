@@ -1,4 +1,6 @@
 extends layout
 
 block content
-  .main-view(ui-view=true)
+  header(ui-view="header")
+  .main(ui-view="main")
+  footer(ui-view="footer")
