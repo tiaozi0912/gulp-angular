@@ -2,9 +2,11 @@ doctype html
 html.no-js
   head
     meta(charset='utf-8')
-    title My Webapp
+    title Agora
     meta(name='description' content='')
     meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel="icon", type="image/png", href="favicon-32x32.png", sizes="32x32")
+    link(rel="icon", type="image/png", href="favicon-16x16.png", sizes="16x16")
     // Place favicon.ico and apple-touch-icon.png in the root directory
 
     // build:css styles/vendor.css
@@ -28,9 +30,15 @@ html.no-js
     block content
 
     // build:js scripts/main.js
+    script(src='../bower_components/zeptojs/src/zepto.js')
+    script(src='../bower_components/zeptojs/src/event.js')
+    script(src='../bower_components/zeptojs/src/fx.js')
     script(src='../bower_components/angular/angular.js')
     script(src='../bower_components/angular-ui-router/release/angular-ui-router.js')
     script(src='scripts/templates.js')
+    script(src='scripts/lib/headroom.js')
+    script(src='scripts/lib/angular.headroom.js')
     script(src='scripts/main.js')
+    script(src='scripts/directives/ag-link-scroll.js')
     // endbuild
 

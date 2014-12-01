@@ -154,6 +154,7 @@ gulp.task('watch', ['connect'], function () {
   gulp.watch('app/images/sprite/*.png', ['sprite']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
+  gulp.watch('app/scripts/**/*.js', ['jshint']);
 });
 
 gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {

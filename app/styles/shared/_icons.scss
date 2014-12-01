@@ -1,0 +1,19 @@
+.app-call-icon {
+  @include sprite($app_call);
+}
+
+.anonymous-call-icon {
+  @include sprite($anonymous_call);
+}
+
+.group-call-icon {
+  @include sprite($group_call);
+}
+
+.rocket-icon {
+  @include sprite($rocket);
+}
+
+.agora-logo-icon {
+  @include sprite($agora-logo);
+}

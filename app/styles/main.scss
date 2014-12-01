@@ -2,13 +2,20 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 // bower:scss
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "../../bower_components/bourbon/dist/_bourbon.scss";
+@import "../../bower_components/fontawesome/scss/font-awesome";
 // endbower
 
 // generated sprite scss
 @import "sprite";
 
+// basic configuration and shared styles
 @import "shared/variables";
 @import "shared/mixins";
 @import "shared/typography";
+@import "shared/icons";
 @import "shared/bases";
-//@import "shared/page";
+@import "shared/header_footer";
+
+// page specific styles
+@import "pages/homepage";

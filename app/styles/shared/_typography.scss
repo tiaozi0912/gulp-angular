@@ -1,13 +1,28 @@
+h1, h2, h3, h4, h5,
+.h1-xl {
+  margin-top: 0;
+  margin-bottom: $line-gutter;
+  font-weight: 200;
+}
+
+p, li, a, span, label, input {
+  font-weight: 200;
+}
+
 .h1-xl {
   font-size: $h1-xl;
 }
 
-.text-blue {
+.text-lead {
+  font-size: 18px;
+}
 
+.text-blue {
+  color: $blue;
 }
 
 .text-white {
-
+  color: white;
 }
 
 .text-gray {
@@ -15,5 +30,36 @@
 }
 
 .text-black {
+  color: $midnight-blue;
+}
 
+/**
+ * Mobile typography
+ */
+@include mq_max($screen-sm + 1px) {
+  h1,
+  .h1-xl {
+    font-size: $h1-mobile;
+  }
+
+  h2 {
+    font-size: $h2-mobile;
+  }
+
+  h3 {
+    font-size: $h3-mobile;
+  }
+
+  h4 {
+    font-size: $h4-mobile;
+  }
+
+  h1, h2, h3, h4, h5,
+  .h1-xl {
+    margin-bottom: $line-gutter-sm;
+  }
+
+  .text-lead {
+    font-size: 16px;
+  }
 }

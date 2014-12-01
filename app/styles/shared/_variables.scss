@@ -2,12 +2,29 @@
 $section-padding: 50px;
 $section-padding-sm: 20px;
 
+$line-gutter: 20px;
+$line-gutter-sm: 10px;
+
+$header-height: 50px;
+
 // Media query break points
 $screen-sm: 767px;
 
 // Typography
 $h1-xl: 48px;
+$font-size-base-mobile: 14px;
+$h1-mobile: 24px;
+$h2-mobile: 20px;
+$h3-mobile: 18px;
+$h4-mobile: $font-size-base-mobile;
+
 $line-height: 1.2em;
 $line-height-lg: 1.5em;
 
 // Color palette
+$midnight-blue: #2c3e50;
+$blue: #3498db;
+$dark-blue: #2e8ac7;
+$orange: #e67e22;
+$red: #e74c3c;
+$cloud: #ecf0f1;
