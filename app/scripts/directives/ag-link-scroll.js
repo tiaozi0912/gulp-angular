@@ -7,12 +7,15 @@
     var difference = to - $(window).scrollTop(),
         interval = 10,
         perTick = difference / duration * interval,
+        $window = $(window),
         loop;
+
+    window.scrollTo(0, $window.scrollTop() + perTick);
 
     loop = setInterval(function() {
       if (duration > 0) {
         duration -= interval;
-        window.scrollTo(0, $(window).scrollTop() + perTick);
+        window.scrollTo(0, $window.scrollTop() + perTick);
       } else {
         clearInterval(loop);
       }
@@ -27,7 +30,7 @@
           $target;
 
       if ($header.length) {
-        offset = $header.height();
+        //offset = $header.height();
       }
 
       elem.on('click', function(e) {

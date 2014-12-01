@@ -51,7 +51,7 @@ gulp.task('html', ['sprite', 'views', 'styles', 'templates'], function () {
   return gulp.src('.tmp/index.html')
     .pipe(assets)
     .pipe($.if('*.js', $.ngAnnotate()))
-    .pipe($.if('*.js', $.uglify()))
+    //.pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', cssChannel()))
     .pipe(assets.restore())
     .pipe($.useref())
