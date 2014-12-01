@@ -2,9 +2,9 @@
 (function() {
   'use strict';
 
-  var app = window.angular.module('AgoraApp', ['ui.router', 'templates']);
+  var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom']);
 
-  // route:
+  // routes:
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode({
       enabled: true,
@@ -15,27 +15,90 @@
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-      .state('home', {
-        url: '/',
-        controller: function($scope) {
-          $scope.a = 'a';
-          window.console.log('home page');
-        },
-        templateProvider: function($templateCache) {
-          return $templateCache.get('home.html');
+      .state('root', {
+        url: '',
+        abstract: true,
+        views: {
+          header: {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('header.html');
+            }
+          },
+          footer: {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('footer.html');
+            }
+          }
         }
       })
-      .state('docs', {
-        url: '/docs',
-        templateProvider: ['$templateCache', function($templateCache) {
-          return $templateCache.get('docs.html');
-        }]
+      .state('root.home', {
+        url: '/',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('home.html');
+            },
+            controller: function($scope) {
+              $scope.solutions = [
+                {
+                  title: 'Online education',
+                  img: '/images/homepage/online_education.jpg'
+                },
+                {
+                  title: 'Social',
+                  img: '/images/homepage/social.jpg'
+                },
+                {
+                  title: 'Dating',
+                  img: '/images/homepage/dating.jpg'
+                },
+                {
+                  title: 'Marketplace',
+                  img: '/images/homepage/marketplace.jpg'
+                },
+                {
+                  title: 'Gaming',
+                  img: '/images/homepage/gaming.jpg'
+                }
+              ];
+
+              $scope.docs = [
+                {
+                  title: 'iOS',
+                  icon: 'fa-apple'
+                },
+                {
+                  title: 'Android',
+                  icon: 'fa-android'
+                },
+                {
+                  title: 'Windows',
+                  icon: 'fa-windows'
+                }
+              ];
+            }
+          }
+        }
       })
-      .state('help', {
+      .state('root.docs', {
+        url: '/docs',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('docs.html');
+            }
+          }
+        }
+      })
+      .state('root.help', {
         url: '/help',
-        templateProvider: ['$templateCache', function($templateCache) {
-          return $templateCache.get('help.html');
-        }]
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('help.html');
+            }
+          }
+        }
       });
   });
 

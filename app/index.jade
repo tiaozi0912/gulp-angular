@@ -1,6 +1,6 @@
 extends layout
 
 block content
-  header(ui-view="header")
+  header.navbar.site-header(ui-view="header", headroom=true)
   .main(ui-view="main")
-  footer(ui-view="footer")
+  footer.site-footer.text-white(ui-view="footer")
