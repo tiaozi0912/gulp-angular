@@ -51,7 +51,7 @@ gulp.task('html', ['sprite', 'views', 'styles', 'templates'], function () {
   return gulp.src('.tmp/index.html')
     .pipe(assets)
     .pipe($.if('*.js', $.ngAnnotate()))
-    //.pipe($.if('*.js', $.uglify()))
+    .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', cssChannel()))
     .pipe(assets.restore())
     .pipe($.useref())
@@ -112,7 +112,14 @@ gulp.task('connect', ['styles'], function () {
     // paths to bower_components should be relative to the current file
     // e.g. in app/index.html you should use ../bower_components
     .use('/bower_components', serveStatic('bower_components'))
-    .use(serveIndex('app'));
+    .use(serveIndex('app'))
+    .use(function(req, res) { // direct all to '#/'
+      if (req.url !== '/') {
+        var directTo = '/#' + req.url;
+        res.writeHead(301, {Location: directTo});
+        res.end();
+      }
+    });
 
   require('http').createServer(app)
     .listen(9000)
