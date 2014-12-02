@@ -6,13 +6,5 @@
       i.sprite-icon.agora-logo-icon
   nav.navbar-collapse.header-collapse.collapse.in(role="navigation", aria-expanded="true")
     ul.nav.navbar-nav
-      li
-        a(ui-sref="root.product") product
-      li
-        a(ui-sref="root.solutions") solutions
-      li
-        a(href="#section-pricing", ag-link-scroll=true) pricing
-      li
-        a(ui-sref="root.docs") docs
-      li
-        a(ui-sref="root.help") help
+      li(ng-class="{active:page == nav.url}", ng-repeat="nav in navs")
+        a(href="{{nav.url}}") {{nav.label}}

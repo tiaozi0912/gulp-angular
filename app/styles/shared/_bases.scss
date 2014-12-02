@@ -5,10 +5,30 @@
   -ms-box-sizing: border-box;
 }
 
+.btn {
+  border-width: 0;
+}
+
+.btn-primary {
+  background-color: $blue;
+}
+
 .link {
   &:hover {
     opacity: 0.85;
     text-decoration: none;
+  }
+}
+
+.link-block {
+  &:hover {
+    text-decoration: none;
+  }
+
+  * {
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -26,6 +46,14 @@
 
 .right-text {
   text-align: right;
+}
+
+.bg-cloud {
+  background-color: $cloud;
+}
+
+.cap:first-letter {
+  text-transform: capitalize;
 }
 
 .page-section {
@@ -51,11 +79,45 @@
   }
 }
 
+.page-container {
+  padding: $header-height + $section-padding-sm 0 $section-padding;
+}
+
+.ag-nav {
+  background-color: $cloud;
+  padding: 5px;
+  margin-bottom: $section-padding-sm;
+
+  li {
+    border-right: 5px $cloud solid;
+
+    &:last-child {
+      border-width: 0;
+    }
+
+    a {
+      background-color: white;
+      border-radius: 0;
+    }
+
+    &.active {
+      a {
+        background-color: $blue;
+      }
+    }
+  }
+}
+
 // for tablet and desktop
 @include mq($screen-sm) {
   .page-section {
     padding-top: $section-padding;
     padding-bottom: $section-padding;
+  }
+
+  .page-section-inner {
+    padding-left: $section-padding;
+    padding-right: $section-padding;
   }
 
   .container-sm {

@@ -33,7 +33,7 @@ gulp.task('views', function () {
 // compile all jades templates and wraps thos in angular templateCache
 gulp.task('templates', function() {
   return gulp.src([
-    'app/templates/*.jade'
+    'app/templates/**/*.jade'
   ])
   .pipe($.jade({pretty: true}).on('error', $.util.log))
   .pipe($.angularTemplatecache('templates.js', {standalone: true}))
@@ -156,7 +156,7 @@ gulp.task('watch', ['connect'], function () {
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
-  gulp.watch('app/templates/*.jade', ['templates']);
+  gulp.watch('app/templates/**/*.jade', ['templates']);
   gulp.watch(['app/index.jade', 'app/layout.jade'], ['views', 'templates']);
   gulp.watch('app/images/sprite/*.png', ['sprite']);
   gulp.watch('app/styles/**/*.scss', ['styles']);

@@ -2,16 +2,32 @@
   @include sprite($app_call);
 }
 
+.app-call-lg-icon {
+  @include sprite($app_call_lg);
+}
+
 .anonymous-call-icon {
   @include sprite($anonymous_call);
+}
+
+.anonymous-call-lg-icon {
+  @include sprite($anonymous_call_lg);
 }
 
 .group-call-icon {
   @include sprite($group_call);
 }
 
+.group-call-lg-icon {
+  @include sprite($group_call_lg);
+}
+
 .rocket-icon {
   @include sprite($rocket);
+}
+
+.rocket-lg-icon {
+  @include sprite($rocket_lg);
 }
 
 .agora-logo-icon {

@@ -35,13 +35,15 @@
       h1 Solutions
       p.text-lead.left-text.sub-headline Agora can help your users enjoy a more efficient and engaging communication with each other on your platform. Find the right fit for you.
     .pod-container.clearfix
-      .pod(ng-repeat="solution in solutions")
-        .img-container(style="background-image:url({{solution.img}})")
+      a.pod.link-block(ng-repeat="solution in solutions", href="/#/solutions/{{solution.name}}")
+        .img-container
+          .solution-img(style="background-image:url({{solution.img}})")
+          i.more.fa.fa-3x.fa-search-plus.text-blue
         .title-container
-          h3.title {{solution.title}}
+          h3.title.text-white {{solution.title}}
 
   section.page-section.docs-section.center-text.text-black
-    h1.text-blue Get start
+    h1.text-blue Get started
     .container
       .row
         .col-sm-4(ng-repeat="doc in docs")

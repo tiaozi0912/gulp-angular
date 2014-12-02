@@ -7,6 +7,7 @@
     "angular": "~1.3.4",
     "angular-ui-router": "~0.2.13",
     "bourbon": "~4.0.2",
-    "fontawesome": "~4.2.0"
+    "fontawesome": "~4.2.0",
+    "angular-sanitize": "~1.3.4"
   }
 }
