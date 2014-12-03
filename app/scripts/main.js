@@ -68,6 +68,12 @@
               return $templateCache.get('home.html');
             },
             controller: function($scope) {
+              $scope.featuresMore = {
+                appCall: false,
+                groupCall: false,
+                integration: false
+              };
+
               $scope.solutions = [
                 {
                   title: 'Online education',
@@ -165,8 +171,8 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('docs/show.html');
             },
-            controller: function($scope, $stateParams, $templateCache) {
-              var templateName = 'docs/' + $stateParams.name + '.html';
+            controller: function($scope, $stateParams) {
+              //var templateName = 'docs/' + $stateParams.name + '.html';
 
               $scope.data = [
                 {
@@ -230,6 +236,45 @@
           'main@': {
             templateProvider: function($templateCache) {
               return $templateCache.get('pricing.html');
+            }
+          }
+        }
+      })
+      .state('root.career', {
+        url: '/career',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('career.html');
+            },
+            controller: function($scope) {
+              $scope.navs = [
+                {
+                  label: 'Marketing',
+                  link: '#marketing-jobs'
+                },
+                {
+                  label: 'Engineering',
+                  link: '#engineering-jobs'
+                }
+              ];
+
+              $scope.selected = $scope.navs[0];
+
+              $scope.select = function(nav, e) {
+                e.preventDefault();
+                $scope.selected = nav;
+              };
+            }
+          }
+        }
+      })
+      .state('root.privacy', {
+        url: '/privacy',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('privacy.html');
             }
           }
         }

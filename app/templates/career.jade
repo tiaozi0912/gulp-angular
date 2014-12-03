@@ -1,0 +1,63 @@
+.career-page.page-container.text-black.container
+  .page-section.bg-cloud
+    .page-section-inner.row
+      .col-xs-2
+        ul.nav.nav-pills.nav-stacked
+          li(ng-repeat="nav in navs", ng-class="{active: nav.label == selected.label}")
+            a(href="{{nav.link}}", ng-click="select(nav, $event)") {{nav.label}}
+      .col-xs-10
+        #marketing-jobs(ng-show="selected.label == 'Marketing'")
+          h1.headline Marketing
+          h2 Social Media Marketing Manager
+          article.article
+            p Agora Lab provides voice chat cloud services for game/social/education/productivity app developers. This includes everyone who needs either one-to-one, or many-to-many real time voice communication in their apps. Instead of using conventional P2P VoIP technology, developers can use Agora’s proven proprietary client server cloud VoIP technology, which optimizes network transmission from end-to-end. Agora is seeking a Marketing Manager for Social Media Marketing who will be in charge of developing and executing creative online marketing strategies. The position will be responsible for leading a variety of marketing initiatives. As such, a positive attitude, adaptability, high energy and passion are what we look for in this position.
+          article.article
+            h4 Responsibilities
+            p The ideal candidate will be a blend of Digital Strategist + Social Platform Expert, with experiences working on behalf of corporate and/or B2B and B2C brands. The candidate should have at least 2 years of relevant experience in digital marketing, and/or related fields including research, advertising, management consulting, media and publishing and has the ability to transition effortlessly from visionary planner to hands-on executor as situations demand it.
+          article.article
+            h4 Additional Responsibilities
+            p Play a major role in the research, planning and development of comprehensive digital and social campaigns Successfully launch products and programs Evaluate campaign results against objectives Boost Agora's brand and overall awareness on social media platforms including Facebook, Twitter, LinkedIn, Google+ and more Distribute content through multiple channels, including the company's website Engage with key social influencers and participate in the conversations happening across all social channels to ensure Agora’s brand is well represented as the leader in VoIP cloud service providers Assist with daily social media monitoring, posting, and replying Review and optimize social media ads for sites including Twitter, Facebook, and LinkedIn, Google+ Research and pitch ideas for social media campaigns Track social media statistics and share results with the team during weekly updates Coordinate with internal teams to support cross-channel campaigns and support company initiatives and communications
+          article.article
+            h4 Required Skills/ Experience
+            p 2 years of relevant experience in digital marketing, and/or related fields Must possess a passion for learning new marketing technologies, tactics, and best practices Strong organizational ability and project management experience Strong writing and editing skills and experience
+          .text-lead.text-blue
+            p To apply please email at <a href="mailto:hr@agoravoice.io">hr@agoravoice.io</a><br>Please include your resume and cover letter when applying.
+
+        #engineering-jobs(ng-show="selected.label == 'Engineering'")
+          h1.headline Engineering
+          h2 Developer Evangelist
+          article.article
+            p Agora Lab provides voice chat cloud services for game/social/education/productivity app developers. This includes everyone who needs either one-to-one, or many-to-many real time voice communication in his or her apps. Instead of using conventional P2P VoIP technology, developers can use Agora’s proven proprietary client/server cloud VoIP technology, which optimizes network transmission from end-to-end.
+          article.article
+            h4 Responsibilities
+            p
+              span As a developer evangelist for Agora, your job is to inspire and equip developers to change the way the world communicates. Our primary vehicle for doing this is service to local, national, and international developer communities. A developer evangelist might be found serving in many different capacities:
+              ul
+                li Creating technical content for publication on our blog and other channels to show developers how to implement specific solutions or use new technologies
+                li Organizing and volunteering at local, national, and international developer events
+                li Speaking and sharing his/her expertise at user groups and conferences
+                li Educating and empowering developers, giving technical workshops and brown bags
+                li Writing production-quality code and contributing to Agora's open source helper libraries and other projects
+                li Building partnerships with individuals, companies and organizations that serve the same communities we do
+                li Connecting and networking with other developers and entrepreneurs to identify how Agora might help them be even more awesome
+                li Gathering and socializing product feedback that will inform engineering, sales, and marketing decision making
+                li Supporting our developers wherever they are, on forums, social media, and everywhere in between
+          article.article
+            h4 Requirements
+            p
+              span An Agora developer evangelist should be a software development professional with a track record of delivering web and/or mobile applications. Strong communications skills are also essential to serve in this role. Some specific qualities we are looking for are:
+              ul
+                li Leadership and service in developer communities
+                li Strong technical writing skills demonstrated via blog posts and other written work
+                li Strong and diverse engineering skills - if you were writing code full time, you'd be a great performer
+                li You also have a finger on the pulse of current development technologies across several platforms
+                li Social and hustling skills - a lot of great connections and opportunities are discovered simply by getting out and talking to people. This is something you should be able to do well
+                li Public speaking experience or aptitude is essential for inspiring developers. A developer evangelist needs to deliver presentations that are effective and respectful of an audience's time and attention
+                li Friendly and approachable people do well as the teachers and mentors we're looking for
+                li Willingness to travel to anywhere our developer communities live, and stay productive and professional on the road
+                li Ability to work irregular hours and some weekends to support hackathons, conferences, user groups, and other developer events
+                li Entrepreneurial thinking and the ability to act effectively with only high-level direction is also essential
+          .text-lead.text-blue
+            p To apply please email at <a href="mailto:hr@agoravoice.io">hr@agoravoice.io</a><br>Please include your resume and cover letter when applying.
+
+
