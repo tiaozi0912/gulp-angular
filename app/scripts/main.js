@@ -30,12 +30,12 @@
                   url: '/product'
                 },
                 {
-                  label: 'pricing',
-                  url: '/pricing'
-                },
-                {
                   label: 'solutions',
                   url: '/solutions/online_education'
+                },
+                {
+                  label: 'pricing',
+                  url: '/pricing'
                 },
                 {
                   label: 'docs',
