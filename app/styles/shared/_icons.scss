@@ -30,6 +30,10 @@
   @include sprite($rocket_lg);
 }
 
+.ribbon-lg-icon {
+  @include sprite($ribbon_lg);
+}
+
 .agora-logo-icon {
   @include sprite($agora-logo);
 }

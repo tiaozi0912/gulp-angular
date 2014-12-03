@@ -6,7 +6,8 @@ $rocket: -2px -362px 100px 100px;
 $anonymous_call_lg: -2px -467px 200px 200px;
 $app_call_lg: -2px -672px 200px 200px;
 $group_call_lg: -2px -877px 200px 200px;
-$rocket_lg: -2px -1082px 200px 200px;
+$ribbon_lg: -2px -1082px 200px 200px;
+$rocket_lg: -2px -1287px 200px 200px;
 
 @mixin sprite-width($sprite) {
   width: nth($sprite, 3);
@@ -46,6 +47,6 @@ $rocket_lg: -2px -1082px 200px 200px;
 @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
   .sprite-icon {
     background-image: url('/images/sprite@2x.png');
-    background-size: 205px 1285px;
+    background-size: 205px 1490px;
   }
 }
