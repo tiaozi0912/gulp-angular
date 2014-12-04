@@ -7,44 +7,45 @@
       i.fa.fa-angle-down.fa-4x
 
 
-  section.page-section.features-section.center-text.text-black#features-section
-    .pod.container-sm
-      .sprite-icon.app-call-icon
-      h3.title.text-blue App to app calling
-      .content
-        p.text-lead
-          span Our platform offers crystal clear voice quality through HD audio Codecs.&nbsp;
-          a(href="", ng-click="featuresMore.appCall = true") Learn more
-        .more.left-text.bg-cloud(ng-show="featuresMore.appCall")
-          p With this feature, you can improve your user experience, increase app stickiness, and enhance the users communication efficiency.
-          p Agora’s Video Call feature is coming soon. Sign up to stay tuned(link to subscribe).
-          a(href="", ng-click="featuresMore.appCall = false") Less
-    .pod.container-sm
-      .sprite-icon.group-call-icon
-      h3.title.text-blue Powerful group calls
-      .content
-        p.text-lead
-          span Our Our algorithm can support up to 2,000 participants in a single chat session.&nbsp;
-          a(href="", ng-click="featuresMore.groupCall = true") Learn more
-        .more.left-text.bg-cloud(ng-show="featuresMore.groupCall")
-          p With Agora, group chat has never been so hassle-free. Our algorithm can support up to 2,000 participants in a single chat session while still ensuring stable voice quality Regardless of your network condition, the noise in your surrounding environment, or the quality of your cellular device, Agora’s state-ofthe-art voice engine is optimized to preserve your accuracy of speech to enable your group chat to run smoothly, ensuring a high-quality experience for every participant
-          a(href="", ng-click="featuresMore.groupCall = false") Less
-    //.pod.container-sm
-      .sprite-icon.anonymous-call-icon
-      h3.title.text-blue Anonymous call
-      .content
-        p.text-lead Our Voice-over-IP Agora’s simple SDK allows your integration to happen in minutes.
-    .pod.container-sm
-      .sprite-icon.rocket-icon
-      h3.title.text-blue Integrate in minutes
-      .content
-        p.text-lead
-          span Our Voice-over-IP Agora’s simple SDK allows your integration to happen in minutes.&nbsp;
-          a(href="", ng-click="featuresMore.integration = true") Learn more
-        .more.left-text.bg-cloud(ng-show="featuresMore.integration")
-          p Agora makes communication simple. From documentation to integration, the Agora Voice API is straightforward and built on simplicity, designed to make the user experience as comfortable as possible. It takes just a few minutes to enable real time voice call functionality on your app. From there, the possibilities are limitless.
-          p Want to integrate calling into your apps? Get started with Agora today! (link to early access)
-          a(href="", ng-click="featuresMore.integration = false") Less
+  section.page-section.features-section.center-text.text-black#features-section.container
+    .row
+      .col-sm-4.pod
+        .sprite-icon.app-call-icon
+        h3.title.text-blue App to app calling
+        .content.text-lead
+          p Our platform offers crystal clear voice quality through HD audio Codecs.
+          p
+            a(href="", ng-click="featuresMore.appCall = true") Learn more
+          .more.left-text.bg-cloud(ng-show="featuresMore.appCall")
+            p With this feature, you can improve your user experience, increase app stickiness, and enhance the users communication efficiency.
+            p Agora’s Video Call feature is coming soon. Sign up to stay tuned(link to subscribe).
+            a(href="", ng-click="featuresMore.appCall = false") Less
+      .col-sm-4.pod
+        .sprite-icon.group-call-icon
+        h3.title.text-blue Powerful group calls
+        .content.text-lead
+          p Our Our algorithm can support up to 2,000 participants in a single chat session.
+          p
+            a(href="", ng-click="featuresMore.groupCall = true") Learn more
+          .more.left-text.bg-cloud(ng-show="featuresMore.groupCall")
+            p With Agora, group chat has never been so hassle-free. Our algorithm can support up to 2,000 participants in a single chat session while still ensuring stable voice quality Regardless of your network condition, the noise in your surrounding environment, or the quality of your cellular device, Agora’s state-ofthe-art voice engine is optimized to preserve your accuracy of speech to enable your group chat to run smoothly, ensuring a high-quality experience for every participant
+            a(href="", ng-click="featuresMore.groupCall = false") Less
+      //.pod.container-sm
+        .sprite-icon.anonymous-call-icon
+        h3.title.text-blue Anonymous call
+        .content
+          p.text-lead Our Voice-over-IP Agora’s simple SDK allows your integration to happen in minutes.
+      .col-sm-4.pod
+        .sprite-icon.rocket-icon
+        h3.title.text-blue Integrate in minutes
+        .content.text-lead
+          p Our Voice-over-IP Agora’s simple SDK allows your integration to happen in minutes.&nbsp;
+          p
+            a(href="", ng-click="featuresMore.integration = true") Learn more
+          .more.left-text.bg-cloud(ng-show="featuresMore.integration")
+            p Agora makes communication simple. From documentation to integration, the Agora Voice API is straightforward and built on simplicity, designed to make the user experience as comfortable as possible. It takes just a few minutes to enable real time voice call functionality on your app. From there, the possibilities are limitless.
+            p Want to integrate calling into your apps? Get started with Agora today! (link to early access)
+            a(href="", ng-click="featuresMore.integration = false") Less
 
 
   section.page-section.solutions-section.center-text.text-white

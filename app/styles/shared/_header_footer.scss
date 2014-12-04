@@ -40,7 +40,7 @@
  * Agora footer styles
  */
 .site-footer {
-  background-color: $midnight-blue;
+  background-color: $blue;
   padding: $section-padding-sm;
 
   a {
@@ -58,11 +58,11 @@
   .list-social-media {
     a {
       padding: 5px 0;
-      width: 30px;
+      width: 35px;
       text-align: center;
       border-radius: 50%;
       background-color: white;
-      color: $midnight-blue;
+      color: $blue;
       display: inline-block;
     }
   }

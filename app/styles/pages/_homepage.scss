@@ -14,7 +14,12 @@
 
   .features-section {
     .pod {
-      margin-bottom: $section-padding-sm;
+      border-right: 1px $light-gray solid;
+      padding: 0 $section-padding-sm;
+
+      &:last-child {
+        border-width: 0;
+      }
     }
 
     .more {
@@ -107,14 +112,6 @@
     }
 
     .features-section {
-      .pod {
-        margin-bottom: $section-padding;
-
-        &:last-child {
-          margin-bottom: 0;
-        };
-      }
-
       .sprite-icon {
         margin-bottom: 10px;
       }

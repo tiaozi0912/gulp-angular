@@ -1,0 +1,10 @@
+form.ag-subscribe-form(role="form")
+  .form-group
+    input(type="text", name="name", placeholder="full name", ng-model="user.name")
+  .form-group
+    input(type="text", name="email", placeholder="email address", ng-model="user.email")
+  .form-group
+    input(type="text", name="company_name", placeholder="company name", ng-model="user.company_name")
+  .form-group
+    textarea(rows=3, name="company_description", placeholder="what do you do", ng-model="user.company_description")
+  button.btn.btn-primary.btn-lg(type="button", ng-click="submit(user)") Submit

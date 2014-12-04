@@ -9,6 +9,11 @@ p, li, a, span, label, input, td, div {
   font-weight: 200;
 }
 
+body {
+  font-size: 16px;
+  line-height: 1.6em;
+}
+
 .h1-xl {
   font-size: $h1-xl;
 }
