@@ -3,3 +3,20 @@
     margin-bottom: $section-padding-sm;
   }
 }
+
+.solutions-page {
+  .img-container {
+    width: 100%;
+    background-color: $gray;
+    //height: 300px;
+    margin-bottom: 20px;
+  }
+}
+
+@include mq($screen-sm) {
+  .solutions-page {
+    article {
+      margin-bottom: $section-padding;
+    }
+  }
+}

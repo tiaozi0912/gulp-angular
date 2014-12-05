@@ -1,96 +1,100 @@
-.product-page.page-container.container.text-black
+.product-page.text-black
   .page-section.banner-section
-    .container-sm.text-lead
-      p Adding Agora SDK to your app to let your users be able to talk to each other from within your app or webpage
+    .container
+      .row
+        .col-sm-6.col-sm-offset-6.text-blue
+          .h1-xl.headline Adding Agora SDK to your app
+          h3 Let your users be able to talk to each other within your app or webpage
 
-  .row.feature-content.page-section
-    .col-sm-3
-      .sprite-icon.app-call-lg-icon
-    .col-sm-8
-      h3.text-blue App to app calling
-      p Our Voice-over-IP (VoIP) platform offers crystal clear voice quality through HD audio Codecs.
-      p
-        span  Why app to app calling?
-        ul
-          li Improve user experience: your users can simply click a button in the app to call any other user.
-          li Increase app stickiness: Your users will no longer need to leave your app when making a phone call; app to app calling and added social features encourage users to interact with each other within your app, which enhances customer loyalty and use level.
-          li Protect privacy: users can talk to each other without ever needing to share phone numbers.
-      p Video call is coming soon. Sign up (link) to stay tuned.
-
-  .row.feature-content.page-section
-    .col-sm-8
-      h3.text-blue Powerful group calls
-      p Think you have enough support with your existing group call app? Agora’s unique technology can support as many as 2,000 participants in a single group call. This robust group call is enabled by Agora’s global virtual network, which is powered by 20+ distribution centers across the globe, all of which use an intelligent routing algorithm to bring clarity and function to its users around the world.
-      p Agora’s proprietary technology eliminates adverse network conditions, from voice delays to dropped calls, by up to 70%. Additionally, Agora’s state-of-the-art voice engine is optimized to preserve accuracy of speech regardless of mobile device quality or type, in any environment, and despite any background noise.
-    .col-sm-3
-      .sprite-icon.group-call-lg-icon
-
-  .row.feature-content.page-section
-    .col-sm-3
-      .sprite-icon.ribbon-lg-icon
-    .col-sm-8
-      h3.text-blue Premium Quality
-      p Enjoy the crystal clear voice quality and super wideband voice experience delivered by Agora’s 20+ global distribution centers. Our virtual network is powered by proprietary intelligent routing algorithms, which allow us to support you wherever you are.
-      p Agora’s super wideband audio solution, with bandwidth broader than Apple’s Facetime, brings comfort and ease to communication, making users feel as though they are talking.
-
-  .row.feature-content.page-section
-    .col-sm-8
-      h3.text-blue Anonymous calling
-      p Agora’s anonymous calling feature gives your users peace of mind. With Agora, it’s simple for users to keep their calls private. This feature is especially popular in dating apps, where users want to communicate with each other but don’t wish to reveal personal information, such as phone numbers and names, when they don’t want to.
-    .col-sm-3
-      .sprite-icon.anonymous-call-lg-icon
-
-  .row.feature-content.page-section
-    .col-sm-3
-      .sprite-icon.rocket-lg-icon
-    .col-sm-8
-      h3.text-blue Integrate in minutes
-      p Agora’s simple SDK allows your integration to happen in minutes. From documentation to integration, the Agora Voice API is straightforward and built on simplicity, designed to make the user experience as comfortable as possible. It takes just a few minutes to enable real time voice call functionality on your app. From there, the possibilities are limitless.
-      p Agora supports iOS, Android and Windows, which makes adding calls across different platforms and networks quick and convenient. Agora can support the secure anonymous calling feature on all 3 platforms. Currently, Agora supports calling for app to app. App to phone will come soon.
-      p Want to integrate calling into your apps? <a href="/docs">Get started with Agora today</a>!
-
-  .page-section
-    h1 Audio Module Specification
-    table.table.table-bordered
-      tr
-        td(rowspan=3)
-          strong Speech & Audio Codecs
-        td
-          span Proprietary codec: Agora NOVA
+  .page-section.container
+    .row.feature-content.page-section
+      .col-sm-3
+        .sprite-icon.app-call-lg-icon
+      .col-sm-8
+        h3.text-blue App to app calling
+        p Our Voice-over-IP (VoIP) platform offers crystal clear voice quality through HD audio Codecs.
+        p
+          span  Why app to app calling?
           ul
-            li Low complexity and high scalability
-            li Superior quality (average of 3.92 PESQ-WB score for wideband)
-            li Narrow Wideband(NW), Wideband(WB), Super Wide Band(SWB) (8/16/32KHz sampling rate) all-in-one
-            li Variable bit-rate (8kbps ~ 24kbps)
-            li Flexible mode selection (Scalable mode, High-Quality mode, Low-Power, High-Quality mode and Super Wideband mode)
-      tr
-        td 3rd party Super Wideband (SWB) and Full band codecs: AAC-ELD, OPUS
-      tr
-        td party Wideband (WB) and Narrowband (NB) codecs: Other popular codecs (ITU G.7xx Series, SILK, iLBC, iSAC)
-      tr
-        td(rowspan=3)
-          strong Speech & Audio Processing
-        td
-          span Agora Acoustic Echo Cancellation
-          ul
-            li Low complexity and high efficiency
-            li Support SWB (32KHz sampling rate) operation
-            li Fast convergence and High ERLE
-            li Optimized for both premium and low-cost mobile phones
-            li Device specific parameter configuration
-      tr
-        td Agora Active Conference Mixing
-      tr
-        td Also include ANS/AGC/VAD/CNG module
-      tr
-        td(rowspan=2)
-          strong Network Optimization
-        td Highly effective and adaptive jitter buffer management
-      tr
-        td Packet loss concealment (up to 70%)
-      tr
-        td
-          strong Supported OS
-        td iOS | Android | Windows
+            li Improve user experience: your users can simply click a button in the app to call any other user.
+            li Increase app stickiness: Your users will no longer need to leave your app when making a phone call; app to app calling and added social features encourage users to interact with each other within your app, which enhances customer loyalty and use level.
+            li Protect privacy: users can talk to each other without ever needing to share phone numbers.
+        p Video call is coming soon. Sign up (link) to stay tuned.
+
+    .row.feature-content.page-section
+      .col-sm-8
+        h3.text-blue Powerful group calls
+        p Think you have enough support with your existing group call app? Agora’s unique technology can support as many as 2,000 participants in a single group call. This robust group call is enabled by Agora’s global virtual network, which is powered by 20+ distribution centers across the globe, all of which use an intelligent routing algorithm to bring clarity and function to its users around the world.
+        p Agora’s proprietary technology eliminates adverse network conditions, from voice delays to dropped calls, by up to 70%. Additionally, Agora’s state-of-the-art voice engine is optimized to preserve accuracy of speech regardless of mobile device quality or type, in any environment, and despite any background noise.
+      .col-sm-3
+        .sprite-icon.group-call-lg-icon
+
+    .row.feature-content.page-section
+      .col-sm-3
+        .sprite-icon.ribbon-lg-icon
+      .col-sm-8
+        h3.text-blue Premium Quality
+        p Enjoy the crystal clear voice quality and super wideband voice experience delivered by Agora’s 20+ global distribution centers. Our virtual network is powered by proprietary intelligent routing algorithms, which allow us to support you wherever you are.
+        p Agora’s super wideband audio solution, with bandwidth broader than Apple’s Facetime, brings comfort and ease to communication, making users feel as though they are talking.
+
+    .row.feature-content.page-section
+      .col-sm-8
+        h3.text-blue Anonymous calling
+        p Agora’s anonymous calling feature gives your users peace of mind. With Agora, it’s simple for users to keep their calls private. This feature is especially popular in dating apps, where users want to communicate with each other but don’t wish to reveal personal information, such as phone numbers and names, when they don’t want to.
+      .col-sm-3
+        .sprite-icon.anonymous-call-lg-icon
+
+    .row.feature-content.page-section
+      .col-sm-3
+        .sprite-icon.rocket-lg-icon
+      .col-sm-8
+        h3.text-blue Integrate in minutes
+        p Agora’s simple SDK allows your integration to happen in minutes. From documentation to integration, the Agora Voice API is straightforward and built on simplicity, designed to make the user experience as comfortable as possible. It takes just a few minutes to enable real time voice call functionality on your app. From there, the possibilities are limitless.
+        p Agora supports iOS, Android and Windows, which makes adding calls across different platforms and networks quick and convenient. Agora can support the secure anonymous calling feature on all 3 platforms. Currently, Agora supports calling for app to app. App to phone will come soon.
+        p Want to integrate calling into your apps? <a href="/docs">Get started with Agora today</a>!
+
+    .page-section
+      h1 Audio Module Specification
+      table.table.table-bordered
+        tr
+          td(rowspan=3)
+            strong Speech & Audio Codecs
+          td
+            span Proprietary codec: Agora NOVA
+            ul
+              li Low complexity and high scalability
+              li Superior quality (average of 3.92 PESQ-WB score for wideband)
+              li Narrow Wideband(NW), Wideband(WB), Super Wide Band(SWB) (8/16/32KHz sampling rate) all-in-one
+              li Variable bit-rate (8kbps ~ 24kbps)
+              li Flexible mode selection (Scalable mode, High-Quality mode, Low-Power, High-Quality mode and Super Wideband mode)
+        tr
+          td 3rd party Super Wideband (SWB) and Full band codecs: AAC-ELD, OPUS
+        tr
+          td party Wideband (WB) and Narrowband (NB) codecs: Other popular codecs (ITU G.7xx Series, SILK, iLBC, iSAC)
+        tr
+          td(rowspan=3)
+            strong Speech & Audio Processing
+          td
+            span Agora Acoustic Echo Cancellation
+            ul
+              li Low complexity and high efficiency
+              li Support SWB (32KHz sampling rate) operation
+              li Fast convergence and High ERLE
+              li Optimized for both premium and low-cost mobile phones
+              li Device specific parameter configuration
+        tr
+          td Agora Active Conference Mixing
+        tr
+          td Also include ANS/AGC/VAD/CNG module
+        tr
+          td(rowspan=2)
+            strong Network Optimization
+          td Highly effective and adaptive jitter buffer management
+        tr
+          td Packet loss concealment (up to 70%)
+        tr
+          td
+            strong Supported OS
+          td iOS | Android | Windows
 
 

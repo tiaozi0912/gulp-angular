@@ -63,7 +63,7 @@
     .container
       .row
         .col-sm-4(ng-repeat="doc in docs")
-          a.link.text-gray(href="")
+          a.link.text-gray(href="{{doc.link}}")
             i.fa.fa-5x(class="{{doc.icon}}", title="{{doc.title}}")
             h3.title {{doc.title}}
 

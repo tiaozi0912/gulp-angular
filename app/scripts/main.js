@@ -26,12 +26,12 @@
             controller: function($scope, $location) {
               $scope.navs = [
                 {
-                  label: 'product',
+                  label: 'products',
                   url: '/product'
                 },
                 {
                   label: 'solutions',
-                  url: '/solutions/online_education'
+                  url: '/solutions'
                 },
                 {
                   label: 'pricing',
@@ -105,17 +105,60 @@
               $scope.docs = [
                 {
                   title: 'iOS',
-                  icon: 'fa-apple'
+                  icon: 'fa-apple',
+                  link: '/docs/iOS'
                 },
                 {
                   title: 'Android',
-                  icon: 'fa-android'
+                  icon: 'fa-android',
+                  link: '/docs/Android'
                 },
                 {
                   title: 'Windows',
-                  icon: 'fa-windows'
+                  icon: 'fa-windows',
+                  link: '/docs/Windows'
                 }
               ];
+            }
+          }
+        }
+      })
+      .state('root.solutions', {
+        url: '/solutions',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('solutions/list.html');
+            },
+            controller: function($scope) {
+              $scope.navs = [
+                {
+                  label: 'Online education',
+                  link: '#online-education'
+                },
+                {
+                  label: 'Social',
+                  link: '#social'
+                },
+                {
+                  label: 'Marketplace',
+                  link: '#marketplace'
+                },
+                {
+                  label: 'Gaming',
+                  link: '#gaming'
+                },
+                {
+                  label: 'Dating',
+                  link: '#dating'
+                }
+              ];
+
+              $scope.selected = $scope.navs[0];
+
+              $scope.select = function(nav) {
+                $scope.selected = nav;
+              };
             }
           }
         }

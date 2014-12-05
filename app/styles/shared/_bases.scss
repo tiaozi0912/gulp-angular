@@ -87,6 +87,12 @@
   padding: $header-height + $section-padding-sm 0 $section-padding;
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  background-color: $blue;
+}
+
 /**
  * Navbar styles
  */
@@ -208,6 +214,10 @@
   max-height: 500px;
   overflow: hidden;
   opacity: 1;
+}
+
+.ag-sidebar {
+  position: fixed;
 }
 
 .ag-hide {

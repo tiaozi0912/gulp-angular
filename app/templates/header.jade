@@ -7,4 +7,4 @@
   nav.navbar-collapse.header-collapse.collapse.in(role="navigation", aria-expanded="true")
     ul.nav.navbar-nav
       li(ng-class="{active:page == nav.url}", ng-repeat="nav in navs")
-        a(href="{{nav.url}}") {{nav.label}}
+        a.cap(href="{{nav.url}}") {{nav.label}}

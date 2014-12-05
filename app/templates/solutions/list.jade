@@ -1,0 +1,44 @@
+.solutions-page.page-container.container
+  .row
+    .col-sm-2
+      ul.nav.nav-pills.nav-stacked.ag-sidebar
+        li(ng-repeat="nav in navs", ng-class="{active: nav.label == selected.label}")
+          a(href="{{nav.link}}", ng-click="select(nav)", ag-link-scroll="") {{nav.label}}
+    .col-sm-10
+      article#online-education
+        h1.headline Online eduction
+        .img-container
+          img.img-responsive(src="/images/solutions/online_education.jpg")
+        p Education should be accessible to everyone, everywhere. Agora offers both students and teachers an ideal online platform to exchange ideas while creating an effective, stable and private learning environment. Agora gives students the ability to access private tutors online without requiring them to leave their own home. Not only is this convenient, but the personal, one-on-one connection Agora provides via its crystal clear voice quality makes students more likely to engage enthusiastically with their learning material.
+        p Agora not only provides an option to chat privately with a tutor, but can also be utilized by many users at once, allowing online instructors to communicate with their students as a whole in order to simulate a highly realistic and engaging classroom setting. Since classmates can talk to one another through Agora in real time, no matter their location, organizing study groups through Agora could not get any easier. Agora’s concise, easy-to-use interface makes it simple for students oceans apart to start conversations and share ideas, either privately or in a group setting.
+      article#social
+        h1.headline Social
+        .img-container
+          img.img-responsive(src="/images/solutions/social.jpg")
+        p Agora aims to give its users a new, secure way to connect with the people around them. With Agora, you can connect users quickly and easily by adding a call feature directly within your app. You can use Agora Voice API to bring voice calls to your users with the click of a button, allowing clear, direct voice connections with friends, family and businesses alike.
+
+        p Agora’s anonymous call feature is particularly useful for connections wherein two users may not have the desire nor necessity to exchange personal phone numbers. For example, this feature may be used for one-time business interactions, service calls, or online dating. Additionally, since users can call other users from directly within the app, using anonymous calling also eliminates the need for a temporary number, which allows for easy user management and call monitoring. By operating with Agora, you are ensuring the privacy and security of every one of your users
+      article#marketplace
+        h1.headline Marketplace
+        .img-container
+          img.img-responsive(src="/images/solutions/marketplace.jpg")
+        p Regardless of how clear your product information is, the customers always have questions. Agora helps buyers and sellers to converse with each other from within your app or website, giving customers an easy way to ask questions and find the right product for them, while also allowing sellers to understand the needs of the consumer.
+
+        p Through Agora, online marketplaces can help buyers and sellers keep privacy while still maintaining a personal touch. Agora eliminates the need for temporary phone numbers and puts an end to concern about uploading a private phone number on a public website. With one click, you can add Agora’s calling option to help buyers and sellers connect within your marketplace app, increasing customer satisfaction and seller efficiency.
+      article#gaming
+        h1.headline Gaming
+        .img-container
+          img.img-responsive(src="/images/solutions/gaming.jpg")
+        p Games that require real-time cooperation work best when that cooperation is voice-based. You can easily bring users of multi-player games together using Agora. Players will no longer need to wonder what other users are thinking, or experience slow communication due to typing text. Giving players the ability to verbally communicate through Agora makes the gaming experience more interactive and fun.
+      article#dating
+        h1.headline Dating
+        .img-container
+          img.img-repsonsive(src="/images/solutions/dating.jpg")
+        p Though many dating sites are increasingly striving to differentiate themselves in a competitive market by offering top-tier features to enhance user experience, few can provide both the intimacy and the personal security that Agora can bring to its users. At first, couples may feel uncomfortable exchanging sensitive data such as phone numbers, but integrating Agora into a dating website or app allows users to easily make calls from within the site or app, which provides the personal feel of a phone conversation while still eliminating privacy concerns.
+
+        p With anonymous calling, users can communicate exclusively within your app or website while knowing that their privacy is safeguarded through Agora’s technology. This helps to keep voice communication within a controlled environment and limits the use of third party networks (social media, email) for dating communication. Offensive content is also limited in this way. Help your dating service stay ahead of the curve by implementing Agora’s VoIP.
+
+
+
+  .text-center
+    a.btn.btn-lg.btn-primary(href="/#/docs/Android") Get Started

@@ -2,11 +2,37 @@
   .feature-content {
     border-top: 1px solid #eee;
   }
+
+  .banner-section {
+    height: 300px;
+    @include full-bg-image('/images/products/banner.jpg');
+
+    .col-sm-6 {
+      padding: $section-padding;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+    }
+
+    .container {
+      padding-top: $header-height * 2;
+    }
+  }
+
+  .container.page-section {
+    padding-top: 0;
+  }
 }
 
 @include mq($screen-sm) {
   .product-page {
-    padding-left: 80px;
-    padding-right: 80px;
+    .feature-content {
+      border-top: 1px solid #eee;
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+
+    .banner-section {
+      height: 550px;
+    }
   }
 }
