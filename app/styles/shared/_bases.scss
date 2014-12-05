@@ -87,6 +87,9 @@
   padding: $header-height + $section-padding-sm 0 $section-padding;
 }
 
+/**
+ * Navbar styles
+ */
 .ag-nav {
   background-color: $cloud;
   padding: 5px;
@@ -110,6 +113,84 @@
       }
     }
   }
+}
+
+/**
+ * Subscibe form styles
+ */
+.ag-subscribe-form {
+  background-color: rgba($cloud, 0.9);
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 2px rgba(50, 50, 50, 0.3);
+  width: 400px;
+  max-width: 100%;
+  margin: auto;
+
+  .form-header {
+    background-color: $green;
+    color: white;
+    padding: $section-padding-sm;
+
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+
+  .form-body {
+    padding: $section-padding-sm;
+  }
+
+  .form-group:first-child {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  input.form-control {
+    border-top: 1px $light-gray solid;
+    border-radius: 0;
+
+    &:focus {
+      border-color: $light-gray;
+      box-shadow: none;
+    }
+  }
+
+  .input-wrapper {
+    &:first-child input {
+      border-width: 0;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:last-child input {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+
+  .alert {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+/**
+ * ag-toggle-show styles
+ *
+ * transition: slide down
+ */
+.ag-show-toggle {
+  @include transition(max-height ease 0.4s, opacity ease 0.4s);
+  max-height: 500px;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.ag-hide {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
 }
 
 // for tablet and desktop

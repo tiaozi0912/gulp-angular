@@ -3,6 +3,7 @@
     .content-container.container-sm
       .h1-xl Power the app communication
       h3 Build voice communication feature into your app <br>with Agora simple SDK in minutes
+      a.btn.btn-lg.btn-primary(href="#subscribe-section", ag-link-scroll=true) Get early access
     a.more.link(href="#features-section", ag-link-scroll=true)
       i.fa.fa-angle-down.fa-4x
 
@@ -12,24 +13,22 @@
       .col-sm-4.pod
         .sprite-icon.app-call-icon
         h3.title.text-blue App to app calling
-        .content.text-lead
+        .content.text-lead.text-left
           p Our platform offers crystal clear voice quality through HD audio Codecs.
-          p
-            a(href="", ng-click="featuresMore.appCall = true") Learn more
-          .more.left-text.bg-cloud(ng-show="featuresMore.appCall")
+          .more(ng-show="featuresMore.appCall")
             p With this feature, you can improve your user experience, increase app stickiness, and enhance the users communication efficiency.
-            p Agora’s Video Call feature is coming soon. Sign up to stay tuned(link to subscribe).
-            a(href="", ng-click="featuresMore.appCall = false") Less
+            p Agora’s Video Call feature is coming soon. <a href="#subscribe-section" ag-link-scroll>Sign up to stay tuned</a>.
+        a.text-lead(href="", ng-click="featuresMore.appCall = !featuresMore.appCall") {{featuresMore.appCall ? 'less' : 'Learn more'}}
+
       .col-sm-4.pod
         .sprite-icon.group-call-icon
         h3.title.text-blue Powerful group calls
-        .content.text-lead
+        .content.text-lead.text-left
           p Our Our algorithm can support up to 2,000 participants in a single chat session.
-          p
-            a(href="", ng-click="featuresMore.groupCall = true") Learn more
-          .more.left-text.bg-cloud(ng-show="featuresMore.groupCall")
+          .more(ng-show="featuresMore.groupCall")
             p With Agora, group chat has never been so hassle-free. Our algorithm can support up to 2,000 participants in a single chat session while still ensuring stable voice quality Regardless of your network condition, the noise in your surrounding environment, or the quality of your cellular device, Agora’s state-ofthe-art voice engine is optimized to preserve your accuracy of speech to enable your group chat to run smoothly, ensuring a high-quality experience for every participant
-            a(href="", ng-click="featuresMore.groupCall = false") Less
+        a.text-lead(href="", ng-click="featuresMore.groupCall = !featuresMore.groupCall") {{featuresMore.groupCall ? 'less' : 'Learn more'}}
+
       //.pod.container-sm
         .sprite-icon.anonymous-call-icon
         h3.title.text-blue Anonymous call
@@ -38,14 +37,13 @@
       .col-sm-4.pod
         .sprite-icon.rocket-icon
         h3.title.text-blue Integrate in minutes
-        .content.text-lead
-          p Our Voice-over-IP Agora’s simple SDK allows your integration to happen in minutes.&nbsp;
-          p
-            a(href="", ng-click="featuresMore.integration = true") Learn more
-          .more.left-text.bg-cloud(ng-show="featuresMore.integration")
+        .content.text-lead.text-left
+          p Our Voice-over-IP Agora’s simple SDK allows you to integrate in minutes
+          .more(ng-show="featuresMore.integration")
             p Agora makes communication simple. From documentation to integration, the Agora Voice API is straightforward and built on simplicity, designed to make the user experience as comfortable as possible. It takes just a few minutes to enable real time voice call functionality on your app. From there, the possibilities are limitless.
-            p Want to integrate calling into your apps? Get started with Agora today! (link to early access)
-            a(href="", ng-click="featuresMore.integration = false") Less
+            p Want to integrate calling into your apps? <a href="#subscribe-section" ag-link-scroll>Get started with Agora today</a>!
+
+        a.text-lead(href="", ng-click="featuresMore.integration = !featuresMore.integration") {{featuresMore.integration ? 'less' : 'Learn more'}}
 
 
   section.page-section.solutions-section.center-text.text-white
@@ -65,7 +63,7 @@
     .container
       .row
         .col-sm-4(ng-repeat="doc in docs")
-          a.link.text-black(href="")
+          a.link.text-gray(href="")
             i.fa.fa-5x(class="{{doc.icon}}", title="{{doc.title}}")
             h3.title {{doc.title}}
 
@@ -77,4 +75,7 @@
         p.text-lead We are in Beta stage and provide a 6-months free trial for any customers who uses Agora’s service in this stage.
         p.text-lead After the beta stage, the first 100,000 minutes each month is entirely free. $99 for every 100,000 minutes following the free tier (equals to $0.99 per 1,000 minutes)
         p.text-lead Have more questions? Visit our <a ui-sref="root.help">help center</a> or send us an email at <a href="mailto:support@agoravoice.io">support@agoravoice.io</a>.
+
+  section.page-section.center-text.text-black.subscribe-section#subscribe-section
+    div(ag-subscribe-form="")
 

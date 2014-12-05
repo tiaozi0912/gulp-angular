@@ -1,185 +1,188 @@
 .help-page.container.page-container.text-black
-  section.page-section.bg-cloud
+  section.page-section
     .page-section-inner
       h1 Help
 
-      article.article
-        h4 Popular
-        ul
-          li
-            i What differentiate Agora from other audio VoIP providers?
-            p
+      .row
+        article.article.col-sm-6
+          h4
+            i.fa.fa-star-o &nbsp;
+            span Popular
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") What differentiate Agora from other audio VoIP providers?
               ul
                 li Premium quality: Our crystal clear voice quality and super wideband voice experience delivered by Agora’s 20+ global distribution centers
                 li Mobile focus: Instead of using conventional P2P (e.g. WebRTC) VoIP technology, Agora implements a proven proprietary client server cloud VoIP, and to improve voice quality and connectivity dramatically.
                 li Powerful group chat can support up to 2,000 participants in a single chat session
-          li
-            i What kind of communication features that I can build into my app with Agora?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") What kind of communication features that I can build into my app with Agora?
               ul
                 li App to app calling
                 li Anonymous phone call
                 li Video call is coming soon.
-          li
-            i Which platform do you support?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") Which platform do you support?
               ul
                 li Mobile, iOS, Andorid.
                 li Website, we support Windows. Mac is coming soon.
-          li
-            i My app is terrific. Why do I need to add the voice feature?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") My app is terrific. Why do I need to add the voice feature?
               ul
                 li With the VoIP, you can improved user experience: your users can simply click a button in the app to call any other user.
                 li Increase app stickiness: users will no longer need to leave your app when making a phone call; app to app calling and added social features encourage users to interact with each other within your app, which enhances customer loyalty and use level.
                 li Protect privacy: users can talk to each other without ever needing to share phone numbers.
-          li
-            i What stability does Agora provide?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") What stability does Agora provide?
               ul
                 li Agroa powers all kinds of applications, from prototypes to successful and widely used applications. Agora’s 20+ global distribution centers can scale on-demand and ensure you a high availability at all time.
-          li
-            i How much does Agora charge? When shall I pay?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") How much does Agora charge? When shall I pay?
               ul
                 li We want to make the price structure simple and straightforward. The first 100,000 minutes usage is totally free, and $99 for the every 100,000 minutes followed. That equals to $0.99 for each 1,000 minutes.
                 li We are in the beta stage now and provide 6 months free service to any beta customers.
-          li
-            i What bandwidth does Agora support?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") What bandwidth does Agora support?
               ul
                 li We support narrow wideband (8KHz), wide band (16KHz) and Super Wideband (32KHz).
-
-      article.article
-        h4 Integration
-        ul
-          li
-            i How long does it take to integrate Agora to my app?
-            p
-              ul
-                li Agora’s simple SDK allows your integration to happen in minutes.
-          li
-            i What do you provide to help me get started?
-            p
-              ul
-                li Please check the document “How to started” and SDK document under the <a href="/docs">Doc session</a>.
-          li
-            i Which platform do you support?
-            p
-              ul
-                li Agora supports iOS, Android and Windows
-
-      article.article
-        h4 Technology
-        ul
-          li
-            i Which CODEC do you use?
-            p
-              ul
-                li We use proprietary Codecs Agora NOVA
-          li
-            i Do you use WebRTC?
-            p
-              ul
-                li No, we use High Resolution phone call which ensures high quality audio quality on apps.
-                li If you use webRTC or have your own version of WebRTC and would like to have a try of Agora’s product, please contact us.
-
-          li
-            i Why should I choose HD over WebRTC? What make your technology than your competitors?
-            p
-              ul
-                li WebRTC is great for one to one video calls but has limitation. It’s not built to for mobile native apps since it was developed before smart phone became popular. WebRTC also faces challenges of providing high quality communication on mobile, especially on android platform. It’s also not built for group talk real time. In addition, WebRTC’s media routing is not optimized.
-          li
-            i What stability option does Agora provides?
-            p
-              ul
-                li  Agroa powers all kinds of applications, from prototypes to successful and widely used applications. Agora’s 20+ global distribution centers can scale on-demand and ensure you a high availability at all time.
-      article.article
-        h4 Features
-        ul
-          li
-            i What is the maximum number of uses you support in one single call?
-            p
-              ul
-                li Agora provides robust group call features, and we support as many as 2,000 user in one single call
-          li
-            i Does Agora support mute function on app to app call?
-            p
-              ul
-                li Yes. Please check details on our <a href="/docs">SDK document</a>.
-
-      article.article
-        h4 Pricing
-        ul
-          li
-            i What’s Agora’s price structure? How much do you charge?
-            p
+        article.article.col-sm-6
+          h4
+            i.fa.fa-dollar &nbsp;
+            span Pricing
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") What’s Agora’s price structure? How much do you charge?
               ul
                 li We want to make the price structure simple and straightforward. The first 100,000 minutes usage is totally free, and $99 for the every 100,000 minutes followed. That equals to $0.99 for each 1,000 minutes.
                 li We are in the beta stage now and provide 6 months free service to any beta customers.
-          li
-            i What is Agora’s free usage tier?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") What is Agora’s free usage tier?
               ul
                 li The first 100,000 minutes each month is totally free
-          li
-            i If I don’t use all of my free usage per month, will it roll over to next month?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") If I don’t use all of my free usage per month, will it roll over to next month?
               ul
                 li No. No accumulation of your unused free usage and free usage tier is reset at the beginning of each month
-          li
-            i How do I know how much I’ve been used and if I’ve gone over the free usage?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") How do I know how much I’ve been used and if I’ve gone over the free usage?
               ul
                 li You can see the current and historical monthly usage in your dashboard under your account.
-          li
-            i How do you counts minutes in a group call?
-          li
-            i When will I be invoiced for the SDK of Agora?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") How do you counts minutes in a group call?
+            li
+              i(ag-show-toggle="", data-target="ul") When will I be invoiced for the SDK of Agora?
               ul
                 li At the end of every month.
                 li If you usage doesn’t exceed the free tier (100,000 minutes/month), you wont’ be charged. Also, if you get enrolled as our Beta customers, your wont’ be charged for the first 6 months no matter how much you use. If you have any question about bills, please contact us.
 
-      article.article
-        h4 Network
-        ul
-          li
-            i My app has a lot of traffic. Can your network support it?
-            p
+      .row
+        article.article.col-sm-6
+          h4
+            i.fa.fa-code &nbsp;
+            span Integration
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") How long does it take to integrate Agora to my app?
+              ul
+                li Agora’s simple SDK allows your integration to happen in minutes.
+            li
+              i(ag-show-toggle="", data-target="ul") What do you provide to help me get started?
+              ul
+                li Please check the document “How to started” and SDK document under the <a href="/docs">Doc session</a>.
+            li
+              i(ag-show-toggle="", data-target="ul") Which platform do you support?
+              ul
+                li Agora supports iOS, Android and Windows
+        article.article.col-sm-6
+          h4
+            i.fa.fa-bookmark-o &nbsp;
+            span Features
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") What is the maximum number of uses you support in one single call?
+              ul
+                li Agora provides robust group call features, and we support as many as 2,000 user in one single call
+            li
+              i(ag-show-toggle="", data-target="ul") Does Agora support mute function on app to app call?
+              ul
+                li Yes. Please check details on our <a href="/docs">SDK document</a>.
+
+      .row
+        article.article.col-sm-6
+          h4
+            i.fa.fa-lightbulb-o &nbsp;
+            span Technology
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") Which CODEC do you use?
+              ul
+                li We use proprietary Codecs Agora NOVA
+            li
+              i(ag-show-toggle="", data-target="ul") Do you use WebRTC?
+              ul
+                li No, we use High Resolution phone call which ensures high quality audio quality on apps.
+                li If you use webRTC or have your own version of WebRTC and would like to have a try of Agora’s product, please contact us.
+
+            li
+              i(ag-show-toggle="", data-target="ul") Why should I choose HD over WebRTC? What make your technology than your competitors?
+              ul
+                li WebRTC is great for one to one video calls but has limitation. It’s not built to for mobile native apps since it was developed before smart phone became popular. WebRTC also faces challenges of providing high quality communication on mobile, especially on android platform. It’s also not built for group talk real time. In addition, WebRTC’s media routing is not optimized.
+            li
+              i(ag-show-toggle="", data-target="ul") What stability option does Agora provides?
+              ul
+                li  Agroa powers all kinds of applications, from prototypes to successful and widely used applications. Agora’s 20+ global distribution centers can scale on-demand and ensure you a high availability at all time.
+        article.article.col-sm-6
+          h4
+            i.fa.fa-wifi &nbsp;
+            span Network
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") My app has a lot of traffic. Can your network support it?
               ul
                 li Yes. Agora’s 20+ global distribution centers can scale on-demand and ensure you a high availability at all time.
-          li
-            i We don’t have much traffic on our app but expect expansion. Will you be able to support us through that?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") We don’t have much traffic on our app but expect expansion. Will you be able to support us through that?
               ul
                 li Yes. We support all size of business, small to big. Actually if you traffic is small, you can enjoy even a better price considering we charge no fee for the first 100,000 minuets each month. We expand as you grow. Agora’s 20+ global distribution centers can scale on-demand support you through al periods of growth Developer Support (TBC)
-          li
-            i As a developer, can I back up or export user data?
-          li
-            i As a developer, can I access call history thought the Agora API?
-          li
-            i How can I export my call log?
+            li
+              i As a developer, can I back up or export user data?
+            li
+              i As a developer, can I access call history thought the Agora API?
+            li
+              i How can I export my call log?
 
-      article.article
-        h4 Security & Encryption
-        ul
-          li
-            i Is Agora secure?
-            p
+      .row
+        article.article.col-sm-6
+          h4
+            i.fa.fa-shield &nbsp;
+            span Security & Encryption
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") Is Agora secure?
               ul
                 li Yes, encryption is added during signaling (the call setup. The media stream (the call) is not encrypted for legal reasons
-          li
-            i Which information is sent from Agora SDK to Agora server?
-            p
+            li
+              i(ag-show-toggle="", data-target="ul") Which information is sent from Agora SDK to Agora server?
               ul
                 li The Agora SDK sends information to Agora’ servers so we can connect calls and for quality and reporting purposes. The information includes date/time, from/to information, setup time, call duration and failure calls. Information is uploaded by the client in the background at the end of a call, a call failure or a similar event. While some of this information may be associated with the user ids of the call participants, it’s important to know that as a developer, you do not need to provide meaningful user ids to the SDK (you could provide hashed user ids, for example).
-
-      article.article
-        h4 Contact
-        ul
-          li
-            i Can I get in touch to someone if I still have questions about Agora?
-            p
+        article.article.col-sm-6
+          h4
+            i.fa.fa-comment-o &nbsp;
+            span Contact
+          ul
+            li
+              i(ag-show-toggle="", data-target="ul") Can I get in touch to someone if I still have questions about Agora?
               ul
                 li Absolutely. We’d love to hear from you. Just shoot us an email at <a href="mailto:support@agoravoice.io">support@agoravoice.io</a> and we will get back to you.
+
+
+
+
+
+
+
+
+
+
+
+

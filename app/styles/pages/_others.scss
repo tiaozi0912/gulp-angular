@@ -1,0 +1,28 @@
+/**
+ * Help page
+ */
+.help-page {
+  h4 {
+    border-bottom: 1px solid $blue;
+    color: $blue;
+    margin-bottom: $section-padding-sm / 2;
+    padding-bottom: $section-padding-sm / 2;
+  }
+
+  .article {
+    i {
+      font-style: normal;
+      cursor: pointer;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+  }
+}
+
+@include mq($screen-sm) {
+  .article {
+    padding-right: $section-padding * 2;
+  }
+}

@@ -3,3 +3,10 @@
     border-top: 1px solid #eee;
   }
 }
+
+@include mq($screen-sm) {
+  .product-page {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}

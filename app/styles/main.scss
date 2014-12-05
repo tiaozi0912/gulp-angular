@@ -16,8 +16,10 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "shared/icons";
 @import "shared/bases";
 @import "shared/header_footer";
+@import "shared/form";
 
 // page specific styles
 @import "pages/homepage";
 @import "pages/solution";
 @import "pages/product";
+@import "pages/others";
