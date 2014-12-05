@@ -1,12 +1,11 @@
 .docs-page.page-container.container
   ul.nav.nav-pills.nav-justified.ag-nav
     li(ng-repeat="tab in data", ng-class="tab.name === currentTab.name ? 'active' : ''")
-      a(href="/#/docs/{{tab.name}}")
+      a.text-lead(href="/#/docs/{{tab.name}}")
         i.fa(class="{{tab.icon}}")
-        span &nbsp;{{tab.name}}
+        span {{tab.name}}
 
   .solution-content.page-section.text-black
-    .page-section-inner
-      h1.headline.cap {{currentTab.name}}
+    .page-section-inner(ng-bind-html="currentTab.content")
 
 

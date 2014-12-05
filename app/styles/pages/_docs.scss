@@ -1,0 +1,26 @@
+.docs-page {
+  .icon-wrapper {
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    margin: 0 auto;
+    border: 5px solid $green;
+    border-radius: 50%;
+    color: $green;
+    font-size: 80px;
+    display: block;
+    margin-bottom: 10px;
+
+    i {
+      line-height: 190px;
+    }
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+}
+
+.android {
+  padding-top: $section-padding;
+}

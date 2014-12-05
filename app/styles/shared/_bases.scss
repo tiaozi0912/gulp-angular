@@ -91,26 +91,49 @@
  * Navbar styles
  */
 .ag-nav {
-  background-color: $cloud;
-  padding: 5px;
-  margin-bottom: $section-padding-sm;
-
   li {
-    border-right: 5px $cloud solid;
+    border-right: 1px $gray solid;
+    position: relative;
 
     &:last-child {
       border-width: 0;
     }
 
     a {
-      background-color: white;
+      background-color: $cloud;
+      padding: 20px;
       border-radius: 0;
+      color: $blue;
+      @include transition(0.4s ease color);
+
+      &:hover {
+        background-color: $cloud !important;
+        color: $midnight-blue !important;
+      }
     }
 
     &.active {
       a {
+        background-color: $cloud;
+        color: $midnight-blue;
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 8px;
+        left: 0;
         background-color: $blue;
       }
+    }
+
+    i {
+      margin-right: 20px;
+      font-size: 2em;
+      vertical-align: middle;
     }
   }
 }

@@ -113,8 +113,10 @@ gulp.task('connect', ['styles'], function () {
     // e.g. in app/index.html you should use ../bower_components
     .use('/bower_components', serveStatic('bower_components'))
     .use(serveIndex('app'))
-    .use(function(req, res) { // direct all to '#/'
-      if (req.url !== '/') {
+    .use(function(req, res) { // direct all to '#/' except the data files
+      console.log(req.url);
+
+      if (req.url !== '/' && !req.url.match('data/')) {
         var directTo = '/#' + req.url;
         res.writeHead(301, {Location: directTo});
         res.end();

@@ -39,7 +39,7 @@
                 },
                 {
                   label: 'docs',
-                  url: '/docs/iOS'
+                  url: '/docs/Android'
                 },
                 {
                   label: 'help',
@@ -171,17 +171,17 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('docs/show.html');
             },
-            controller: function($scope, $stateParams) {
-              //var templateName = 'docs/' + $stateParams.name + '.html';
+            controller: function($scope, $stateParams, $templateCache) {
+              var templateName = 'docs/' + $stateParams.name.toLowerCase() + '.html';
 
               $scope.data = [
                 {
-                  name: 'iOS',
-                  icon: 'fa-apple'
-                },
-                {
                   name: 'Android',
                   icon: 'fa-android'
+                },
+                {
+                  name: 'iOS',
+                  icon: 'fa-apple'
                 },
                 {
                   name: 'Windows',
@@ -195,7 +195,7 @@
                 }
               });
 
-              //$scope.currentTab.content = $templateCache.get(templateName);
+              $scope.currentTab.content = $templateCache.get(templateName);
             }
           }
         }
