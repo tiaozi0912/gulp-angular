@@ -1,12 +1,13 @@
+body {
+  font-family: 'Avenir';
+  font-weight: 300;
+}
+
+
 h1, h2, h3, h4, h5,
 .h1-xl {
   margin-top: 0;
   margin-bottom: $line-gutter;
-  font-weight: 200;
-}
-
-p, li, a, span, label, input, td, div {
-  font-weight: 200;
 }
 
 body, input, .form-control {
@@ -16,6 +17,7 @@ body, input, .form-control {
 
 .h1-xl {
   font-size: $h1-xl;
+  line-height: $h1-xl * 1.2;
 }
 
 .text-lead {
