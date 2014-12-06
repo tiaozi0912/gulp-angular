@@ -21,3 +21,9 @@
   background-position: $position;
   background-size: $size;
 }
+
+@mixin banner-content-container($bg:rgba(white, 0.9), $padding: 50px, $border-radius: 5px) {
+  background-color: $bg;
+  padding: $padding;
+  border-radius: $border-radius;
+}

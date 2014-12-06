@@ -8,9 +8,7 @@
     @include full-bg-image('/images/products/banner.jpg');
 
     .col-sm-6 {
-      padding: $section-padding;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 5px;
+      @include banner-content-container();
     }
 
     .container {

@@ -26,3 +26,24 @@
     padding-right: $section-padding * 2;
   }
 }
+
+/**
+ * Career page
+ */
+.career-page {
+  .banner-section {
+    @include full-bg-image('/images/career/banner.jpg');
+  }
+}
+
+@include mq($screen-sm) {
+  .career-page {
+    .banner-section {
+      padding-top: $section-padding * 2;
+    }
+
+    .content-container {
+      @include banner-content-container();
+    }
+  }
+}
