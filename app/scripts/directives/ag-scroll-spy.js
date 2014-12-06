@@ -139,7 +139,8 @@
     return function(scope, elem) {
       $timeout(function() {
         new ScrollSpy(window, {
-          target: $(elem[0])
+          target: $(elem[0]),
+          offset: $('.site-header').height() * 1.1
         });
       }, 500);
     };
