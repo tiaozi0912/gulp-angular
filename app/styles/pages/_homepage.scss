@@ -94,6 +94,10 @@
         @include transform(scale(1.2));
       }
     }
+
+    a:hover {
+      color: $dark-gray;
+    }
   }
 
   .subscribe-section {

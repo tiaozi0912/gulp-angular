@@ -1,7 +1,7 @@
 .solutions-page.page-container.container
   .row
     .col-sm-2
-      ul.nav.nav-pills.nav-stacked.ag-sidebar
+      ul.nav.nav-pills.nav-stacked.ag-sidebar(ag-scroll-spy="")
         li(ng-repeat="nav in navs", ng-class="{active: nav.label == selected.label}")
           a(href="{{nav.link}}", ng-click="select(nav)", ag-link-scroll="") {{nav.label}}
     .col-sm-10

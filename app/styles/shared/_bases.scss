@@ -5,6 +5,10 @@
   -ms-box-sizing: border-box;
 }
 
+a {
+  color: $blue;
+}
+
 .btn {
   border-width: 0;
 }
@@ -114,14 +118,14 @@
 
       &:hover {
         background-color: $cloud !important;
-        color: $midnight-blue !important;
+        color: $dark-gray !important;
       }
     }
 
     &.active {
       a {
         background-color: $cloud;
-        color: $midnight-blue;
+        color: $dark-gray;
       }
 
       &:after {
@@ -157,7 +161,7 @@
   margin: auto;
 
   .form-header {
-    background-color: $green;
+    background-color: $orange;
     color: white;
     padding: $section-padding-sm;
 
