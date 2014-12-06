@@ -9,7 +9,7 @@
     ga('send', 'event', CATEGORY, ACTION, label);
   }
 
-  var dir = function($templateCache) {
+  var dirForm = function($templateCache) {
     return {
       restrict: 'A',
       template: $templateCache.get('directives/subscribe_form.html'),
@@ -41,9 +41,12 @@
             window.alert('Please enter full name and email');
           }
         };
+      },
+      link: function(scope, elem, attr) {
+        scope.isModal = attr.agSubscribeForm === 'modal';
       }
     };
   };
 
-  angular.module('AgoraApp').directive('agSubscribeForm', dir);
+  angular.module('AgoraApp').directive('agSubscribeForm', dirForm);
 })(window.angular, window.ga);

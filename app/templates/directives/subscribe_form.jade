@@ -1,5 +1,6 @@
 form.ag-subscribe-form(role="form", name="agSubscribeForm")
   .form-header
+    .close(ng-show="isModal", ag-modal="dismiss") &times;
     h3 Get early access
   .form-body
     .alert.alert-success(ng-show="success") Submitted

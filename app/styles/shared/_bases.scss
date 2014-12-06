@@ -230,6 +230,24 @@ a {
   opacity: 0;
 }
 
+/**
+ * ag-modal
+ */
+.ag-modal {
+  display: block;
+  @include transform(translateY(-100%));
+  @include transition(opacity ease 0.4s, transform ease 0.4s);
+
+  &.in {
+    @include transform(translateY($header-height));
+  }
+
+  // disable modal-dialog transform
+  .ag-modal.fade .modal-dialog {
+    @include transform(none);
+  }
+}
+
 // for tablet and desktop
 @include mq($screen-sm) {
   .page-section {

@@ -4,3 +4,6 @@ block content
   header.navbar.site-header(ui-view="header", headroom=true)
   .main(ui-view="main")
   footer.site-footer.text-white(ui-view="footer")
+  #subscribe-modal.modal.fade.ag-modal(role="dialog", tabindex="-1", aria-labelledby="subscribeModal", aria-hidden="true")
+    .modal-dialog
+      div(ag-subscribe-form="modal")
