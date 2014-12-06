@@ -21,12 +21,6 @@
   }
 }
 
-@include mq($screen-sm) {
-  .article {
-    padding-right: $section-padding * 2;
-  }
-}
-
 /**
  * Career page
  */
@@ -36,7 +30,37 @@
   }
 }
 
+.pricing-page {
+  height: 700px;
+  @include full-bg-image('/images/pricing/banner.jpg');
+
+  .container-sm {
+    @include banner-content-container();
+  }
+}
+
+/**
+ * About page
+ */
+.about-page {
+  .banner-section {
+    @include full-bg-image('/images/about/banner.jpg');
+    padding-top: $section-padding * 2;
+
+    .content-container {
+      @include banner-content-container();
+    }
+  }
+}
+
 @include mq($screen-sm) {
+  .article {
+    padding-right: $section-padding * 2;
+  }
+
+  /**
+   * Career page
+   */
   .career-page {
     .banner-section {
       padding-top: $section-padding * 2;
