@@ -79,26 +79,6 @@
             }
           }
         }
-      })
-      .state('root.docs', {
-        url: '/docs',
-        views: {
-          'main@': {
-            templateProvider: function($templateCache) {
-              return $templateCache.get('docs.html');
-            }
-          }
-        }
-      })
-      .state('root.help', {
-        url: '/help',
-        views: {
-          'main@': {
-            templateProvider: function($templateCache) {
-              return $templateCache.get('help.html');
-            }
-          }
-        }
       });
   });
 

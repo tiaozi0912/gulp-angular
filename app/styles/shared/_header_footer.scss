@@ -1,81 +1,19 @@
 /**
- * Agora header styles
+ * Header styles
  * ------
  *
  * Based on bootstrap header/navbar
  */
 
 .site-header {
-  margin-bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9);
-  width: 100%;
-  height: $header-height;
-  position: fixed;
-  z-index: 9999;
-  border-radius: 0;
-  box-shadow: 0 1px 1px rgba(100, 100, 100, 0.5);
-  border-width: 0;
 
-  .navbar-brand {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  nav {
-    a {
-      &:hover {
-        background-color: $blue;
-        color: white;
-      }
-    }
-  }
 }
 
 
 /**
- * Agora footer styles
+ * Footer styles
  */
 .site-footer {
-  background-color: $midnight-blue;
-  padding: $section-padding-sm;
 
-  a {
-    color: white;
-  }
-
-  li {
-    margin-right: $section-padding-sm;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  .list-social-media {
-    a {
-      padding: 5px 0;
-      width: 30px;
-      text-align: center;
-      border-radius: 50%;
-      background-color: white;
-      color: $midnight-blue;
-      display: inline-block;
-    }
-  }
-}
-
-/**
- * Headroom css
- */
-.headroom {
-  @include transition(transform 200ms ease);
-
-  &.headroom--pinned {
-    @include transform(translateY(0%));
-  }
-
-  &.headroom--unpinned {
-    @include transform(translateY(-100%));
-  }
 }
 
