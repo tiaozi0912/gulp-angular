@@ -38,44 +38,10 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('home.html');
             },
-            controller: function($scope) {
-              $scope.solutions = [
-                {
-                  title: 'Online education',
-                  img: '/images/homepage/online_education.jpg'
-                },
-                {
-                  title: 'Social',
-                  img: '/images/homepage/social.jpg'
-                },
-                {
-                  title: 'Dating',
-                  img: '/images/homepage/dating.jpg'
-                },
-                {
-                  title: 'Marketplace',
-                  img: '/images/homepage/marketplace.jpg'
-                },
-                {
-                  title: 'Gaming',
-                  img: '/images/homepage/gaming.jpg'
-                }
-              ];
-
-              $scope.docs = [
-                {
-                  title: 'iOS',
-                  icon: 'fa-apple'
-                },
-                {
-                  title: 'Android',
-                  icon: 'fa-android'
-                },
-                {
-                  title: 'Windows',
-                  icon: 'fa-windows'
-                }
-              ];
+            controller: function() {
+              $('.section').click(function() {
+                $(this).toggleClass('unfold');
+              });
             }
           }
         }
