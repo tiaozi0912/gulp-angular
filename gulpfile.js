@@ -90,7 +90,15 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('dist/fonts'));
 });
 
-gulp.task('extras', function () {
+gulp.task('data', function () {
+  return gulp.src([
+    'app/data/**/*'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist/data'));
+});
+
+gulp.task('extras', ['data'], function () {
   return gulp.src([
     'app/*.*',
     '!app/**/*.jade',
