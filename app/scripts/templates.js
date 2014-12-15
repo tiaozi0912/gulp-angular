@@ -1,3 +1,3 @@
 angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("footer.html","");
 $templateCache.put("header.html","");
-$templateCache.put("home.html","\n<div class=\"canvas\">\n  <div class=\"section animate\">\n    <div class=\"section-inner\"></div>\n  </div>\n</div>");}]);
+$templateCache.put("home.html","\n<div class=\"canvas\">\n  <div class=\"section animate section-a\">\n    <div class=\"section-inner animate\"></div>\n  </div>\n  <div morph-page=\"\" data-height=\"50%\" data-width=\"50%\" class=\"section section-b\">\n    <div class=\"content-container\">\n      <h3>hello world</h3>\n    </div>\n  </div>\n</div>");}]);

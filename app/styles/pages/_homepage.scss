@@ -1,35 +1,78 @@
+body {
+  background-color: white;
+}
+
 .animate {
   @include transition(all ease 0.4s);
-
-  & > div {
-    @include transition(all ease 0.4s);
-  }
-
-  &:hover > div {
-    -webkit-transform: translateZ(-1px);
-  }
 }
 
 .canvas {
   height: 500px;
   width: 1000px;
   margin: auto;
-  -webkit-perspective: 10px;
+  background-color: #333;
+  position: relative;
 }
 
 .section {
   width: 50%;
   height: 50%;
   background-color: #333;
+  position: absolute;
+  text-align: center;
 
+  // This is the background
   .section-inner {
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 168, 150);
+    position: absolute;
+    top: 0;
+    left: 0;
   }
+
+  &.animate:hover:not(.unfold) > div {
+    -webkit-transform: perspective(10px) translateZ(-1px);
+  }
+}
+
+.content-container {
+  position: relative;
+  -webkit-transform: translateY(-50%);
+  top: 50%;
 }
 
 .section.unfold {
   width: 100%;
   height: 100%;
+  z-index: 10;
 }
+
+.section-a {
+  top: 0;
+  left: 0;
+
+  .section-inner {
+    background-color: blue;
+  }
+}
+
+.section-b {
+  top: 0;
+  right: 0;
+  -webkit-perspective: 10px;
+  perspective: 10px;
+
+  .morph-bg {
+    background-color: green;
+  }
+}
+
+// morph-page
+.morph-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+

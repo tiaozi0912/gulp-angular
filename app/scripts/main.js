@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom']);
+  var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'morph']);
 
   // routes:
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -39,7 +39,7 @@
               return $templateCache.get('home.html');
             },
             controller: function() {
-              $('.section').click(function() {
+              $('.section-a').click(function() {
                 $(this).toggleClass('unfold');
               });
             }

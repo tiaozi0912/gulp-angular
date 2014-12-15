@@ -8,6 +8,7 @@
     "angular-ui-router": "~0.2.13",
     "bourbon": "~4.0.2",
     "fontawesome": "~4.2.0",
-    "zeptojs": "~1.1.4"
+    "zeptojs": "~1.1.4",
+    "velocity": "~1.1.0"
   }
 }
