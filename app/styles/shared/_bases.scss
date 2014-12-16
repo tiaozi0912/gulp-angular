@@ -248,8 +248,19 @@ a {
   }
 }
 
+/**
+ * The main content wrapper
+ */
+[ui-view="main"] {
+  margin-top: $header-height;
+}
+
 // for tablet and desktop
 @include mq($screen-sm) {
+  [ui-view="main"] {
+    margin-top: 0;
+  }
+
   .page-section {
     padding-top: $section-padding;
     padding-bottom: $section-padding;
