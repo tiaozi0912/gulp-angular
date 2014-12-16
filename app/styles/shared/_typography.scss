@@ -54,7 +54,6 @@ body, input, .form-control {
   h1,
   .h1-xl {
     font-size: $h1-mobile;
-    line-height: $line-height;
   }
 
   h2 {
@@ -72,6 +71,7 @@ body, input, .form-control {
   h1, h2, h3, h4, h5,
   .h1-xl {
     margin-bottom: $line-gutter-sm;
+    line-height: $line-height;
   }
 
   .text-lead {

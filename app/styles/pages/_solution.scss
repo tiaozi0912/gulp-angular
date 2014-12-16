@@ -5,6 +5,10 @@
 }
 
 .solutions-page {
+  .headline {
+    margin-top: $section-padding-sm;
+  }
+
   .img-container {
     width: 100%;
     background-color: $gray;
