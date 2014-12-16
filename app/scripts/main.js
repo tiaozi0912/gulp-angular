@@ -49,12 +49,13 @@
                 }
               ];
 
-              // Figure out the current page
+              // When page changes
               $scope.$on('$locationChangeSuccess', function() {
+                // Figure out the current page
                 $scope.page = $location.path();
 
                 // Hide the dropdown navs in mobile and scroll top
-                if ($navbarToggleBtn.is('visible')) {
+                if ($navbarToggleBtn.css('display') !== 'none') {
                   $navbarToggleBtn.trigger('click');
                 }
 

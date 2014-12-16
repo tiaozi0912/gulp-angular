@@ -4,15 +4,10 @@
   }
 
   .banner-section {
-    height: 300px;
     @include full-bg-image('/images/products/banner.jpg');
 
     .col-sm-6 {
       @include banner-content-container();
-    }
-
-    .container {
-      padding-top: $header-height * 2;
     }
   }
 
@@ -31,6 +26,10 @@
 
     .banner-section {
       height: 550px;
+
+      .container {
+        padding-top: $header-height * 2;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 .solutions-page.page-container.container
   .row
-    .col-sm-2
+    .col-sm-2.hidden-xs
       ul.nav.nav-pills.nav-stacked.ag-sidebar(ag-scroll-spy="")
         li(ng-repeat="nav in navs", ng-class="{active: nav.label == selected.label}")
           a(href="{{nav.link}}", ng-click="select(nav)", ag-link-scroll="") {{nav.label}}
@@ -33,7 +33,7 @@
       article#dating
         h1.headline Dating
         .img-container
-          img.img-repsonsive(src="/images/solutions/dating.jpg")
+          img.img-responsive(src="/images/solutions/dating.jpg")
         p Few online dating services can provide the intimacy and personal security that Agora offers. People are uncomfortable to exchange sensitive personal data such as phone numbers when dating. Agora enables dating services to provide anonymous calling so users can communicate while knowing their privacy is safeguarded. Agora’s voice quality allows couples to hear each other with such clarity that new levels of intimacy can be achieved.
 
   .text-center
