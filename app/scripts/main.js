@@ -24,6 +24,8 @@
               return $templateCache.get('header.html');
             },
             controller: function($scope, $location) {
+              var $navbarToggleBtn = $('.navbar-header .navbar-toggle');
+
               $scope.navs = [
                 {
                   label: 'products',
@@ -50,6 +52,13 @@
               // Figure out the current page
               $scope.$on('$locationChangeSuccess', function() {
                 $scope.page = $location.path();
+
+                // Hide the dropdown navs in mobile and scroll top
+                if ($navbarToggleBtn.is('visible')) {
+                  $navbarToggleBtn.trigger('click');
+                }
+
+                $(window).scrollTop(0);
               });
             }
           },
