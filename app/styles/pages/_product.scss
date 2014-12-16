@@ -4,7 +4,7 @@
   }
 
   .banner-section {
-    @include full-bg-image('/images/products/banner.jpg');
+    @include full-bg-image('/images/products/cell-phone.jpg');
 
     .col-sm-6 {
       @include banner-content-container();

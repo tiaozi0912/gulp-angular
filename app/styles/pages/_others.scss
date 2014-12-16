@@ -32,7 +32,7 @@
 
 .pricing-page {
   height: 700px;
-  @include full-bg-image('/images/pricing/banner.jpg');
+  @include full-bg-image('/images/pricing/using-phone.jpg');
 
   .container-sm {
     @include banner-content-container();

@@ -1,6 +1,6 @@
 .homepage {
   .banner-section {
-    @include full-bg-image('/images/homepage/banner.jpg');
+    @include full-bg-image('/images/homepage/phone.jpg');
     position: relative;
 
     .more {
@@ -101,7 +101,7 @@
   }
 
   .subscribe-section {
-    @include full-bg-image('/images/homepage/goldstate_bridge.jpg');
+    @include full-bg-image('/images/homepage/img3.jpg');
   }
 }
 
