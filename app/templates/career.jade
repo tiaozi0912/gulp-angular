@@ -6,7 +6,7 @@
       p.text-lead We play to win! <br> We aim to power the app communication! We want to have you enjoy work and development, and have fun in Agora! Join our fast developing team for the unlimited opportunities to make an impact!
   .page-section.container
     .page-section-inner.row
-      .col-xs-2
+      .col-xs-2.hidden-xs
         ul.nav.nav-pills.nav-stacked
           li(ng-repeat="nav in navs", ng-class="{active: nav.label == selected.label}")
             a(href="{{nav.link}}", ng-click="select(nav, $event)") {{nav.label}}
