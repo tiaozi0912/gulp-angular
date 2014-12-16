@@ -1,10 +1,10 @@
 .container
   .navbar-header
-    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target=".header-collapse")
+    button.navbar-toggle.collapsed(type="button", ag-show-toggle="", data-target="#header-collapse")
       i.fa.fa-bars
     a.navbar-brand(ui-sref="root.home")
       i.sprite-icon.agora-logo-icon
-  nav.navbar-collapse.header-collapse.collapse.in(role="navigation", aria-expanded="true")
+  nav.navbar-collapse.header-collapse.collapse.in#header-collapse(role="navigation", aria-expanded="true")
     ul.nav.navbar-nav
       li(ng-class="{active:page == nav.url}", ng-repeat="nav in navs")
         a.cap(href="{{nav.url}}") {{nav.label}}
