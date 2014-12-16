@@ -87,10 +87,6 @@ a {
   }
 }
 
-.page-container {
-  padding: $header-height + $section-padding-sm 0 $section-padding;
-}
-
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
@@ -259,6 +255,10 @@ a {
 @include mq($screen-sm) {
   [ui-view="main"] {
     margin-top: 0;
+  }
+
+  .page-container {
+    padding: $header-height + $section-padding-sm 0 $section-padding;
   }
 
   .page-section {
