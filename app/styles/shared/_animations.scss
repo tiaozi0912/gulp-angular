@@ -1,0 +1,28 @@
+@keyframes zoom-in {
+  0% {
+    @include transform(scale(1));
+  }
+  100% {
+    @include transform(scale(1.03));
+  }
+}
+
+.zoom-in {
+  @include animation(zoom-in 2s 0.5s 1 ease-out forwards);
+}
+
+@keyframes flowing {
+  $total-width: 4500px;
+  $width: 2214px;
+
+  0% {
+    @include transform(translateX(0));
+  }
+  100% {
+    @include transform(translateX($width - $total-width));
+  }
+}
+
+.flowing {
+  @include animation(flowing 240s linear infinite);
+}

@@ -1,7 +1,7 @@
 .homepage {
   .banner-section {
-    @include full-bg-image('/images/homepage/phone.jpg');
     position: relative;
+    overflow: hidden;
 
     .more {
       position: absolute;
@@ -10,16 +10,25 @@
       @include transform(translateX(-50%));
       opacity: 0.7;
     }
+
+    .btn-x-lg {
+      margin-top: $section-padding;
+    }
+
+    .bg {
+      width: 100%;
+      height: 100%;
+      @include full-bg-image('/images/homepage/phone.jpg');
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 
   .features-section {
     .pod {
-      border-right: 1px $light-gray solid;
-      padding: 0 $section-padding-sm;
-
-      &:last-child {
-        border-width: 0;
-      }
+      position: relative;
+      padding: 0 $section-padding-sm * 1.5;
     }
   }
 
@@ -86,17 +95,17 @@
   .docs-section {
     background-color: $cloud;
 
-    i {
-      margin-bottom: 10px;
-      @include transition(transform 0.4s ease);
+    .link:hover {
+      color: $dark-gray;
 
-      &:hover {
+      i {
         @include transform(scale(1.2));
       }
     }
 
-    a:hover {
-      color: $dark-gray;
+    i {
+      margin-bottom: 10px;
+      @include transition(transform 0.4s ease);
     }
   }
 
@@ -108,7 +117,7 @@
 @include mq($screen-sm) {
   .homepage {
     .banner-section {
-      height: 650px;
+      height: 550px;
 
       .content-container {
         @include vertical-align-middle;
@@ -118,6 +127,30 @@
     .features-section {
       .sprite-icon {
         margin-bottom: 10px;
+      }
+
+      .title {
+        margin-bottom: 10px;
+      }
+
+      .content {
+        padding-top: 10px;
+      }
+
+      .pod {
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 50px;
+          height: 300px;
+          border-right: 1px $light-gray solid;
+        }
+
+        &:last-child:after {
+          border-width: 0;
+        }
       }
     }
 

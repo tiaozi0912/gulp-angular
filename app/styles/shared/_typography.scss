@@ -1,5 +1,5 @@
 body {
-  font-family: 'Lato';
+  font-family: 'Lato', 'PT Sans';
   font-weight: 300;
 }
 
@@ -35,6 +35,10 @@ body, input, .form-control {
 
 .text-gray {
   color: $gray;
+}
+
+.text-dark-gray {
+  color: $dark-gray;
 }
 
 .text-black {
