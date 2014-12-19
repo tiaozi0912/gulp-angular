@@ -259,6 +259,17 @@
           'main@': {
             templateProvider: function($templateCache) {
               return $templateCache.get('product.html');
+            },
+            controller: function($scope) {
+              var showHero = function() {
+                $('.banner-section .transparent').removeClass('transparent');
+              };
+
+              $(document).on('agPulse:complete', showHero);
+
+              $scope.$on('$destroy', function() {
+                $(document).off(showHero);
+              });
             }
           }
         }

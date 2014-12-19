@@ -5,6 +5,19 @@
 
   .banner-section {
     overflow: hidden;
+    background-color: $blue;
+    background: -moz-radial-gradient(center, ellipse cover,  #1aa1e5 0%, #1aa1e5 24%, #22156b 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#1aa1e5), color-stop(24%,#1aa1e5), color-stop(100%,#22156b)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #1aa1e5 0%,#1aa1e5 24%,#22156b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #1aa1e5 0%,#1aa1e5 24%,#22156b 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #1aa1e5 0%,#1aa1e5 24%,#22156b 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #1aa1e5 0%,#1aa1e5 24%,#22156b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1aa1e5', endColorstr='#22156b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+    .bg, .content-container {
+      transition: opacity 3s ease-in;
+    }
 
     .bg {
       position: absolute;
@@ -14,12 +27,18 @@
       height: 100%;
       background: url('/images/products/abstract-sound-waves.jpg') repeat-x left top;
       background-size: 2214px 550px;
-      z-index: -1;
     }
 
     .content-container {
       //@include banner-content-container();
       @include vertical-align-middle();
+    }
+
+    [ag-pulse] {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
     }
   }
 

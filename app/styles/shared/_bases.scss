@@ -83,6 +83,10 @@ ul, ol {
   }
 }
 
+.transparent {
+  opacity: 0;
+}
+
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
@@ -238,6 +242,18 @@ ul, ol {
   .ag-modal.fade .modal-dialog {
     @include transform(none);
   }
+}
+
+/**
+ * ag-pulse
+ */
+.ag-pulse {
+  width: 400px;
+}
+
+.ag-pulse-path {
+  stroke: white;
+  stroke-width: 2px;
 }
 
 /**
