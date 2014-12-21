@@ -43,7 +43,7 @@
                 },
                 {
                   label: 'docs',
-                  url: '/docs/Android'
+                  url: '/docs'
                 },
                 {
                   label: 'help',
@@ -220,6 +220,16 @@
         }
       })
       .state('root.docs', {
+        url: '/docs',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('docs/list.html');
+            }
+          }
+        }
+      })
+      .state('root.doc', {
         url: '/docs/:name',
         views: {
           'main@': {
@@ -261,6 +271,17 @@
           'main@': {
             templateProvider: function($templateCache) {
               return $templateCache.get('product.html');
+            },
+            controller: function($scope) {
+              var showHero = function() {
+                $('.banner-section .transparent').removeClass('transparent');
+              };
+
+              $(document).on('agPulse:complete', showHero);
+
+              $scope.$on('$destroy', function() {
+                $(document).off(showHero);
+              });
             }
           }
         }

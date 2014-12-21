@@ -12,8 +12,18 @@
   .img-container {
     width: 100%;
     background-color: $gray;
-    //height: 300px;
+    position: relative;
     margin-bottom: 20px;
+
+    .headline {
+      position: absolute;
+      margin: 0;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.5);
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
   }
 }
 

@@ -37,3 +37,11 @@
 .agora-logo-icon {
   @include sprite($agora-logo);
 }
+
+.book-icon {
+  @include sprite($book);
+}
+
+.clipboard-icon {
+  @include sprite($clipboard);
+}
