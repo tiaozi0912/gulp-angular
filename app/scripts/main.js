@@ -24,7 +24,9 @@
               return $templateCache.get('header.html');
             },
             controller: function($scope, $location) {
-              var $navbarToggleBtn = $('.navbar-header .navbar-toggle');
+              var $navbarToggleBtn = $('.navbar-header .navbar-toggle'),
+                  $navbar = $('.site-header .header-collapse'),
+                  hiddenCls = 'ag-hide';
 
               $scope.navs = [
                 {
@@ -56,7 +58,7 @@
 
                 // Hide the dropdown navs in mobile and scroll top
                 if ($navbarToggleBtn.css('display') !== 'none') {
-                  $navbarToggleBtn.trigger('click');
+                  $navbar.addClass(hiddenCls);
                 }
 
                 $(window).scrollTop(0);

@@ -263,6 +263,10 @@ ul, ol {
   margin-top: $header-height;
 }
 
+.page-container {
+  padding-bottom: $section-padding-sm;
+}
+
 // for tablet and desktop
 @include mq($screen-sm) {
   [ui-view="main"] {
