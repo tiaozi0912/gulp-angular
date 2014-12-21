@@ -118,17 +118,17 @@
                 {
                   title: 'iOS',
                   icon: 'fa-apple',
-                  link: '/docs/iOS'
+                  link: '/docs'
                 },
                 {
                   title: 'Android',
                   icon: 'fa-android',
-                  link: '/docs/Android'
+                  link: '/docs'
                 },
                 {
                   title: 'Windows',
                   icon: 'fa-windows',
-                  link: '/docs/Windows'
+                  link: '/docs'
                 }
               ];
             }
