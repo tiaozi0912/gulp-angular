@@ -36,9 +36,9 @@
 
 .pricing-page {
   height: 700px;
-  @include full-bg-image('/images/pricing/using-phone.jpg');
+  @include full-bg-image('/images/pricing/phone-smile.jpg');
 
-  .container-sm {
+  .content-container {
     @include banner-content-container();
   }
 }
