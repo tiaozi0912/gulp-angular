@@ -38,10 +38,10 @@
   @include sprite($agora-logo);
 }
 
-.book-icon {
-  @include sprite($book);
+.layer-icon {
+  @include sprite($layer);
 }
 
-.clipboard-icon {
-  @include sprite($clipboard);
+.file-icon {
+  @include sprite($file);
 }

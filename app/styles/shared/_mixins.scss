@@ -17,8 +17,7 @@
 }
 
 @mixin full-bg-image ($url:'', $position:center, $size:cover){
-  background: url($url) no-repeat;
-  background-position: $position;
+  background: url($url) no-repeat $position;
   background-size: $size;
 }
 

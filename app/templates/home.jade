@@ -54,11 +54,11 @@
 
   section.page-section.docs-section.center-text.text-black
     .content-vertical-align-middle
-      h1.text-blue Get started
+      h1 Get started
       .container
         .row
           .col-sm-4(ng-repeat="doc in docs")
-            a.link.text-gray(href="{{doc.link}}")
+            a.link.text-blue(href="{{doc.link}}")
               i.fa.fa-5x(class="{{doc.icon}}", title="{{doc.title}}")
               h3.title {{doc.title}}
 
