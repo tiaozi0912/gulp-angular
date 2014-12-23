@@ -3,14 +3,13 @@
  */
 .help-page {
   h4 {
-    border-bottom: 1px solid $blue;
-    color: $blue;
+    border-bottom: 1px solid $light-gray;
     margin-bottom: $section-padding-sm / 2;
     padding-bottom: $section-padding-sm / 2;
   }
 
   .article {
-    i {
+    li i {
       font-style: normal;
       cursor: pointer;
     }
@@ -18,10 +17,14 @@
     ul {
       padding-left: 20px;
     }
-  }
 
-  .answer {
-    color: $gray;
+    li {
+      color: $blue;
+    }
+
+    .answer, .answer li {
+      color: $black;
+    }
   }
 }
 

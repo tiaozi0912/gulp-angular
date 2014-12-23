@@ -30,7 +30,7 @@
 
               $scope.navs = [
                 {
-                  label: 'products',
+                  label: 'product',
                   url: '/product'
                 },
                 {
