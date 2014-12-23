@@ -4,6 +4,7 @@
   }
 
   .banner-section {
+    position: relative;
     overflow: hidden;
     background-color: $blue;
     background: -moz-radial-gradient(center, ellipse cover,  #1aa1e5 0%, #1aa1e5 24%, #22156b 100%); /* FF3.6+ */
@@ -17,33 +18,52 @@
 
     .bg, .content-container {
       transition: opacity 2s ease-in;
+      position: relative;
     }
 
     .bg {
       position: absolute;
       top: 0;
       left: 0;
-      width: 4500px;
+      width: 100%;
       height: 100%;
-      background: url('/images/products/abstract-sound-waves.jpg') repeat-x left top;
-      background-size: 2214px 550px;
+      @include full-bg-image('/images/products/abstract-sound-waves.jpg');
     }
 
-    .content-container {
-      //@include banner-content-container();
-      @include vertical-align-middle();
+    .headline {
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     [ag-pulse] {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
-      transform: translateY(-50%) translateX(-50%);
+      transform: translateY(-50%) translateX(-50%) scale(0.5);
     }
   }
 
   .container.page-section {
     padding-top: 0;
+  }
+
+  .specs-section {
+    tbody {
+      &, li {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@include mq_max($screen-sm - 1px) {
+  // Disable banner animation
+  .product-page {
+    .flowing {
+      animation: none;
+      transform: translateX(0);
+    }
   }
 }
 
@@ -60,6 +80,32 @@
 
       .container {
         padding-top: $header-height * 2;
+      }
+
+      .content-container {
+        @include vertical-align-middle();
+      }
+
+      .bg {
+        width: 4500px;
+        background: url('/images/products/abstract-sound-waves.jpg') repeat-x left top;
+      }
+
+      .headline {
+        width: auto;
+      }
+
+      [ag-pulse] {
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%) scale(1);
+      }
+    }
+
+    .specs-section {
+      tbody {
+        &, li {
+          font-size: inherit;
+        }
       }
     }
   }

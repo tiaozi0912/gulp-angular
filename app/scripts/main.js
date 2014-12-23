@@ -335,6 +335,10 @@
                 }
               ];
 
+              if ($(window).width() < 768) {
+                $scope.isMobile = true;
+              }
+
               $scope.selected = $scope.navs[0];
 
               $scope.select = function(nav, e) {

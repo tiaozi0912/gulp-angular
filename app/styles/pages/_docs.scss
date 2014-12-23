@@ -1,5 +1,4 @@
 .docs-page {
-  //@include full-bg-image('/images/docs/polygons.jpg');
   background-color: $light-gray;
 
   .tile {
@@ -34,6 +33,15 @@
 
     h2 {
       margin-top: 35px;
+    }
+  }
+}
+
+@include mq_max($screen-sm - 1px) {
+  .docs-page {
+    .page-section {
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 }

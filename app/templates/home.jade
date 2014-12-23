@@ -53,16 +53,17 @@
           h3.title.text-white {{solution.title}}
 
   section.page-section.docs-section.center-text.text-black
-    h1.text-blue Get started
-    .container
-      .row
-        .col-sm-4(ng-repeat="doc in docs")
-          a.link.text-gray(href="{{doc.link}}")
-            i.fa.fa-5x(class="{{doc.icon}}", title="{{doc.title}}")
-            h3.title {{doc.title}}
+    .content-vertical-align-middle
+      h1.text-blue Get started
+      .container
+        .row
+          .col-sm-4(ng-repeat="doc in docs")
+            a.link.text-gray(href="{{doc.link}}")
+              i.fa.fa-5x(class="{{doc.icon}}", title="{{doc.title}}")
+              h3.title {{doc.title}}
 
   section.page-section.pricing-section.center-text.text-black#section-pricing
-    .container-sm
+    .container-sm.content-vertical-align-middle
       h1.text-blue Pricing
       h3 Pay as you grow with Agora’s simple price structure
       article.left-text

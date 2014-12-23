@@ -35,10 +35,19 @@
   .banner-section {
     @include full-bg-image('/images/career/banner.jpg');
   }
+
+  .job-container {
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: $section-padding-sm;
+    margin-bottom: $section-padding-sm;
+
+    &:last-child {
+      border-width: 0;
+    }
+  }
 }
 
 .pricing-page {
-  height: 700px;
   @include full-bg-image('/images/pricing/phone-smile.jpg');
 
   .content-container {
@@ -52,7 +61,6 @@
 .about-page {
   .banner-section {
     @include full-bg-image('/images/about/banner.jpg');
-    padding-top: $section-padding * 2;
 
     .content-container {
       @include banner-content-container();
@@ -72,10 +80,14 @@
     @include full-bg-image('/images/contact/shanghai.jpg');
   }
 
+  .sf, .shanghai {
+    padding: 0;
+  }
+
   .content-container {
     @include banner-content-container();
-    @include vertical-align-middle();
     background-color: rgba(0,0,0,0.3);
+    border-radius: 0;
 
     h3 {
       margin-bottom: 0;
@@ -90,6 +102,13 @@
   }
 
   /**
+   * Picing page
+   */
+  .pricing-page {
+    height: 700px;
+  }
+
+  /**
    * Career page
    */
   .career-page {
@@ -99,6 +118,12 @@
 
     .content-container {
       @include banner-content-container();
+    }
+
+    .job-container {
+      border-width: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
     }
   }
 
@@ -113,6 +138,20 @@
     .content-container {
       width: 80%;
       margin: 0 auto;
+      @include vertical-align-middle();
+    }
+
+    .section-inquries {
+      text-align: center;
+    }
+  }
+
+  /**
+   * About page
+   */
+  .about-page {
+    .banner-section {
+      padding-top: $section-padding * 2;
     }
   }
 }

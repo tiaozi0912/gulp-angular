@@ -60,6 +60,16 @@ ul, ol {
   text-transform: capitalize;
 }
 
+/**
+ * The wrapper of the page content
+ * Usually used when there is no banner in the page
+ * To use with a banner, set the padding top as 0
+ */
+.page-container {
+  padding-top: $section-padding-sm;
+  padding-bottom: $section-padding-sm;
+}
+
 .page-section {
   padding-top: $section-padding-sm;
   padding-bottom: $section-padding-sm;
@@ -277,6 +287,11 @@ ul, ol {
     margin-top: 0;
   }
 
+  /**
+   * The wrapper of the page content
+   * Usually used when there is no banner in the page
+   * To use with a banner, set the padding top as $header-height
+   */
   .page-container {
     padding: $header-height + $section-padding-sm 0 $section-padding;
   }
