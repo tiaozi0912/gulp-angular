@@ -65,6 +65,14 @@ ul, ol {
   padding-bottom: $section-padding-sm;
 }
 
+/**
+ * For mobile: padding on the sides
+ */
+.page-section-inner {
+  padding-left: $section-padding-sm;
+  padding-right: $section-padding-sm;
+}
+
 .container-sm {
   padding-left: $section-padding-sm;
   padding-right: $section-padding-sm;
@@ -263,10 +271,6 @@ ul, ol {
   margin-top: $header-height;
 }
 
-.page-container {
-  padding-bottom: $section-padding-sm;
-}
-
 // for tablet and desktop
 @include mq($screen-sm) {
   [ui-view="main"] {
@@ -280,11 +284,6 @@ ul, ol {
   .page-section {
     padding-top: $section-padding;
     padding-bottom: $section-padding;
-  }
-
-  .page-section-inner {
-    padding-left: $section-padding;
-    padding-right: $section-padding;
   }
 
   .container-sm {
