@@ -102,6 +102,15 @@
   }
 
   /**
+   * About page
+   */
+  .about-page {
+    .banner-section {
+      height: $banner-height;
+    }
+  }
+
+  /**
    * Picing page
    */
   .pricing-page {
@@ -114,6 +123,7 @@
   .career-page {
     .banner-section {
       padding-top: $section-padding * 2;
+      height: $banner-height;
     }
 
     .content-container {
@@ -132,7 +142,7 @@
    */
   .contact-page {
     .sf, .shanghai {
-      height: 550px;
+      height: $banner-height;
     }
 
     .content-container {

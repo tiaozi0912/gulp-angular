@@ -132,7 +132,7 @@
     }
 
     .banner-section {
-      height: 550px;
+      height: $banner-height;
 
       .content-container {
         @include vertical-align-middle;
