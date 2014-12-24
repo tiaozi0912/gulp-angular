@@ -21,7 +21,7 @@
   background-size: $size;
 }
 
-@mixin banner-content-container($bg:rgba(white, 0.9), $padding: 50px, $border-radius: 5px) {
+@mixin banner-content-container($bg:rgba(white, 0.8), $padding: 50px, $border-radius: 5px) {
   background-color: $bg;
   padding: $padding / 2;
   border-radius: $border-radius;

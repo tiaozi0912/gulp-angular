@@ -18,7 +18,8 @@
     .bg {
       width: 100%;
       height: 100%;
-      @include full-bg-image('/images/homepage/phone.jpg');
+      @include full-bg-image('/images/homepage/banner.jpg');
+      background-position: top center;
       position: absolute;
       top: 0;
       left: 0;
@@ -111,7 +112,7 @@
   }
 
   .subscribe-section {
-    @include full-bg-image('/images/homepage/cup.jpg');
+    @include full-bg-image('/images/homepage/steps.jpg');
   }
 }
 

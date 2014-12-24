@@ -1,6 +1,11 @@
 .product-page {
   .feature-content {
     border-top: 1px solid #eee;
+
+    .sprite-icon {
+      transform: scale(0.8);
+      transform-origin: top center;
+    }
   }
 
   .banner-section {
