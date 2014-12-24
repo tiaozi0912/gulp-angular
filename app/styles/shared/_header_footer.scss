@@ -91,6 +91,9 @@
 
     .navbar-header {
       border-bottom: 1px solid $light-gray;
+      background-color: white;
+      position: relative;
+      z-index: 1;
     }
 
     .navbar-toggle {
@@ -122,6 +125,19 @@
           }
         }
       }
+    }
+
+    /**
+     * Dropdown menu animation
+     */
+    .ag-show-toggle {
+      transition: transform ease 0.2s;
+    }
+
+    .ag-hide {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(-101%);
     }
   }
 }
