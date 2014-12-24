@@ -2,7 +2,7 @@
   background-color: $light-gray;
   padding-bottom: 0;
 
-  .fa-windows, .fa-apple, .fa-android, .fa-download {
+  .docs-icon {
     margin-right: 15px;
   }
 
@@ -15,10 +15,13 @@
     box-shadow: 0 0 2px 0 rgba(0,0,0,0.25);
 
     li {
+      margin-left: auto;
+      margin-right: auto;
+      width: 150px;
       border-bottom: 1px solid $light-gray;
 
       a {
-        padding: 10px 0;
+        padding: 10px 0 10px $section-padding-sm;
         display: block;
 
         &:hover {
@@ -31,20 +34,42 @@
         border-width: 0;
       }
     }
-
-    h2 {
-      margin-top: 35px;
-    }
   }
 
   .download-section {
     background-color: white;
+
+    .container {
+      width: 200px;
+    }
   }
 }
 
 @include mq($screen-sm) {
   .docs-page {
+    .page-headline {
+      margin: $section-padding / 2 0;
+    }
+
+    .tile {
+      margin-bottom: $section-padding;
+
+      li {
+        width: auto;
+
+        a {
+          padding-left: 35%;
+        }
+      }
+    }
+
     .download-section {
+      text-align: center;
+
+      .container {
+        width: auto;
+      }
+
       .text-lead {
         font-size: $h3;
       }
