@@ -1,0 +1,8 @@
+{
+  "dev": {
+            "host": "localhost",
+            "user": "root",
+            "database": "agora_development",
+            "driver": "mysql"
+          }
+}
