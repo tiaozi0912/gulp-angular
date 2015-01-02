@@ -1,7 +1,8 @@
 /* jshint node:true */
 'use strict';
-// generated on 2014-11-28 using generator-gulp-webapp 0.2.0
+
 var gulp = require('gulp');
+var express = require('express');
 var sprite = require('css-sprite').stream;
 var $ = require('gulp-load-plugins')();
 
@@ -111,10 +112,14 @@ gulp.task('extras', ['data'], function () {
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('connect', ['styles'], function () {
+  var app = express();
   var serveStatic = require('serve-static');
   var serveIndex = require('serve-index');
-  var app = require('connect')()
-    .use(require('connect-livereload')({port: 35729}))
+
+  app.set('title', 'Agora');
+  //app.set('env', 'development');
+
+  app.use(require('connect-livereload')({port: 35729}))
     .use(serveStatic('.tmp'))
     .use(serveStatic('app'))
     // paths to bower_components should be relative to the current file
@@ -131,11 +136,8 @@ gulp.task('connect', ['styles'], function () {
       }
     });
 
-  require('http').createServer(app)
-    .listen(9000)
-    .on('listening', function () {
-      console.log('Started connect web server on http://localhost:9000');
-    });
+  app.listen(9000);
+  console.log('Started web server on http://localhost:9000');
 });
 
 gulp.task('serve', ['connect', 'views', 'templates', 'sprite', 'watch'], function () {
