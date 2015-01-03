@@ -2,9 +2,21 @@
 'use strict';
 
 var gulp = require('gulp');
-var express = require('express');
 var sprite = require('css-sprite').stream;
 var $ = require('gulp-load-plugins')();
+
+var nodemonOpt = {
+  script: 'server.js',
+  ext: 'js',
+  env: {
+    NODE_ENV: 'development'
+  },
+  watch: [
+    'models/',
+    'server.js',
+    'apiRouter.js'
+  ]
+};
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.scss')
@@ -112,32 +124,10 @@ gulp.task('extras', ['data'], function () {
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('connect', ['styles'], function () {
-  var app = express();
-  var serveStatic = require('serve-static');
-  var serveIndex = require('serve-index');
-
-  app.set('title', 'Agora');
-  //app.set('env', 'development');
-
-  app.use(require('connect-livereload')({port: 35729}))
-    .use(serveStatic('.tmp'))
-    .use(serveStatic('app'))
-    // paths to bower_components should be relative to the current file
-    // e.g. in app/index.html you should use ../bower_components
-    .use('/bower_components', serveStatic('bower_components'))
-    .use(serveIndex('app'))
-    .use(function(req, res) { // direct all to '#/' except the data files
-      console.log(req.url);
-
-      if (req.url !== '/' && !req.url.match('data/')) {
-        var directTo = '/#' + req.url;
-        res.writeHead(301, {Location: directTo});
-        res.end();
-      }
+  $.nodemon(nodemonOpt)
+    .on('restart', function() {
+      console.log('server restart');
     });
-
-  app.listen(9000);
-  console.log('Started web server on http://localhost:9000');
 });
 
 gulp.task('serve', ['connect', 'views', 'templates', 'sprite', 'watch'], function () {

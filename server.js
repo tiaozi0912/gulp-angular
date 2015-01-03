@@ -1,0 +1,77 @@
+(function() {
+  'use strict';
+
+  var express = require('express');
+  var app = express();
+  var bodyParser = require('body-parser');
+  var cookieParser = require('cookie-parser');
+  var session = require('express-session');
+  var serveStatic = require('serve-static');
+  var serveIndex = require('serve-index');
+  var apiRouter = express.Router();
+  var logger = require('morgan');
+
+  var PORT = 9000,
+      VIEW_PATH = __dirname + '/app';
+
+  app.set('title', 'Agora');
+  app.set(VIEW_PATH);
+  //app.set('env', 'development');
+
+  if (app.get('env') === 'development') {
+    app.use(logger('dev'));
+    app.use(require('connect-livereload')({port: 35729}));
+
+    app.use(express.static(__dirname + '/.tmp'))
+      .use(express.static(__dirname + '/app'))
+      .use('/bower_components', express.static(__dirname + '/bower_components'));
+  }
+
+  //direct all to '#/' except the data files
+  app.use(function(req, res, next) {
+    console.log(req.url);
+
+    if (req.url !== '/' && !req.url.match('data/') && !req.url.match('/api/')) {
+      var directTo = '/#' + req.url;
+      res.writeHead(301, {Location: directTo});
+      res.end();
+    } else {
+      next();
+    }
+  });
+
+  // for parsing application/json
+  app.use(bodyParser.json());
+
+  // for parsing application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  app.use(cookieParser());
+  app.use(session({
+    secret: 'Agora secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: true,
+      maxAge: 3600 * 24 * 7
+    }
+  }));
+
+  require('./apiRouter')(apiRouter);
+  app.use('/api', apiRouter);
+
+  app.listen(PORT);
+  console.log('Started web server on http://localhost:9000');
+
+  // DB connection
+  var mysql = require('mysql');
+  global.poolCluster = mysql.createPoolCluster();
+
+  // dev web config
+  var webConfig = {
+    user: 'root',
+    database: 'agora_development'
+  };
+
+  global.poolCluster.add('web', webConfig);
+})();
