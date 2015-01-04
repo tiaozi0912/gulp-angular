@@ -35,7 +35,7 @@
 
   // checking if password is valid
   User.prototype.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+    return bcrypt.compareSync(password, this.data.password);
   };
 
   module.exports = User;

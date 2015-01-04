@@ -18,7 +18,9 @@
           db: 'web'
         },
         _this = this,
-        Model = function() {},
+        Model = function(data) {
+          this.data = data;
+        },
         validator;
 
     this.settings = _.extend(settings, options);

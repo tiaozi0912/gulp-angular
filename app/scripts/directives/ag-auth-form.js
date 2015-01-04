@@ -9,10 +9,11 @@
 (function(angular) {
   'use strict';
 
-  var ctrl = function($scope, $rootScope, Auth) {
+  var ctrl = function($scope, $rootScope, Auth, AUTH_EVENTS, $state) {
     function onSignupSuccess(user) {
       $rootScope.currentUser = user;
       $scope.processing = false;
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       window.console.log('signup successfully. set user:');
       window.console.log(user);
     }
@@ -25,6 +26,8 @@
     function onSigninSuccess(user) {
       $scope.processing = false;
       $rootScope.currentUser = user;
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      $state.go('root.dashboard');
     }
 
     function onSigninError(res) {
@@ -46,6 +49,10 @@
           Auth.signin($scope.user).then(onSigninSuccess, onSigninError);
         }
       }
+    };
+
+    $scope.dismiss = function() {
+      $rootScope.$broadcast('agAuthModal:dismiss');
     };
   };
 

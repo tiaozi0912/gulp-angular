@@ -4,6 +4,15 @@
 
   var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize']);
 
+  app.run(function($rootScope, AUTH_EVENTS, Auth) {
+    $rootScope.$on('$stateChangeStart', function(event, next) {
+      if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
+        event.preventDefault();
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+      }
+    });
+  });
+
   // routes:
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode({
@@ -47,7 +56,7 @@
                 },
                 {
                   label: 'help',
-                  url: '/help'
+                  url: '/dashboard'
                 }
               ];
 
@@ -272,7 +281,7 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('product.html');
             },
-            controller: function($scope) {
+            controller: function($scope, $rootScope) {
               var showHero = function() {
                 $('.banner-section .transparent').removeClass('transparent');
               };
@@ -282,6 +291,11 @@
               $scope.$on('$destroy', function() {
                 $(document).off(showHero);
               });
+
+              $scope.showAuthModal = function(e) {
+                e.preventDefault();
+                $rootScope.$broadcast('agAuthModal:show');
+              };
             }
           }
         }
@@ -365,6 +379,22 @@
           'main@': {
             templateProvider: function($templateCache) {
               return $templateCache.get('contact.html');
+            }
+          }
+        }
+      })
+      .state('root.dashboard', {
+        url: '/dashboard',
+        data: {
+          role: 'user'
+        },
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('dashboard/overview.html');
+            },
+            controller: function($scope, $rootScope) {
+              $scope.user = $rootScope.currentUser;
             }
           }
         }

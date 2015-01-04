@@ -1,10 +1,10 @@
 form.ag-auth-form(role="form", name="agAuthForm")
   .form-header
-    .close(ng-show="isModal", ag-modal="dismiss") &times;
+    .close(ng-show="isModal", ng-click="dismiss()") &times;
     h3(ng-transclude="")
   .form-body
     .alert.alert-success(ng-show="success") Submitted
-    .form-group
+    .form-group(ng-show="role==='signup'")
       .input-wrapper
         input.form-control(type="text", name="name", placeholder="full name", ng-model="user.name", required=true)
       .input-wrapper
@@ -13,6 +13,11 @@ form.ag-auth-form(role="form", name="agAuthForm")
         input.form-control(type="text", name="company_name", placeholder="company name", ng-model="user.company_name")
       .input-wrapper
         input.form-control(type="password", name="password", placeholder="password", ng-model="user.password")
-    .form-group
+    .form-group(ng-show="role==='signup'")
       textarea.form-control(rows=3, name="company_description", placeholder="what do you do", ng-model="user.company_description")
+    .form-group(ng-show="role==='signin'")
+      .input-wrapper
+        input.form-control(type="email", name="email", placeholder="email address", ng-model="user.email", require=true)
+      .input-wrapper
+        input.form-control(type="password", name="password", placeholder="password", ng-model="user.password")
     button.btn.btn-primary.btn-lg.btn-block(type="button", ng-click="submit()", ng-disabled="processing") Submit

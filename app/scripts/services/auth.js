@@ -16,7 +16,7 @@
 
     this.signin = function (credentials) {
       return $http
-        .post('/api/signin', credentials)
+        .post('/api/signin', {user: credentials})
         .then(function (res) {
           Session.create(res.data.id, res.data.user.id,
                          res.data.user.role);
