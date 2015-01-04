@@ -8,22 +8,27 @@
       .post(function(req, res, next) {
         var params = req.param('user', {});
 
-        User.query('SELECT 1 from users WHERE ?', {email: params.email}, function(err, result) {
-          if (result) {
+        User.query('SELECT 1 from users WHERE ?', {email: params.email}, function(err, results) {
+          if (results.length > 0) {
             res.status(400).send({
               message: 'The email is taken.'
             });
           } else {
-            params.password = User.generateHash(params.password);
-            User.save(params, function(err, user) {
-              req.session.currentUser = user;
+            try {
+              User.create(params, function(err, user) {
+                req.session.currentUser = user;
 
-              res.send({
-                id: req.session.id,
-                user: user,
-                message: 'Account created succussfully.'
+                res.send({
+                  id: req.session.id,
+                  user: user,
+                  message: 'Account created succussfully.'
+                });
               });
-            });
+            } catch (e) {
+              res.status(400).send({
+                message: e
+              });
+            }
           }
         });
       });

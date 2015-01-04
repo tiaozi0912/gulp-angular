@@ -30,7 +30,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('jshint', function () {
-  return gulp.src('app/scripts/**/*.js')
+  return gulp.src(['app/scripts/**/*.js', 'models/**/*.js'])
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.jshint.reporter('fail'));
@@ -163,7 +163,7 @@ gulp.task('watch', ['connect'], function () {
   gulp.watch('app/images/sprite/*.png', ['sprite']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
-  gulp.watch('app/scripts/**/*.js', ['jshint']);
+  gulp.watch(['app/scripts/**/*.js', 'models/**/*.js'], ['jshint']);
 });
 
 gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {

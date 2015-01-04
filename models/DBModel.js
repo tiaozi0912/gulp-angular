@@ -1,22 +1,33 @@
-/**
- * Define shared class methods
- */
-
 (function() {
   'use strict';
 
+  var _ = require('underscore');
+
+  var Validator = require('./Validator');
+
+  /**
+   * Class of the models. Define shared class methods
+   *
+   * @param {String} name - the model name, same as the table name in database
+   * @param {Object} options:
+   *   {String} db - 'web', ...
+   *   {Object} validates - key: field name, value: validation rule(seen in Validator.js)
+   */
   var DBModel = function(name, options) {
-    var defaults = {
+    var settings = {
           db: 'web'
         },
-        options = options || defaults,
         _this = this,
-        Model = function() {};
+        Model = function() {},
+        validator;
+
+    this.settings = _.extend(settings, options);
 
     this.name = name;
-    this.db = options.db;
+    this.db = settings.db;
 
     // Define methods
+    // This methods will be inherited in the model instant as class methods
     Model.query = function(statement, params, cb) {
       global.poolCluster.getConnection(this.db, function(err, connection) {
 
@@ -44,6 +55,10 @@
         Model.query('INSERT INTO ?? SET ?', [_this.name, data], cb);
       }
     };
+
+    validator = new Validator(_this.settings.validates);
+
+    Model.validates = _.bind(validator.validates, validator);
 
     return Model;
   };
