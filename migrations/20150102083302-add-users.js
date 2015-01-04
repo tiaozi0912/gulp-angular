@@ -8,7 +8,7 @@ exports.up = function(db, callback) {
     password: { type: 'string', unique: true, notNull: true },
     name: { type: 'string' },
     company_name: { type: 'string' },
-    description: { type: 'text'}
+    company_description: { type: 'text'}
   }, callback);
 };
 

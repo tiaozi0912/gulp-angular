@@ -35,14 +35,19 @@
     this.validation = validation;
   };
 
+  Validator.prototype._readable = function(str) {
+    return str.replace(/_/g, ' ');
+  };
+
   Validator.prototype.validates = function(data) {
-    var errors = [],
+    var _this = this,
+        errors = [],
         errMsg;
 
     _.each(this.validation, function(rule, property) {
       if (rule.presence) {
         if (!data.hasOwnProperty(property)) {
-          errMsg = property + ' can\'t be empty.';
+          errMsg = _this._readable(property) + ' can\'t be empty.';
           errors.push({
             field: property,
             message: errMsg
@@ -54,7 +59,7 @@
 
       if (rule.maxLength && data.hasOwnProperty(property)) {
         if (data[property].length > rule.maxLength) {
-          errMsg = property + ' can\'t be more than ' + rule.maxLength + ' characters.';
+          errMsg = _this._readable(property) + ' can\'t be more than ' + rule.maxLength + ' characters.';
           errors.push({
             field: property,
             message: errMsg
@@ -64,7 +69,7 @@
 
       if (rule.minLength && data.hasOwnProperty(property)) {
         if (data[property].length < rule.minLength) {
-          errMsg = property + ' can\'t be less than ' + rule.minLength + ' characters.';
+          errMsg = _this._readable(property) + ' can\'t be less than ' + rule.minLength + ' characters.';
           errors.push({
             field: property,
             message: errMsg
@@ -74,7 +79,7 @@
 
       if (rule.regex && data.hasOwnProperty(property)) {
         if (!rule.regex.test(data[property])) {
-          errMsg = property + ' is not valid.';
+          errMsg = _this._readable(property) + ' is not valid.';
           errors.push({
             field: property,
             message: errMsg

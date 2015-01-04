@@ -17,9 +17,9 @@
       window.console.log(user);
     }
 
-    function onSignupError() {
+    function onSignupError(res) {
       $scope.processing = false;
-      window.console.log('signup error');
+      window.console.log(res.data.message);
     }
 
     function onSigninSuccess(user) {
@@ -27,9 +27,9 @@
       $rootScope.currentUser = user;
     }
 
-    function onSigninError() {
+    function onSigninError(res) {
       $scope.processing = false;
-      window.console.log('signin error');
+      window.console.log(res.data.message);
     }
 
     $scope.processing = false;

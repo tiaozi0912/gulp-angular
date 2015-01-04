@@ -8,9 +8,9 @@
         .then(function(res) {
           window.console.log(res);
 
-          Session.create(res.id, res.user.id,
-                         res.user.role);
-          return res.user;
+          Session.create(res.data.id, res.data.user.id,
+                         res.data.user.role);
+          return res.data.user;
         });
     };
 
@@ -18,9 +18,9 @@
       return $http
         .post('/api/signin', credentials)
         .then(function (res) {
-          Session.create(res.id, res.user.id,
-                         res.user.role);
-          return res.user;
+          Session.create(res.data.id, res.data.user.id,
+                         res.data.user.role);
+          return res.data.user;
         });
     };
 
