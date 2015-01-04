@@ -5,7 +5,7 @@
   var app = express();
   var bodyParser = require('body-parser');
   var cookieParser = require('cookie-parser');
-  var session = require('express-session');
+  var session = require('cookie-session');
   var serveStatic = require('serve-static');
   var serveIndex = require('serve-index');
   var apiRouter = express.Router();
@@ -35,9 +35,9 @@
       var directTo = '/#' + req.url;
       res.writeHead(301, {Location: directTo});
       res.end();
-    } else {
-      next();
     }
+
+    next();
   });
 
   // for parsing application/json
@@ -49,12 +49,8 @@
   app.use(cookieParser());
   app.use(session({
     secret: 'Agora secret',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: true,
-      maxAge: 3600 * 24 * 7
-    }
+    signed: true,
+    maxAge: 60000 * 60 * 24 * 7 // expires in a week
   }));
 
   require('./apiRouter')(apiRouter);

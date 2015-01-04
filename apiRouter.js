@@ -93,11 +93,7 @@
               });
 
               return;
-            } else {
-              console.log('invalid password');
             }
-          } else {
-            console.log('no user found.');
           }
 
           res.status(400).send({
@@ -111,6 +107,22 @@
       res.send({
         message: 'Signed out successfully.'
       });
+    });
+
+    router.get('/reauthorize', function(req, res) {
+      console.log('session:');
+      console.log(req.session);
+
+      if (req.session && req.session.currentUser) {
+        res.send({
+          id: req.session.id,
+          user: req.session.currentUser
+        });
+      } else {
+        res.status(401).send({
+          message: 'Not signed in or session has expired.'
+        });
+      }
     });
   };
 })();

@@ -6,9 +6,16 @@
 
   app.run(function($rootScope, AUTH_EVENTS, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
-      if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
-        event.preventDefault();
-        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+      if (next.data && next.data.role === 'user') {
+        // Require authentication
+        if (!Auth.isAuthenticated()) {
+          Auth.reAuthorize().then(function() {
+
+          }, function() {
+            event.preventDefault();
+            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+          });
+        }
       }
     });
   });
