@@ -4,6 +4,7 @@
   var bcrypt = require('bcrypt-nodejs');
   var DBModel = require('./DBModel');
   var Channel = require('./Channel');
+  var ChannelUser = require('./ChannelUser');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -53,22 +54,45 @@
    * Get the voice usage info from start date to the end date every interval(day, hour etc)
    *
    * @param {Function} cb - callback function, taking err and res as arguments
-   *   {Object} res - keys: duration, destroy, vendorID
+   *   {Object} res - keys: usage(in sec), datetime(e.g. 2014-12-01 or 2014-12-01 12), vendorID
    * @param {Int} start - unix timestamp in ms
    * @param {Int} end   - unix timestamp in ms
    * @param {String} interval - 'day', 'hour', default is 'day'
    */
-  User.prototype.voiceUsage = function(cb, start, end, interval) {
+  User.prototype.getVoiceUsage = function(cb, start, end, interval) {
     var vendorId = this.data.vendor_id;
 
     interval = interval || 'day';
 
     if (interval === 'day') {
-      Channel.query("SELECT SUM(duration), DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d') AS 'date_formatted', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY date_formatted", [vendorId, start / 1000, end / 1000], cb);
+      Channel.query("SELECT SUM(duration) AS 'usage', DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d') AS 'datetime', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime", [vendorId, start / 1000, end / 1000], cb);
     }
 
     if (interval === 'hour') {
-      Channel.query("SELECT SUM(duration), DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d %H') AS 'hour', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY hour", [vendorId, start / 1000, end / 1000], cb);
+      Channel.query("SELECT SUM(duration) AS 'usage', DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d %H') AS 'datetime', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime", [vendorId, start / 1000, end / 1000], cb);
+    }
+  };
+
+  /**
+   * Get the call participants info from start date to the end date every interval(day, hour etc)
+   *
+   * @param {Function} cb - callback function, taking err and res as arguments
+   *   {Object} res - keys: duration, uid, datetime, vendorID
+   * @param {Int} start - unix timestamp in ms
+   * @param {Int} end   - unix timestamp in ms
+   * @param {String} interval - 'day', 'hour', default is 'day'
+   */
+  User.prototype.getParticipants = function(cb, start, end, interval) {
+    var vendorId = this.data.vendor_id;
+
+    interval = interval || 'day';
+
+    if (interval === 'day') {
+      ChannelUser.query("SELECT duration, uid, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d') AS 'datetime', vendorID FROM users WHERE vendorID = ? AND quit >= ? AND quit <= ?", [vendorId, start / 1000, end / 1000], cb);
+    }
+
+    if (interval === 'hour') {
+      ChannelUser.query("SELECT duration, uid, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d %H') AS 'datetime', vendorID FROM users WHERE vendorID = ? AND quit >= ? AND quit <= ?", [vendorId, start / 1000, end / 1000], cb);
     }
   };
 
