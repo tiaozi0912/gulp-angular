@@ -8,3 +8,8 @@
     ul.nav.navbar-nav
       li(ng-class="{active:page == nav.url}", ng-repeat="nav in navs")
         a.cap(href="{{nav.url}}") {{nav.label}}
+      li(ng-if="user.id")
+        a(ui-sref="root.dashboard") {{user.name}}
+      li(ng-if="!user.id")
+        a(ng-click="showSigninModal()") Sign In
+

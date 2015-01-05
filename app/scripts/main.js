@@ -2,22 +2,41 @@
 (function() {
   'use strict';
 
+  var isInit = true; // Flag the page is refreshed or loaded
+
   var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize']);
 
   app.run(function($rootScope, AUTH_EVENTS, Auth, $state) {
+    function onNotAuthorized(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+    }
+
     $rootScope.$on('$stateChangeStart', function(event, next) {
-      if (next.data && next.data.role === 'user') {
-        // Require authentication
-        if (!Auth.isAuthenticated()) {
-          event.preventDefault();
-          Auth.reAuthorize().then(function(user) { // Handling page refresh
+      if (isInit) {
+        // Handling page refresh
+        event.preventDefault();
+        Auth.reAuthorize().then(function(user) {
+          if (user) {
             $rootScope.currentUser = user;
+          }
+
+          if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
+            onNotAuthorized();
+          } else {
             $state.go(next.name);
-          }, function() {
-            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-          });
+          }
+        });
+      } else {
+        if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
+          onNotAuthorized(event);
         }
       }
+
+      isInit = false;
     });
   });
 
@@ -40,7 +59,7 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('header.html');
             },
-            controller: function($scope, $location) {
+            controller: function($scope, $location, $rootScope) {
               var $navbarToggleBtn = $('.navbar-header .navbar-toggle'),
                   $navbar = $('.site-header .header-collapse'),
                   hiddenCls = 'ag-hide';
@@ -64,9 +83,15 @@
                 },
                 {
                   label: 'help',
-                  url: '/dashboard'
+                  url: '/help'
                 }
               ];
+
+              $scope.user = $rootScope.currentUser;
+
+              $scope.showSigninModal = function() {
+                $rootScope.$broadcast('agAuthModal:show');
+              };
 
               // When page changes
               $scope.$on('$locationChangeSuccess', function() {
