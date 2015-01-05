@@ -17,9 +17,6 @@
             errMsg,
             createdUser;
 
-        console.log(params.password);
-        console.log(User.generateHash(params.password));
-
         User.query('SELECT id FROM users WHERE ?', {email: params.email}, function(err, results) {
           if (err) {
             _genErrHandler(res, err);
@@ -110,8 +107,6 @@
     });
 
     router.get('/reauthorize', function(req, res) {
-      console.log('session:');
-      console.log(req.session);
 
       if (req.session && req.session.currentUser) {
         res.send({

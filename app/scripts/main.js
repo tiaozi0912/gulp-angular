@@ -4,15 +4,16 @@
 
   var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize']);
 
-  app.run(function($rootScope, AUTH_EVENTS, Auth) {
+  app.run(function($rootScope, AUTH_EVENTS, Auth, $state) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
       if (next.data && next.data.role === 'user') {
         // Require authentication
         if (!Auth.isAuthenticated()) {
-          Auth.reAuthorize().then(function() {
-
+          event.preventDefault();
+          Auth.reAuthorize().then(function(user) { // Handling page refresh
+            $rootScope.currentUser = user;
+            $state.go(next.name);
           }, function() {
-            event.preventDefault();
             $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
           });
         }
