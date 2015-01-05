@@ -63,10 +63,12 @@
 
     interval = interval || 'day';
 
-
-
     if (interval === 'day') {
-      Channel.query("SELECT SUM(duration), DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%e %b %Y') AS 'date_formatted', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY date_formatted", [vendorId, start / 1000, end / 1000], cb);
+      Channel.query("SELECT SUM(duration), DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d') AS 'date_formatted', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY date_formatted", [vendorId, start / 1000, end / 1000], cb);
+    }
+
+    if (interval === 'hour') {
+      Channel.query("SELECT SUM(duration), DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d %H') AS 'hour', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY hour", [vendorId, start / 1000, end / 1000], cb);
     }
   };
 
