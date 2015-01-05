@@ -12,7 +12,8 @@
   var logger = require('morgan');
 
   var PORT = 9000,
-      VIEW_PATH = __dirname + '/app';
+      VIEW_PATH = __dirname + '/app',
+      webConfig, vendorsConfig, voiceOnlineConfig;
 
   app.set('title', 'Agora');
   app.set(VIEW_PATH);
@@ -25,6 +26,21 @@
     app.use(express.static(__dirname + '/.tmp'))
       .use(express.static(__dirname + '/app'))
       .use('/bower_components', express.static(__dirname + '/bower_components'));
+
+    webConfig = {
+      user: 'root',
+      database: 'agora_development'
+    };
+
+    vendorsConfig = {
+      user: 'root',
+      database: 'agora_vendors'
+    };
+
+    voiceOnlineConfig = {
+      user: 'root',
+      database: 'agora_voice_online'
+    };
   }
 
   //direct all to '#/' except the data files
@@ -63,11 +79,7 @@
   var mysql = require('mysql');
   global.poolCluster = mysql.createPoolCluster();
 
-  // dev web config
-  var webConfig = {
-    user: 'root',
-    database: 'agora_development'
-  };
-
   global.poolCluster.add('web', webConfig);
+  global.poolCluster.add('vendors', vendorsConfig);
+  global.poolCluster.add('voice_online', voiceOnlineConfig);
 })();

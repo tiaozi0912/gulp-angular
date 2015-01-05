@@ -119,5 +119,25 @@
         });
       }
     });
+
+    router.get('/dashboard/voice_usage', function(req, res) {
+      // Assuming signed in
+      var currentUser = new User(req.session.currentUser),
+          start = new Date('2013-01-01').getTime(),
+          end = new Date('2015-12-30').getTime();
+
+      currentUser.voiceUsage(function(err, data) {
+        if (err) {
+          res.status(400).send({
+            message: err
+          });
+          return;
+        }
+
+        res.send({
+          data: data
+        });
+      }, start, end);
+    });
   };
 })();
