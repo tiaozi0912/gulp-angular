@@ -31,7 +31,7 @@
     // Define methods
     // This methods will be inherited in the model instant as class methods
     Model.query = function(statement, params, cb) {
-      global.poolCluster.getConnection(this.db, function(err, connection) {
+      global.poolCluster.getConnection(_this.db, function(err, connection) {
 
         function onQuery(err, res) {
           connection.release();
