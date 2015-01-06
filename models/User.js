@@ -74,25 +74,25 @@
   };
 
   /**
-   * Get the call participants info from start date to the end date every interval(day, hour etc)
+   * Get the channel users info from start date to the end date every interval(day, hour etc)
    *
    * @param {Function} cb - callback function, taking err and res as arguments
-   *   {Object} res - keys: duration, uid, datetime, vendorID
+   *   {Object} res - keys: duration, uid, datetime, vendorID, cid, ip, channel_duration
    * @param {Int} start - unix timestamp in ms
    * @param {Int} end   - unix timestamp in ms
    * @param {String} interval - 'day', 'hour', default is 'day'
    */
-  User.prototype.getParticipants = function(cb, start, end, interval) {
+  User.prototype.getChannelUsersInfo = function(cb, start, end, interval) {
     var vendorId = this.data.vendor_id;
 
     interval = interval || 'day';
 
     if (interval === 'day') {
-      ChannelUser.query("SELECT duration, uid, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d') AS 'datetime', vendorID FROM users WHERE vendorID = ? AND quit >= ? AND quit <= ?", [vendorId, start / 1000, end / 1000], cb);
+      ChannelUser.query("SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d') AS 'datetime', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?", [vendorId, start / 1000, end / 1000], cb);
     }
 
     if (interval === 'hour') {
-      ChannelUser.query("SELECT duration, uid, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d %H') AS 'datetime', vendorID FROM users WHERE vendorID = ? AND quit >= ? AND quit <= ?", [vendorId, start / 1000, end / 1000], cb);
+      ChannelUser.query("SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d %H') AS 'datetime', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?", [vendorId, start / 1000, end / 1000], cb);
     }
   };
 
