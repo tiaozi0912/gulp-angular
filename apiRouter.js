@@ -124,9 +124,33 @@
       // Assuming signed in
       var currentUser = new User(req.session.currentUser),
           start = new Date('2013-01-01').getTime(),
+          //start = new Date('2014-12-17T23:59:59').getTime(),
           end = new Date('2015-12-30').getTime();
+          //end = new Date('2014-12-18T23:59:59').getTime();
 
-      currentUser.voiceUsage(function(err, data) {
+      currentUser.getVoiceUsage(function(err, data) {
+        if (err) {
+          res.status(400).send({
+            message: err
+          });
+          return;
+        }
+
+        res.send({
+          data: data
+        });
+      }, start, end);
+    });
+
+    router.get('/dashboard/channel_users_info', function(req, res) {
+      // Assuming signed in
+      var currentUser = new User(req.session.currentUser),
+          start = new Date('2013-01-01').getTime(),
+          //start = new Date('2014-12-17T23:59:59').getTime(),
+          end = new Date('2015-12-30').getTime();
+          //end = new Date('2014-12-18T23:59:59').getTime();
+
+      currentUser.getChannelUsersInfo(function(err, data) {
         if (err) {
           res.status(400).send({
             message: err

@@ -1,0 +1,3 @@
+ul.site-sidebar-inner.list-plain
+  li(ng-repeat="nav in navs", ng-class="{active:nav.active}")
+    a(ui-sref="root.dashboard.{{nav.state}}") {{nav.name}}

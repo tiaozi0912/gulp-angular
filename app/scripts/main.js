@@ -1,12 +1,12 @@
 /* jshint devel:true */
-(function() {
+(function($) {
   'use strict';
 
   var isInit = true; // Flag the page is refreshed or loaded
 
   var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize']);
 
-  app.run(function($rootScope, AUTH_EVENTS, Auth, $state) {
+  app.run(function($rootScope, AUTH_EVENTS, Auth, $state, sidebarNavs) {
     function onNotAuthorized(event) {
       if (event) {
         event.preventDefault();
@@ -37,6 +37,15 @@
       }
 
       isInit = false;
+
+      // Set the active sidebar nav
+      $.each(sidebarNavs.data, function(i, nav) {
+        if (nav.url === next.url) {
+          nav.active = true;
+        } else {
+          nav.active = false;
+        }
+      });
     });
   });
 
@@ -424,14 +433,40 @@
         views: {
           'main@': {
             templateProvider: function($templateCache) {
-              return $templateCache.get('dashboard/overview.html');
+              return $templateCache.get('dashboard/index.html');
             },
             controller: function($scope, $rootScope) {
               $scope.user = $rootScope.currentUser;
             }
+          },
+          'site-sidebar@root.dashboard': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('dashboard/sidebar.html');
+            },
+            controller: function($scope, $rootScope, sidebarNavs) {
+              $scope.navs = sidebarNavs.data;
+            }
           }
+        }
+      })
+      .state('root.dashboard.overview', {
+        url: '/overview',
+        templateProvider: function($templateCache) {
+          return $templateCache.get('dashboard/overview.html');
+        },
+        controller: function($scope, $rootScope) {
+          $scope.user = $rootScope.currentUser;
+        }
+      })
+      .state('root.dashboard.participants', {
+        url: '/participants',
+        templateProvider: function($templateCache) {
+          return $templateCache.get('dashboard/participants.html');
+        },
+        controller: function($scope, $rootScope) {
+          $scope.user = $rootScope.currentUser;
         }
       });
   });
 
-})();
+})(window.Zepto);

@@ -7,6 +7,11 @@
 
 a {
   color: $blue;
+
+  &:focus {
+    text-decoration: none;
+    outline-width: 0;
+  }
 }
 
 ul, ol {

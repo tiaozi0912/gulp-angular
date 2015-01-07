@@ -1,0 +1,35 @@
+@include mq($screen-sm) {
+  .site-sidebar {
+    float: left;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sidebar-width;
+    background-color: $light-gray;
+    padding-top: $header-height;
+
+    li {
+      & > a {
+        color: $dark-gray;
+        display: block;
+        padding: 7px 0 7px 20px;
+
+        &:hover {
+          text-decoration: none;
+          background-color: $blue;
+          color: white;
+        }
+      }
+
+      &.active > a {
+        color: white;
+        background-color: $gray;
+      }
+    }
+  }
+
+  .dashboard-main {
+    margin-left: $sidebar-width;
+  }
+}
