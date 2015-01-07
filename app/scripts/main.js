@@ -1,5 +1,5 @@
 /* jshint devel:true */
-(function($) {
+(function($, moment, Chart) {
   'use strict';
 
   var isInit = true; // Flag the page is refreshed or loaded
@@ -454,8 +454,58 @@
         templateProvider: function($templateCache) {
           return $templateCache.get('dashboard/overview.html');
         },
-        controller: function($scope, $rootScope) {
+        controller: function($scope, $rootScope, $http, time) {
+          var url = '/api/dashboard/voice_usage',
+              params = {
+                start: new Date('2014-12-01').getTime() / 1000,//moment().endOf('month').unix(),
+                end: new Date('2014-12-31').getTime() / 1000//moment().endOf('month').unix()
+              },
+              datesDomain = time.getDatesRange(moment.unix(params.start), moment.unix(params.end)),
+              data = {},
+              hash = {},
+              options = {},
+              ctx = document.getElementById("overview-chart").getContext("2d");
+
+          datesDomain = datesDomain.map(function(m) {
+            return m.format(time.dateFormat);
+          });
+
+          data.labels = datesDomain;
+          data.datasets = [
+            {
+              fillColor: "rgba(220,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)"
+            }
+          ];
+
           $scope.user = $rootScope.currentUser;
+
+          $http.get(url, {params: params})
+            .success(function(res) {
+              $scope.data = res.data;
+
+              // Turn into hash
+              $.each($scope.data, function(i, d) {
+                hash[d.datetime] = d;
+              });
+
+              data.datasets[0].data = datesDomain.map(function(date) {
+                var d = hash[date];
+
+                if (d) {
+                  return d.usage / 60;
+                } else {
+                  return 0;
+                }
+              });
+
+              // Draw
+              var chart = new Chart(ctx).Line(data);
+            });
         }
       })
       .state('root.dashboard.participants', {
@@ -469,4 +519,4 @@
       });
   });
 
-})(window.Zepto);
+})(window.Zepto, window.moment, window.Chart);
