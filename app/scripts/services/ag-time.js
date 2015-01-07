@@ -26,5 +26,5 @@
     return this;
   };
 
-  angular.module('AgoraApp').service('time', time);
+  angular.module('AgoraApp').service('agTime', time);
 })(window.moment);
