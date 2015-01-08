@@ -4,7 +4,9 @@
   var time = function() {
     this.dateFormat = 'YYYY-MM-DD';
 
-    this.hourFormat = 'H';
+    this.hourFormat = 'YYYY-MM-DD HH';
+
+    this.hourDisplayFormat = 'H';
 
     /**
      * Get the sets of dates between date1 and date2
@@ -26,7 +28,7 @@
 
       return dates;
     };
-    
+
     /**
      * Get the sets of hours between date1 and date2
      *

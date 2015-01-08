@@ -120,12 +120,14 @@
       }
     });
 
+    // @todo: check auth
     router.get('/dashboard/voice_usage', function(req, res) {
       // Assuming signed in
       var currentUser = new User(req.session.currentUser),
           start = req.param('start'),
           //start = new Date('2014-12-17T23:59:59').getTime(),
-          end = req.param('end');
+          end = req.param('end'),
+          interval = req.param('interval');
           //end = new Date('2014-12-18T23:59:59').getTime();
 
       currentUser.getVoiceUsage(function(err, data) {
@@ -139,7 +141,7 @@
         res.send({
           data: data
         });
-      }, start, end);
+      }, start, end, interval);
     });
 
     router.get('/dashboard/channel_users_info', function(req, res) {
@@ -147,7 +149,8 @@
       var currentUser = new User(req.session.currentUser),
           start = new Date('2013-01-01').getTime(),
           //start = new Date('2014-12-17T23:59:59').getTime(),
-          end = new Date('2015-12-30').getTime();
+          end = new Date('2015-12-30').getTime(),
+          interval = req.param('interval');
           //end = new Date('2014-12-18T23:59:59').getTime();
 
       currentUser.getChannelUsersInfo(function(err, data) {
@@ -161,7 +164,7 @@
         res.send({
           data: data
         });
-      }, start, end);
+      }, start, end, interval);
     });
   };
 })();

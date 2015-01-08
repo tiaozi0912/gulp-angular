@@ -5,7 +5,7 @@
     box-shadow: none;
   }
 
-  &:focus, &:focus:active {
+  &:focus, &:focus:active, &.active:focus {
     outline: none;
   }
 }

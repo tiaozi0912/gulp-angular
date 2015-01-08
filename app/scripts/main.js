@@ -454,23 +454,50 @@
         templateProvider: function($templateCache) {
           return $templateCache.get('dashboard/overview.html');
         },
-        controller: function($scope, $rootScope, $http, agTime, agChart) {
-          var url = '/api/dashboard/voice_usage',
-              params = {
-                start: new Date('2014-12-01').getTime() / 1000,//moment().startOf('month').unix(),
-                end: new Date('2014-12-31').getTime() / 1000//moment().endOf('month').unix()
-              },
-              ctx = document.getElementById("overview-chart").getContext("2d"),
+        controller: function($scope, $rootScope, $http, agTime, agChart, voiceData) {
+          $scope.user = $rootScope.currentUser;
+          $scope.query = {
+            start: moment('2014-12-01').unix(),//moment().startOf('month').unix(),
+            end: moment('2014-12-31').unix(),//moment().endOf('month').unix()
+            interval: 'day'
+          };
+
+          var canvas = document.getElementById("overview-chart"),
               getMinutes = function(d) {
                 return d.usage / 60;
-              };
+              },
+              chart = new agChart(canvas);
 
-          $scope.user = $rootScope.currentUser;
+          function cachedData() {
+            return voiceData.data.usage[$scope.query.interval];
+          }
 
-          $http.get(url, {params: params})
-            .success(function(res) {
-              agChart.drawLineChart(ctx, moment.unix(params.start), moment.unix(params.end), res.data, getMinutes);
-            });
+          function draw(data) {
+            chart.drawLineChart(moment.unix($scope.query.start), moment.unix($scope.query.end), data, getMinutes, $scope.query.interval);
+          }
+
+          function onSuccess(res) {
+            draw(res.data);
+          }
+
+          function drawChart() {
+            if (!cachedData()) {
+              voiceData.resources.getVoiceUsage($scope.query)
+                .success(onSuccess);
+            } else {
+              draw(cachedData());
+            }
+          }
+
+          $scope.onSelect = function() {
+            // Set the query start and end date
+            $scope.query.start = moment('2014-12-18').startOf('day').unix();
+            $scope.query.end = moment('2014-12-18').endOf('day').unix();
+            chart.clear();
+            drawChart()
+          };
+
+          drawChart();
         }
       })
       .state('root.dashboard.participants', {

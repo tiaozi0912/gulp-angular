@@ -57,7 +57,7 @@
    *   {Object} res - keys: usage(in sec), datetime(e.g. 2014-12-01 or 2014-12-01 12), vendorID
    * @param {Int} start - unix timestamp in sec
    * @param {Int} end   - unix timestamp in sec
-   * @param {String} interval - 'day', 'hour', default is 'day'
+   * @param {String} interval - 'day', 'hourly', default is 'day'
    */
   User.prototype.getVoiceUsage = function(cb, start, end, interval) {
     var vendorId = this.data.vendor_id;
@@ -68,7 +68,7 @@
       Channel.query("SELECT SUM(duration) AS 'usage', DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d') AS 'datetime', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime", [vendorId, start, end], cb);
     }
 
-    if (interval === 'hour') {
+    if (interval === 'hourly') {
       Channel.query("SELECT SUM(duration) AS 'usage', DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d %H') AS 'datetime', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime", [vendorId, start, end], cb);
     }
   };
@@ -80,7 +80,7 @@
    *   {Object} res - keys: duration, uid, datetime, vendorID, cid, ip, channel_duration
    * @param {Int} start - unix timestamp in sec
    * @param {Int} end   - unix timestamp in sec
-   * @param {String} interval - 'day', 'hour', default is 'day'
+   * @param {String} interval - 'day', 'hourly', default is 'day'
    */
   User.prototype.getChannelUsersInfo = function(cb, start, end, interval) {
     var vendorId = this.data.vendor_id;
@@ -91,7 +91,7 @@
       ChannelUser.query("SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d') AS 'datetime', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?", [vendorId, start, end], cb);
     }
 
-    if (interval === 'hour') {
+    if (interval === 'hourly') {
       ChannelUser.query("SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d %H') AS 'datetime', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?", [vendorId, start, end], cb);
     }
   };
