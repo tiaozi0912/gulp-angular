@@ -457,16 +457,19 @@
         controller: function($scope, $rootScope, $http, agTime, agChart) {
           var url = '/api/dashboard/voice_usage',
               params = {
-                start: new Date('2014-12-01').getTime() / 1000,//moment().endOf('month').unix(),
+                start: new Date('2014-12-01').getTime() / 1000,//moment().startOf('month').unix(),
                 end: new Date('2014-12-31').getTime() / 1000//moment().endOf('month').unix()
               },
-              ctx = document.getElementById("overview-chart").getContext("2d");
+              ctx = document.getElementById("overview-chart").getContext("2d"),
+              getMinutes = function(d) {
+                return d.usage / 60;
+              };
 
           $scope.user = $rootScope.currentUser;
 
           $http.get(url, {params: params})
             .success(function(res) {
-              agChart.drawLineChart(ctx, moment.unix(params.start), moment.unix(params.end), res.data);
+              agChart.drawLineChart(ctx, moment.unix(params.start), moment.unix(params.end), res.data, getMinutes);
             });
         }
       })

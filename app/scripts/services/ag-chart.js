@@ -11,38 +11,87 @@
       pointHighlightStroke: "rgba(220,220,220,1)"
     };
 
-    this.drawLineChart = function(ctx, start, end, rawData, interval) {
-      var datesDomain = agTime.getDatesRange(start, end),
-          data = {
-            datasets: []
-          },
-          rawDataHash = {},
-          d, completedData;
+    this.CONSTANT = {
+      DAY: 'day',
+      HOUR: 'HOUR'
+    };
+    
+    /**
+     * Get the domain 
+     * 
+     * @param {Moment} start - the start time
+     * @param {Moment} end   - the end time
+     * @param {String} interval - 'day' or 'hour', default 'day'
+     * @return {Array} domain
+     */
+    this.getDomain = function(start, end, interval) {
+      var domain = [];
 
-      datesDomain = datesDomain.map(function(m) {
-        return m.format(agTime.dateFormat);
-      });
+      interval = interval || this.CONSTANT.DAY;
 
-      data.labels = datesDomain;
+      if (interval === this.CONSTANT.DAY) {
+        domain = agTime.getDatesRange(start, end);
+        domain = domain.map(function(m) {
+          return m.format(agTime.dateFormat);
+        });
+      }
+
+      if (interval === this.CONSTANT.HOUR) {
+        domain = agTime.getHoursRange(start, end);
+        domain = domain.map(function(m) {
+          return m.format(agTime.hourFormat);
+        });
+      }
+
+      return domain;
+    };
+    
+    /**
+     * Map the domain to the range with the rawData
+     *
+     * @param {Array} domain
+     * @param {Array} rawData
+     * @param {Function} mapping   - Define the way of mapping
+     * @return {Array} range  - A range corresponding to the domain
+     */
+    this.getRange = function(domain, rawData, mapping) {
+      var rawDataHash = {}, d;
 
       // Turn raw data into hash
-      $.each(rawData, function(i, d) {
-        rawDataHash[d.datetime] = d;
+      $.each(rawData, function(i, obj) {
+        rawDataHash[d.datetime] = obj;
       });
 
-      completedData = datesDomain.map(function(date) {
+      return domain.map(function(dt) {
         d = rawDataHash[date];
 
         if (d) {
-          return d.usage / 60;  // NOTES: not general
+          return mapping(d);
         } else {
           return 0;
         }
       });
-
-      data.datasets.push({
-        data: completedData
-      });
+    };
+    
+    /**
+     * Draw the line chart 
+     * 
+     * @param {Object} ctx
+     * @param {Moment} start - the start time
+     * @param {Moment} end   - the end time
+     * @param {Array} rawData
+     * @param {String} interval - 'day' or 'hour', default 'day'
+     * @param {Function} mapping   - Define the way of mapping of domain to range
+     */
+    this.drawLineChart = function(ctx, start, end, rawData, mapping, interval) {
+      var domain = this.getDomain(start, end, interval),
+          range = this.getRange(domain, rawData, mapping),
+          data = {
+            labels: domain,
+            datasets: [{
+              data: range
+            }]
+          };
 
       $.extend(data.datasets[0], this.config);
 
