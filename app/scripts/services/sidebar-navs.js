@@ -31,5 +31,5 @@
     return this;
   };
 
-  angular.module('AgoraApp').service('sidebarNavs', navsService);
+  window.angular.module('AgoraApp').service('sidebarNavs', navsService);
 })();

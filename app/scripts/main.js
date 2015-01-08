@@ -1,5 +1,5 @@
 /* jshint devel:true */
-(function($, moment, Chart) {
+(function($, moment) {
   'use strict';
 
   var isInit = true; // Flag the page is refreshed or loaded
@@ -462,7 +462,7 @@
             interval: 'day'
           };
 
-          var canvas = document.getElementById("overview-chart"),
+          var canvas = document.getElementById('overview-chart'),
               getMinutes = function(d) {
                 return d.usage / 60;
               },
@@ -494,7 +494,7 @@
             $scope.query.start = moment('2014-12-18').startOf('day').unix();
             $scope.query.end = moment('2014-12-18').endOf('day').unix();
             chart.clear();
-            drawChart()
+            drawChart();
           };
 
           drawChart();
@@ -511,4 +511,4 @@
       });
   });
 
-})(window.Zepto, window.moment, window.Chart);
+})(window.Zepto, window.moment);

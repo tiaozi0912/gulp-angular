@@ -1,4 +1,4 @@
-(function(moment) {
+(function() {
   'use strict';
 
   var voiceData = function($http) {
@@ -25,5 +25,5 @@
     return this;
   };
 
-  angular.module('AgoraApp').service('voiceData', voiceData);
-})(window.moment);
+  window.angular.module('AgoraApp').service('voiceData', voiceData);
+})();

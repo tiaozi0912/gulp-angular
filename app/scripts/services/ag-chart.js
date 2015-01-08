@@ -11,21 +11,34 @@
     var agChart = function(canvas, options) {
       this.settings = {
         config: {
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)"
+          fillColor: 'rgba(220,220,220,0.2)',
+          strokeColor: 'rgba(220,220,220,1)',
+          pointColor: 'rgba(220,220,220,1)',
+          pointStrokeColor: '#fff',
+          pointHighlightFill: '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)'
         },
         CONSTANT: {
           DAY: 'day',
           HOUR: 'hourly'
-        }
+        },
+        height: 400,
+        width: 960,
       };
 
       this.canvas = canvas;
-      this.ctx = canvas.getContext("2d");
+
+      // To prevent to double the canvas size in retina
+      // this.canvas.height = this.settings.height;
+      // this.canvas.width = this.settings.width;
+
+      this.ctx = canvas.getContext('2d');
+
+      /**
+       * Will assign in the getDomain()
+       * @type {Array} array of moment objects
+       */
+      this.domain = [];
 
       $.extend(this.settings, options);
     };
@@ -117,15 +130,19 @@
 
       $.extend(data.datasets[0], this.settings.config);
 
-      return new Chart(this.ctx).Line(data);
+      this.chart = new Chart(this.ctx).Line(data);
+
+      return this.chart;
     };
 
     agChart.prototype.clear = function() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      if (this.chart) {
+        this.chart.destroy();
+      }
     };
 
     return agChart;
   };
 
-  angular.module('AgoraApp').factory('agChart', chartService);
+  window.angular.module('AgoraApp').factory('agChart', chartService);
 })(window.moment, window.Zepto, window.Chart);

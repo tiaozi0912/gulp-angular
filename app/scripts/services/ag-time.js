@@ -16,9 +16,10 @@
      * @return {Array} dates - array of moment object
      */
     this.getDatesRange = function(date1, date2) {
-      var date1 = date1.startOf('day'),
-          date2 = date2.startOf('day'),
-          m = moment(date1),
+      date1 = date1.startOf('day');
+      date2 = date2.startOf('day');
+
+      var m = moment(date1),
           dates = [];
 
       while (m.unix() <= date2.unix()) {
@@ -37,9 +38,10 @@
      * @return {Array} hours - array of moment object
      */
     this.getHoursRange = function(hour1, hour2) {
-      var hour1 = hour1.startOf('hour'),
-          hour2 = hour2.startOf('hour'),
-          h = moment(hour1),
+      hour1 = hour1.startOf('hour');
+      hour2 = hour2.startOf('hour');
+
+      var h = moment(hour1),
           hours = [];
 
       while (h.unix() <= hour2.unix()) {
@@ -53,5 +55,5 @@
     return this;
   };
 
-  angular.module('AgoraApp').service('agTime', time);
+  window.angular.module('AgoraApp').service('agTime', time);
 })(window.moment);
