@@ -1,14 +1,13 @@
 /**
  * @name agIntervalSwitch
  *
- * @description 
+ * @description
  * buttons group to switch between 'hourly' and 'day'
  *
- * <div ag-interval-switch onselect="cb()" data="query" field="interval"></div>
+ * Notes: {Function} onSelect, {Object} query must be defined in the $scope.onSelect and $scope.query
  *
- * @param {Function} onselect - the function executed when a button clicked
- * @param {Object} data       - the data that actually changed by the switch
- * @param {String} field      - the data field whose value is changed to the selected button's value
+ * <div ag-interval-switch></div>
+ *
  */
 (function(angular) {
   'use strict';
@@ -23,13 +22,7 @@
   var dir = function() {
     return {
       restrict: 'A',
-      replace: true,
-      scope: {
-        data: '=',
-        onselect: '&',
-        field: '@'
-      },
-      template: '<div ag-switch btns="btns" onselect="onselect()" data="data" field="{{field}}"></div>',
+      template: '<div ag-switch btns="btns" value="query" onselect="onSelect()" field="interval"></div>',
       controller: ctrl
     };
   };

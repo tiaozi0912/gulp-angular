@@ -1,35 +1,36 @@
 /**
  * @name agSwitch
  *
- * @description 
+ * @description
  * buttons group to switch
  *
- * <div ag-switch onselect="cb()" btns="btns" data="query" field="interval"></div>
+ * <div ag-switch onselect="cb()" btns="btns" value="query" field="interval"></div>
  *
  * @param {Function} onselect - the function executed when a button clicked
  * @param {Object} btns       - array of buttons with at least keys: label and value
- * @param {Object} data       - the data that actually changed by the switch
- * @param {String} field      - the data field whose value is changed to the selected button's value
+ * @param {Object} value       - the value that actually changed by the switch
+ * @param {String} field      - the value field whose value is changed to the selected button's value
  */
 (function(angular) {
   'use strict';
 
   var ctrl = function($scope) {
     $scope.select = function(btn) {
-      $scope.data[$scope.field] = btn.value;
-      $scope.callback();
+      $scope.value[$scope.field] = btn.value;
+      $scope.onselect();
     };
 
     $scope.isActive = function(btn) {
-      return btn.value === $scope.data[$scope.field];
+      return btn.value === $scope.value[$scope.field] ? 'active' : '';
     };
   };
 
   var dir = function() {
     return {
       restrict: 'A',
+      replace: true,
       scope: {
-        data: '=',
+        value: '=',
         onselect: '&',
         btns: '=',
         field: '@'
