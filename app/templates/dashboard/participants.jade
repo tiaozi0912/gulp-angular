@@ -1,1 +1,5 @@
-h1 this is participants page
+.overview
+  .controls
+    div(ag-interval-switch="")
+    div(ag-switch="", onselect="groupBy()", btns="groupByBtns", value="query", field="groupBy")
+  canvas#participants-chart(width="960",height="400")

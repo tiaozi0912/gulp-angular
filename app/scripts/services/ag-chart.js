@@ -1,4 +1,4 @@
-(function(moment, $, Chart) {
+(function(moment, Chart) {
   'use strict';
 
   var chartService = function(agTime) {
@@ -40,7 +40,7 @@
        */
       this.domain = [];
 
-      $.extend(this.settings, options);
+      _.extend(this.settings, options);
     };
 
     /**
@@ -87,7 +87,7 @@
           d;
 
       // Turn raw data into hash
-      $.each(rawData, function(i, obj) {
+      _.each(rawData, function(obj, i) {
         rawDataHash[obj.datetime] = obj;
       });
 
@@ -119,16 +119,30 @@
      * @param {Function} mapping   - Define the way of mapping of domain to range
      */
     agChart.prototype.drawLineChart = function(start, end, rawData, mapping, interval) {
-      var domain = this.getDomain(start, end, interval),
-          range = this.getRange(rawData, mapping, interval),
+      if (!_.isArray(rawData[0])) {
+        rawData = [rawData];
+      }
+
+      var _this = this,
+          domain = this.getDomain(start, end, interval),
           data = {
             labels: domain,
-            datasets: [{
-              data: range
-            }]
-          };
+            datasets: []
+            // datasets: [{
+            //   data: range
+            // }]
+          },
+          range,
+          dataset;
 
-      $.extend(data.datasets[0], this.settings.config);
+      data.datasets = _.map(rawData, function(ds) {
+        dataset = {};
+        dataset.data = _this.getRange(ds, mapping, interval);
+        dataset = _.extend(dataset, _this.settings.config);
+        return dataset;
+      });
+
+      console.log(data.datasets);
 
       this.chart = new Chart(this.ctx).Line(data);
 
@@ -145,4 +159,4 @@
   };
 
   window.angular.module('AgoraApp').factory('agChart', chartService);
-})(window.moment, window.Zepto, window.Chart);
+})(window.moment, window.Chart);

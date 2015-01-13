@@ -147,9 +147,9 @@
     router.get('/dashboard/channel_users_info', function(req, res) {
       // Assuming signed in
       var currentUser = new User(req.session.currentUser),
-          start = new Date('2013-01-01').getTime(),
+          start = req.param('start'),
           //start = new Date('2014-12-17T23:59:59').getTime(),
-          end = new Date('2015-12-30').getTime(),
+          end = req.param('end'),
           interval = req.param('interval');
           //end = new Date('2014-12-18T23:59:59').getTime();
 
