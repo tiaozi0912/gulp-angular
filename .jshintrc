@@ -14,5 +14,10 @@
   "unused": true,
   "strict": true,
   "jquery": true,
-  "node": true
+  "node": true,
+  "globals": {
+    "angular": false,
+    "_": false,
+    "moment": false
+  }
 }
