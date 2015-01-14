@@ -34,7 +34,7 @@
 
       function onSuccess(res) {
         cachedData(res.data);
-        formatedData = voiceData.getParticipants($scope.query.groupBy, $scope.query.interval);
+        formatedData = voiceData.getCalls($scope.query.groupBy, $scope.query.interval);
         draw(formatedData);
       }
 
@@ -43,7 +43,7 @@
           voiceData.resources.getChannelUsersInfo($scope.query)
             .success(onSuccess);
         } else {
-          formatedData = voiceData.getParticipants($scope.query.groupBy, $scope.query.interval);
+          formatedData = voiceData.getCalls($scope.query.groupBy, $scope.query.interval);
           draw(formatedData);
         }
       }

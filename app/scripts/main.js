@@ -462,6 +462,13 @@
           return $templateCache.get('dashboard/participants.html');
         },
         controller: 'participantsCtrl'
+      })
+      .state('root.dashboard.calls', {
+        url: '/calls',
+        templateProvider: function($templateCache) {
+          return $templateCache.get('dashboard/calls.html');
+        },
+        controller: 'callsCtrl'
       });
   });
 
