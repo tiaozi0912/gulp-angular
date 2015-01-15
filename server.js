@@ -11,7 +11,7 @@
   var apiRouter = express.Router();
   var logger = require('morgan');
 
-  var PORT = 9000,
+  var PORT = 9001,
       VIEW_PATH = __dirname + '/app',
       webConfig, vendorsConfig, voiceOnlineConfig;
 
@@ -73,7 +73,7 @@
   app.use('/api', apiRouter);
 
   app.listen(PORT);
-  console.log('Started web server on http://localhost:9000');
+  console.log('Started web server on http://localhost:' + PORT);
 
   // DB connection
   var mysql = require('mysql');

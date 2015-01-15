@@ -3,6 +3,7 @@
 
   var User = require('./models/User');
   var _ = require('underscore');
+  var request = require('request');
 
   function _genErrHandler(res, err, msg) {
     msg = msg || 'Something went wrong. Please try later.';
@@ -190,6 +191,18 @@
           data: data
         });
       }, start, end, interval);
+    });
+
+    router.get('/dashboard/ip_locations', function(req, res) {
+      var url = 'http://report.agoralab.co:8082/iplocation?ips=120.204.247.114,202.38.64.3';
+
+      request(url, function (error, response, data) {
+        if (!error && response.statusCode == 200) {
+          res.send({
+            data: JSON.parse(data)
+          });
+        }
+      });
     });
   };
 })();
