@@ -18,14 +18,15 @@
             return d.count;
           },
           chart = new agChart(canvas),
+          dataStore = voiceData.data.calls,
           formatedData;
 
       function cachedData(data) {
         if (data) {
-          voiceData.data.channelUsers[$scope.query.interval] = data;
+          dataStore.channelUsers[$scope.query.interval] = data;
         }
 
-        return voiceData.data.channelUsers[$scope.query.interval];
+        return dataStore.channelUsers[$scope.query.interval];
       }
 
       function draw(data) {
@@ -61,6 +62,7 @@
       function init() {
         onDay();
         drawChart();
+        drawMap();
       }
 
       $scope.onSelect = function() {

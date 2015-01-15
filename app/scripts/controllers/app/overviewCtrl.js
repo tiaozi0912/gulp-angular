@@ -11,31 +11,58 @@
           getMinutes = function(d) {
             return d.usage / 60;
           },
+          dataStore = voiceData.data.overview,
           chart = new agChart(canvas);
 
-      function cachedData(data) {
+      function cachedData(key, data) {
         if (data) {
-          voiceData.data.usage[$scope.query.interval] = data;
+          dataStore[key][$scope.query.interval] = data;
         }
 
-        return voiceData.data.usage[$scope.query.interval];
+        return dataStore[key][$scope.query.interval];
       }
 
       function draw(data) {
         chart.drawLineChart(moment.unix($scope.query.start), moment.unix($scope.query.end), data, getMinutes, $scope.query.interval);
       }
 
-      function onSuccess(res) {
-        cachedData(res.data);
+      function onSuccessGetVoiceUsage(res) {
+        cachedData('usage', res.data);
         draw(res.data);
       }
 
-      function drawChart() {
-        if (!cachedData()) {
+      function onSuccessGetIPInfo(res) {
+        console.log('IP location info');
+        console.log(res.data);
+      }
+
+      function onErrorGetIPInfo(res) {
+        console.log('Error: get ip info');
+        console.log(res);
+      }
+
+      function onSuccessGetChannelUsersInfo(res) {
+        voiceData.resources.getIPInfo(res.data);
+          //.success(onSuccessGetIPInfo)
+          ///.error(onErrorGetIPInfo);
+      }
+
+      function getDataAndDrawChart() {
+        if (!cachedData('usage')) {
           voiceData.resources.getVoiceUsage($scope.query)
-            .success(onSuccess);
+            .success(onSuccessGetVoiceUsage);
         } else {
-          draw(cachedData());
+          draw(cachedData('usage'));
+        }
+      }
+
+      // @todo: to complete
+      function getDataAndDrawMap() {
+        if (!cachedData('channelUsers')) {
+          voiceData.resources.getChannelUsersInfo($scope.query)
+            .success(onSuccessGetChannelUsersInfo);
+        } else {
+          draw(cachedData('channelUsers'));
         }
       }
 
@@ -51,7 +78,8 @@
 
       function init() {
         onDay();
-        drawChart();
+        getDataAndDrawChart();
+        getDataAndDrawMap();
       }
 
       $scope.onSelect = function() {
@@ -64,7 +92,7 @@
         }
 
         chart.clear();
-        drawChart();
+        getDataAndDrawChart();
       };
 
       init();

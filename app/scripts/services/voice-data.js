@@ -4,11 +4,25 @@
   var voiceData = function($http) {
     /**
      * Cache data
+     *
+     * Data cache are set by pages
+     * so that it won't effect each other when switch pages
+     *
      * @todo: set expiration
      */
     this.data = {
-      usage: { day: null, hourly: null },
-      channelUsers: { day: null, hourly: null },
+      overview: {
+        usage: { day: null, hourly: null },
+        channelUsers: { day: null, hourly: null }
+      },
+      participants: {
+        usage: { day: null, hourly: null },
+        channelUsers: { day: null, hourly: null }
+      },
+      calls: {
+        usage: { day: null, hourly: null },
+        channelUsers: { day: null, hourly: null }
+      }
     };
 
     this.resources = {
@@ -21,6 +35,31 @@
         var url = '/api/dashboard/channel_users_info';
 
         return $http.get(url, {params: params});
+      },
+      getIPInfo: function(channelUsers) {
+        var url = 'http://report.agoralab.co:8082/iplocation?ips=',
+            tracker = {}, // {ip: count}
+            param = [];
+
+        _.each(channelUsers, function(u) {
+          if (!tracker[u.ip]) {
+            tracker[u.ip] = 1;
+            param.push(u.ip);
+          } else {
+            tracker[u.ip] += 1;
+          }
+        });
+
+        param = param.join(',');
+        param = '120.204.247.114,202.38.64.3';
+        url += param + '&jsonp=?';// + '&callback=JSON_CALLBACK';
+
+        //return $http.jsonp(url);
+        //
+        $.ajax({
+          url: url,
+          contentType: 'application/javascript'
+        });
       }
     };
 
@@ -181,7 +220,7 @@
      * @return {Arry} data
      */
     this.getParticipants = function(groupBy, interval) {
-      var data = this.data.channelUsers[interval],
+      var data = this.data.participants.channelUsers[interval],
           callLengthGroups = [10, 30, 60, 300],
           _this = this,
           res = {},
@@ -210,7 +249,7 @@
      * @return {Arry} data
      */
     this.getCalls = function(groupBy, interval) {
-      var data = this.data.channelUsers[interval],
+      var data = this.data.calls.channelUsers[interval],
           callLengthGroups = [10, 30, 60, 300],
           participantsNumberGroups = [3, 5, 10],
           _this = this,
