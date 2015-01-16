@@ -133,9 +133,7 @@
 
       currentUser.getVoiceUsage(function(err, data) {
         if (err) {
-          res.status(400).send({
-            message: err
-          });
+          _genErrHandler(res, err);
           return;
         }
 
@@ -156,9 +154,7 @@
 
       currentUser.getChannelUsersInfo(function(err, data) {
         if (err) {
-          res.status(400).send({
-            message: err
-          });
+          _genErrHandler(res, err);
           return;
         }
 
@@ -194,15 +190,40 @@
     });
 
     router.get('/dashboard/ip_locations', function(req, res) {
-      var url = 'http://report.agoralab.co:8082/iplocation?ips=120.204.247.114,202.38.64.3';
+      // Assuming signed in
+      var currentUser = new User(req.session.currentUser),
+          start = req.param('start'),
+          end = req.param('end'),
+          interval = req.param('interval'),
+          ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
+          ips = [],
+          tracker = {};
 
-      request(url, function (error, response, data) {
-        if (!error && response.statusCode == 200) {
-          res.send({
-            data: JSON.parse(data)
-          });
+      currentUser.getChannelUsersInfo(function(err, users) {
+        if (err) {
+          _genErrHandler(res, err);
+          return;
         }
-      });
+
+        _.each(users, function(u) {
+          if (!tracker[u.ip]) {
+            tracker[u.ip] = 1;
+            ips.push(u.ip);
+          } else {
+            tracker[u.ip] += 1;
+          }
+        });
+
+        ipLocationURL += ips.join(',');
+        
+        request(ipLocationURL, function(error, response, data) {
+          if (!error && response.statusCode == 200) {
+          
+          } else {
+
+          }
+        });
+      }, start, end, interval);
     });
   };
 })();
