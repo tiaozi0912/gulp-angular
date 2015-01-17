@@ -9,9 +9,17 @@ exports.up = function(db, callback) {
     name: { type: 'string' },
     company_name: { type: 'string' },
     company_description: { type: 'text'}
-  }, callback);
+  }, function(err) {
+    if (err) { callback(err); return; }
+
+    db.addIndex('users', 'index_users_on_email_password_name_company_name', ['email', 'password', 'name', 'company_name'], callback);
+  });
 };
 
 exports.down = function(db, callback) {
-  db.dropTable('users');
+  db.removeIndex('users', 'index_users_on_email_password_name_company_name', function(err) {
+    if (err) { callback(err); return; }
+
+    db.dropTable('users', callback);
+  });
 };

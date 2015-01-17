@@ -4,11 +4,15 @@
   var User = require('./models/User');
   var _ = require('underscore');
   var request = require('request');
+  var fs = require('fs');
+  var readline = require('readline');
+  var stream = require('stream');
+  var IP = require('./models/IP');
 
   function _genErrHandler(res, err, msg) {
     msg = msg || 'Something went wrong. Please try later.';
     console.log(err);
-    res.status(400).send({ message: msg });
+    return res.status(400).send({ message: msg });
   }
 
   module.exports = function(router) {
@@ -20,8 +24,7 @@
 
         User.query('SELECT id FROM users WHERE ?', {email: params.email}, function(err, results) {
           if (err) {
-            _genErrHandler(res, err);
-            return;
+            return _genErrHandler(res, err);
           }
 
           // Check if the email is taken
@@ -34,8 +37,7 @@
             try {
               User.create(params, function(err, result) {
                 if (err) {
-                  _genErrHandler(res, err);
-                  return;
+                  return _genErrHandler(res, err);
                 }
 
                 createdUser = _.omit(params, 'password');
@@ -74,8 +76,7 @@
 
         User.query('SELECT * FROM users WHERE ?', {email: params.email}, function(err, users) {
           if (err) {
-            _genErrHandler(res, err);
-            return;
+            return _genErrHandler(res, err);
           }
 
           if (users.length) {
@@ -84,13 +85,11 @@
               // Sign in user
               req.session.currentUser = _.omit(user.data, 'password');
 
-              res.send({
+              return res.send({
                 id: req.session.id,
                 user: req.session.currentUser,
                 message: 'Signed in succussfully.'
               });
-
-              return;
             }
           }
 
@@ -133,8 +132,7 @@
 
       currentUser.getVoiceUsage(function(err, data) {
         if (err) {
-          _genErrHandler(res, err);
-          return;
+          return _genErrHandler(res, err);
         }
 
         res.send({
@@ -154,8 +152,7 @@
 
       currentUser.getChannelUsersInfo(function(err, data) {
         if (err) {
-          _genErrHandler(res, err);
-          return;
+          return _genErrHandler(res, err);
         }
 
         // count the participants number in each channel
@@ -201,8 +198,7 @@
 
       currentUser.getChannelUsersInfo(function(err, users) {
         if (err) {
-          _genErrHandler(res, err);
-          return;
+          return _genErrHandler(res, err);
         }
 
         _.each(users, function(u) {
@@ -214,16 +210,68 @@
           }
         });
 
+        console.log(ips.length);
+
         ipLocationURL += ips.join(',');
-        
+
         request(ipLocationURL, function(error, response, data) {
           if (!error && response.statusCode == 200) {
-          
+            res.send({
+              data: JSON.parse(data)
+            });
           } else {
-
+            _genErrHandler(res, error);
           }
         });
       }, start, end, interval);
+    });
+
+    router.get('/load_ip_data', function(req, res) {
+      var path = '/Users/yujun/developer/Agora/IP2LOCATION-LITE-DB11.CSV.cpp.txt',
+          instream = fs.createReadStream(path),
+          rl = readline.createInterface({
+            input: instream,
+            output: null,
+            terminal: false
+          }),
+          fields = ['`start_ip`', '`end_ip`', '`country_code`', '`country`', '`province`', '`city`', '`long`', '`lat`', '`postcode`', '`timezone`'],
+          query = 'INSERT INTO ips (' + fields.join(',') + ') VALUES ?',
+          tmpQuery = '',
+          batchCount = 10000,
+          count = 0,
+          ipInfos = [],
+          ipInfosBatch = [];
+
+      function loadDataToDB(ipInfos) {
+        if (ipInfos.length) {
+          ipInfosBatch = ipInfos.splice(0, batchCount);
+
+          IP.query(query, [ipInfosBatch], function(err) {
+            if (err) {
+              return _genErrHandler(err);
+            }
+            count += 1;
+
+            console.log('=== ' + count * batchCount / 1000 + 'k lines loaded. ===');
+
+            loadDataToDB(ipInfos);
+          });
+        } else {
+          res.send("data loaded to db");
+        }
+      }
+
+      rl.on('line', function(line) {
+        if (!line || line.length === 0){
+          return;
+        }
+
+        ipInfos.push(line.split(' '));
+      });
+
+      rl.on('close', function() {
+        loadDataToDB(ipInfos);
+      });
     });
   };
 })();
