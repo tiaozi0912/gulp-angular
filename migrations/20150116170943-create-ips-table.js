@@ -4,8 +4,8 @@ var type = dbm.dataType;
 exports.up = function(db, callback) {
   db.createTable('ips', {
     id: { type: 'int', primaryKey: true, autoIncrement: true },
-    start_ip: { type: 'int', notNull: true },
-    end_ip: { type: 'int', notNull: true },
+    start_ip: { type: 'bigint', defaultValue: 0 },
+    end_ip: { type: 'bigint', defaultValue: 0 },
     country_code: { type: 'string' },
     country: { type: 'string' },
     province: { type: 'string' },

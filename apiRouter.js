@@ -212,16 +212,25 @@
 
         console.log(ips.length);
 
-        ipLocationURL += ips.join(',');
+        //ipLocationURL += ips.join(',');
 
-        request(ipLocationURL, function(error, response, data) {
-          if (!error && response.statusCode == 200) {
-            res.send({
-              data: JSON.parse(data)
-            });
-          } else {
-            _genErrHandler(res, error);
+        // request(ipLocationURL, function(error, response, data) {
+        //   if (!error && response.statusCode == 200) {
+        //     res.send({
+        //       data: JSON.parse(data)
+        //     });
+        //   } else {
+        //     _genErrHandler(res, error);
+        //   }
+        // });
+        IP.getIPLocations(ips, function(err, ipLocations) {
+          if (err) {
+            return _genErrHandler(res, err);
           }
+
+          console.log('output ip locations number: ' + ipLocations.length);
+
+          res.send({data: ipLocations});
         });
       }, start, end, interval);
     });
@@ -237,7 +246,7 @@
           fields = ['`start_ip`', '`end_ip`', '`country_code`', '`country`', '`province`', '`city`', '`long`', '`lat`', '`postcode`', '`timezone`'],
           query = 'INSERT INTO ips (' + fields.join(',') + ') VALUES ?',
           tmpQuery = '',
-          batchCount = 10000,
+          batchCount = 25000,
           count = 0,
           ipInfos = [],
           ipInfosBatch = [];
