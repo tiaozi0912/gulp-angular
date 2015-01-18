@@ -51,7 +51,7 @@
       return ipInt;
     });
 
-    ips = [ips[0], ips[1], ips[ips.length - 1]];
+    //ips = [ips[0], ips[1], ips[ips.length - 1]];
 
     ipMin = ips[0];
     ipMax = ips[ips.length - 1];
@@ -65,8 +65,6 @@
     }).join(' UNION ');
 
     console.log('input ips number: ' + ips.length);
-    console.log(sql1 + sql2 + sql3);
-    console.log(ips);
 
     return IP.query(sql1 + sql2 + sql3, params, cb);
   };

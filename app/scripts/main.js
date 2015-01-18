@@ -4,7 +4,7 @@
 
   var isInit = true; // Flag the page is refreshed or loaded
 
-  var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize']);
+  var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize', 'uiGmapgoogle-maps']);
 
   app.run(function($rootScope, AUTH_EVENTS, Auth, $state, sidebarNavs) {
     function onNotAuthorized(event) {
@@ -51,6 +51,7 @@
 
   // routes:
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false

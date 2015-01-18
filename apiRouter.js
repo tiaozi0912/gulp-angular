@@ -9,6 +9,8 @@
   var stream = require('stream');
   var IP = require('./models/IP');
 
+  var mockIPLocations = require('./data/mock_ip_locations');
+
   function _genErrHandler(res, err, msg) {
     msg = msg || 'Something went wrong. Please try later.';
     console.log(err);
@@ -121,7 +123,7 @@
     });
 
     // @todo: check auth
-    router.get('/dashboard/voice_usage', function(req, res) {
+    router.get('/auth/voice_usage', function(req, res) {
       // Assuming signed in
       var currentUser = new User(req.session.currentUser),
           start = req.param('start'),
@@ -141,7 +143,7 @@
       }, start, end, interval);
     });
 
-    router.get('/dashboard/channel_users_info', function(req, res) {
+    router.get('/auth/channel_users', function(req, res) {
       // Assuming signed in
       var currentUser = new User(req.session.currentUser),
           start = req.param('start'),
@@ -186,7 +188,7 @@
       }, start, end, interval);
     });
 
-    router.get('/dashboard/ip_locations', function(req, res) {
+    router.get('/auth/ip_locations', function(req, res) {
       // Assuming signed in
       var currentUser = new User(req.session.currentUser),
           start = req.param('start'),
@@ -195,6 +197,12 @@
           ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
           ips = [],
           tracker = {};
+
+      return res.send({
+        data: _.reject(mockIPLocations, function(location) {
+          return !_.isNumber(location.long) || !_.isNumber(location.lat);
+        })
+      });
 
       currentUser.getChannelUsersInfo(function(err, users) {
         if (err) {
@@ -209,8 +217,6 @@
             tracker[u.ip] += 1;
           }
         });
-
-        console.log(ips.length);
 
         //ipLocationURL += ips.join(',');
 
@@ -243,7 +249,7 @@
             output: null,
             terminal: false
           }),
-          fields = ['`start_ip`', '`end_ip`', '`country_code`', '`country`', '`province`', '`city`', '`long`', '`lat`', '`postcode`', '`timezone`'],
+          fields = ['`start_ip`', '`end_ip`', '`country_code`', '`country`', '`province`', '`city`', '`lat`', '`long`', '`postcode`', '`timezone`'],
           query = 'INSERT INTO ips (' + fields.join(',') + ') VALUES ?',
           tmpQuery = '',
           batchCount = 25000,

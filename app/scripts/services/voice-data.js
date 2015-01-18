@@ -13,7 +13,8 @@
     this.data = {
       overview: {
         usage: { day: null, hourly: null },
-        channelUsers: { day: null, hourly: null }
+        //channelUsers: { day: null, hourly: null }
+        ipLocations: { day: null, hourly: null }
       },
       participants: {
         usage: { day: null, hourly: null },
@@ -27,16 +28,16 @@
 
     this.resources = {
       getVoiceUsage: function(params) {
-        var url = '/api/dashboard/voice_usage';
+        var url = '/api/auth/voice_usage';
 
         return $http.get(url, {params: params});
       },
       getChannelUsersInfo: function(params) {
-        var url = '/api/dashboard/channel_users_info';
+        var url = '/api/auth/channel_users';
 
         return $http.get(url, {params: params});
       },
-      getIPInfo: function(channelUsers) {
+      getIPInfo2: function(channelUsers) { // NOT USED
         var url = 'http://report.agoralab.co:8082/iplocation?ips=',
             tracker = {}, // {ip: count}
             param = [];
@@ -60,6 +61,11 @@
           url: url,
           contentType: 'application/javascript'
         });
+      },
+      getIpLocations: function(params) {
+        var url = '/api/auth/ip_locations';
+
+        return $http.get(url, {params: params});
       }
     };
 
