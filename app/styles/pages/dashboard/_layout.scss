@@ -6,34 +6,37 @@
     top: 0;
     left: 0;
     width: $sidebar-width;
-    background-color: $black;
-    padding-top: $header-height + 15px;
+    background-color: $sidebar-bg;
 
     li {
       & > a {
-        color: $dark-gray;
+        color: $sidebar-font;
         display: block;
-        padding: 10px 0 10px 20px;
+        padding: 15px 0 15px 20px;
         transition: background-color 0.3s ease, color 0.3s ease;
 
         &:hover {
           text-decoration: none;
-          background-color: $blue;
+          background-color: $sidebar-active-bg;
           color: white;
         }
       }
 
       &.active > a {
-        color: $blue;
-
-        &:hover {
-          background-color: inherit;
-        }
+        color: white;
+        background-color: $sidebar-active-bg;
+        border-left: 2px $blue solid;
       }
 
       i {
         margin-right: 15px;
       }
+    }
+
+    .sidebar-brand {
+      display: block;
+      padding: 40px 0 40px 30px;
+      box-shadow: 0 -1px 2px 0 rgba(255, 255, 255, 1);
     }
   }
 
