@@ -1,3 +1,5 @@
 ul.site-sidebar-inner.list-plain
   li(ng-repeat="nav in navs", ng-class="{active:nav.active}")
-    a(ui-sref="root.dashboard.{{nav.state}}") {{nav.name}}
+    a(ui-sref="root.dashboard.{{nav.state}}")
+      i.fa(ng-class="nav.icon")
+      span {{nav.name}}

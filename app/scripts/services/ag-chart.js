@@ -24,6 +24,7 @@
         },
         height: 400,
         width: 960,
+        labelsCount: 4
       };
 
       this.canvas = canvas;
@@ -71,6 +72,25 @@
       }
 
       return domain;
+    };
+
+    /**
+     * Not showing every labels in the domain, only showing n labels
+     */
+    agChart.prototype.filterDomain = function(domain, n) {
+      var len = domain.length,
+          filteredDomain = domain.map(function() {
+            return '';
+          }),
+          step = parseInt(len / ( n - 1 )),
+          i = 0;
+
+      while (domain[i]) {
+        filteredDomain[i] = domain[i];
+        i += step;
+      }
+
+      return filteredDomain;
     };
 
     /**
@@ -134,6 +154,8 @@
           },
           range,
           dataset;
+
+      data.labels = this.filterDomain(domain, this.settings.labelsCount);
 
       data.datasets = _.map(rawData, function(ds) {
         dataset = {};

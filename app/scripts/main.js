@@ -2,11 +2,14 @@
 (function($, moment) {
   'use strict';
 
+  // Config Chart global settings
+
+
   var isInit = true; // Flag the page is refreshed or loaded
 
-  var app = window.angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize', 'uiGmapgoogle-maps']);
+  var app = angular.module('AgoraApp', ['ui.router', 'templates', 'headroom', 'ngSanitize', 'uiGmapgoogle-maps']);
 
-  app.run(function($rootScope, AUTH_EVENTS, Auth, $state, sidebarNavs) {
+  app.run(function($rootScope, AUTH_EVENTS, Auth, $state, siteResources) {
     function onNotAuthorized(event) {
       if (event) {
         event.preventDefault();
@@ -38,14 +41,16 @@
 
       isInit = false;
 
-      // Set the active sidebar nav
-      $.each(sidebarNavs.data, function(i, nav) {
-        if (nav.url === next.url) {
-          nav.active = true;
-        } else {
-          nav.active = false;
-        }
-      });
+      // Set the current header nav
+      siteResources.setCurrHeaderNav(next);
+
+      // Set the current sidebar nav
+      siteResources.setCurrSidebarNav(next);
+
+      // Set the current layout name
+      if (next.data && next.data.layout) {
+        siteResources.currLayout.name = siteResources.layouts[next.data.layout];
+      }
     });
   });
 
@@ -69,33 +74,12 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('header.html');
             },
-            controller: function($scope, $location, $rootScope) {
+            controller: function($scope, $location, $rootScope, siteResources) {
               var $navbarToggleBtn = $('.navbar-header .navbar-toggle'),
                   $navbar = $('.site-header .header-collapse'),
                   hiddenCls = 'ag-hide';
 
-              $scope.navs = [
-                {
-                  label: 'product',
-                  url: '/product'
-                },
-                {
-                  label: 'solutions',
-                  url: '/solutions'
-                },
-                {
-                  label: 'pricing',
-                  url: '/pricing'
-                },
-                {
-                  label: 'docs',
-                  url: '/docs'
-                },
-                {
-                  label: 'help',
-                  url: '/help'
-                }
-              ];
+              $scope.navs = siteResources.headerNavs;
 
               $scope.user = $rootScope.currentUser;
 
@@ -105,8 +89,6 @@
 
               // When page changes
               $scope.$on('$locationChangeSuccess', function() {
-                // Figure out the current page
-                $scope.page = $location.path();
 
                 // Hide the dropdown navs in mobile and scroll top
                 if ($navbarToggleBtn.css('display') !== 'none') {
@@ -429,7 +411,8 @@
       .state('root.dashboard', {
         url: '/dashboard',
         data: {
-          role: 'user'
+          role: 'user',
+          layout: 'dashboard'
         },
         views: {
           'main@': {
@@ -444,8 +427,8 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('dashboard/sidebar.html');
             },
-            controller: function($scope, $rootScope, sidebarNavs) {
-              $scope.navs = sidebarNavs.data;
+            controller: function($scope, $rootScope, siteResources) {
+              $scope.navs = siteResources.sidebarNavs;
             }
           }
         }

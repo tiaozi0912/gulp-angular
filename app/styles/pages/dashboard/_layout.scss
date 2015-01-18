@@ -6,14 +6,15 @@
     top: 0;
     left: 0;
     width: $sidebar-width;
-    background-color: $light-gray;
-    padding-top: $header-height;
+    background-color: $black;
+    padding-top: $header-height + 15px;
 
     li {
       & > a {
         color: $dark-gray;
         display: block;
-        padding: 7px 0 7px 20px;
+        padding: 10px 0 10px 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
 
         &:hover {
           text-decoration: none;
@@ -23,13 +24,21 @@
       }
 
       &.active > a {
-        color: white;
-        background-color: $gray;
+        color: $blue;
+
+        &:hover {
+          background-color: inherit;
+        }
+      }
+
+      i {
+        margin-right: 15px;
       }
     }
   }
 
   .dashboard-main {
     margin-left: $sidebar-width;
+    padding: 0 $section-padding;
   }
 }

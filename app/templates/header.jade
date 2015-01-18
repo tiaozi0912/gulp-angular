@@ -6,7 +6,7 @@
       i.sprite-icon.agora-logo-icon
   nav.navbar-collapse.header-collapse.collapse.in#header-collapse(role="navigation", aria-expanded="true")
     ul.nav.navbar-nav
-      li(ng-class="{active:page == nav.url}", ng-repeat="nav in navs")
+      li(ng-class="{active:nav.active}", ng-repeat="nav in navs")
         a.cap(href="{{nav.url}}") {{nav.label}}
       li(ng-if="user.id")
         a(ui-sref="root.dashboard") {{user.name}}

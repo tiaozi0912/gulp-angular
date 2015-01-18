@@ -10,7 +10,7 @@
 (function() {
   'use strict';
 
-  var zoom = 2,
+  var zoom = 4,
       circleOptions = {
         stroke: {
           color: '#08B21F',

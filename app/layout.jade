@@ -1,5 +1,5 @@
 doctype html
-html.no-js
+html.no-js(ng-app="AgoraApp", ng-controller="siteCtrl", ng-class="layout.name")
   head
     meta(charset='utf-8')
     title Agora
@@ -12,14 +12,15 @@ html.no-js
     // Place favicon.ico and apple-touch-icon.png in the root directory
 
     // build:css styles/main.css
-    link(rel='stylesheet' href='styles/main.css')
+    link(rel='stylesheet', href='../bower_components/fontawesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='styles/main.css')
     // endbuild
 
     // Google analytics
     script(type="text/javascript") (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-57262777-1', 'auto');ga('send', 'pageview');
 
 
-  body(ng-app="AgoraApp")
+  body
     | <!--[if lt IE 10]>
     |     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     | <![endif]-->
@@ -45,10 +46,11 @@ html.no-js
     script(src='scripts/services/auth-events.js')
     script(src='scripts/services/session.js')
     script(src='scripts/services/auth.js')
-    script(src='scripts/services/sidebar-navs.js')
+    script(src='scripts/services/site-resources.js')
     script(src='scripts/services/ag-time.js')
     script(src='scripts/services/ag-chart.js')
     script(src='scripts/services/voice-data.js')
+    script(src='scripts/controllers/siteCtrl.js')
     script(src='scripts/controllers/app/overviewCtrl.js')
     script(src='scripts/controllers/app/participantsCtrl.js')
     script(src='scripts/controllers/app/callsCtrl.js')
