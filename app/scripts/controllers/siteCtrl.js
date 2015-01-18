@@ -6,4 +6,5 @@
   };
 
   angular.module('AgoraApp').controller('siteCtrl', ctrl);
-})()
+})();
+

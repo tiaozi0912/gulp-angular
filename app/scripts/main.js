@@ -48,9 +48,7 @@
       siteResources.setCurrSidebarNav(next);
 
       // Set the current layout name
-      if (next.data && next.data.layout) {
-        siteResources.currLayout.name = siteResources.layouts[next.data.layout];
-      }
+      siteResources.currLayout.name = siteResources.layouts[next.data.layout];
     });
   });
 
@@ -69,6 +67,9 @@
       .state('root', {
         url: '',
         abstract: true,
+        data: {
+          layout: 'marketing'
+        },
         views: {
           header: {
             templateProvider: function($templateCache) {
@@ -88,6 +89,7 @@
               };
 
               // When page changes
+              // @todo: move this to app.run()
               $scope.$on('$locationChangeSuccess', function() {
 
                 // Hide the dropdown navs in mobile and scroll top

@@ -36,6 +36,18 @@
   }
 }
 
+.dashboard-layout .site-header {
+  margin-left: $sidebar-width;
+
+  & > .container {
+    margin: 0;
+  }
+
+  .navbar-header {
+    display: none;
+  }
+}
+
 
 /**
  * Agora footer styles
@@ -67,6 +79,14 @@
       background-color: white;
       color: $blue;
     }
+  }
+}
+
+.dashboard-layout .site-footer {
+  padding-left: $sidebar-width;
+
+  .container {
+    width: 100%;
   }
 }
 
