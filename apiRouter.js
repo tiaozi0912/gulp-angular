@@ -196,12 +196,25 @@
           interval = req.param('interval'),
           ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
           ips = [],
-          tracker = {};
+          tracker = {},
+          data;
+
+      // Process data
+      data = _.reject(mockIPLocations, function(location) {
+        return !_.isNumber(location.long) || !_.isNumber(location.lat);
+      });
+
+      data = _.groupBy(data, function(d) {
+        return d.city;
+      });
+
+      data = _.map(data, function(arr, city) {
+        arr[0].count = arr.length;
+        return arr[0];
+      });
 
       return res.send({
-        data: _.reject(mockIPLocations, function(location) {
-          return !_.isNumber(location.long) || !_.isNumber(location.lat);
-        })
+        data: data
       });
 
       currentUser.getChannelUsersInfo(function(err, users) {

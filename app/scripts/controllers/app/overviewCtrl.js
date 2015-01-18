@@ -1,19 +1,6 @@
 (function(moment) {
   'use strict';
 
-  function setCirlce(location, options) {
-    var circle = {
-      id: location.id,
-      center: {
-        latitude: location.lat,
-        longitude: location.long
-      },
-      radius: 5000 // same for now
-    };
-
-    return _.extend(circle, options);
-  }
-
   var ctrl = function($scope, $rootScope, $http, agTime, agChart, voiceData) {
       $scope.user = $rootScope.currentUser;
       $scope.query = {
@@ -26,23 +13,7 @@
             return d.usage / 60;
           },
           dataStore = voiceData.data.overview,
-          chart = new agChart(canvas),
-          circleOptions = {
-            stroke: {
-              color: '#08B21F',
-              weight: 2,
-              opacity: 1
-            },
-            fill: {
-              color: '#08B21F',
-              opacity: 0.5
-            },
-            geodesic: true, // optional: defaults to false
-            draggable: true, // optional: defaults to false
-            clickable: true, // optional: defaults to true
-            editable: true, // optional: defaults to false
-            visible: true // optional: defaults to true
-          };
+          chart = new agChart(canvas);
 
       function cachedData(key, data) {
         if (data) {
@@ -72,12 +43,7 @@
 
         cachedData('ipLocations', res.data);
 
-        $scope.circles = cachedData('ipLocations').map(function(location) {
-          return setCirlce(location, circleOptions);
-        });
-
-        console.log('circles:');
-        console.log($scope.circles);
+        $scope.ipLocations = res.data;
       }
 
       function onErrorGetIpLocations(res) {
@@ -107,9 +73,7 @@
             .success(onSuccessGetIpLocations)
             .error(onErrorGetIpLocations);
         } else {
-          $scope.circles = cachedData('ipLocations').map(function(location) {
-            return setCirlce(location, circleOptions);
-          });
+          $scope.ipLocations = cachedData('ipLocations');
         }
       }
 
