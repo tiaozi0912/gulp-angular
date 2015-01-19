@@ -1,6 +1,6 @@
 .overview
   .row
-    .col-sm-9
+    .col-sm-8
       h3.pull-left.chart-title
         span Usage in the past 30 days &nbsp;
         span.text-muted (in min)
@@ -8,9 +8,12 @@
         div(ag-interval-switch="")
       .usage-chart-container
         canvas#overview-chart
-    .col-sm-3
-      h1.text-green.total-minutes {{minutesUsage | number:0}}
-      .text-lead minutes used this month
+    .col-sm-4
+      .usage-text-container
+        h1.text-green.total-minutes {{minutesUsage | number:0}}
+        .text-lead minutes used this month
+
   .map-container
+    h3.chart-title IP Locations
     .ag-ip-map(ag-ip-map="", data-ip-locations="ipLocations")
 
