@@ -1,8 +1,8 @@
 .overview
   .row
     .col-sm-3
-      h3 Total minutes used this month:
-      h1.text-green {{minutesUsage | number:0}}
+      h1.text-green.total-minutes {{minutesUsage | number:0}}
+      .text-lead total minutes used this month
     .col-sm-9
       .controls
         div(ag-interval-switch="")
