@@ -28,6 +28,8 @@
       }
 
       function onSuccessGetVoiceUsage(res) {
+        $scope.minutesUsage = res.minutesUsage;
+
         cachedData('usage', res.data);
         draw(res.data);
       }

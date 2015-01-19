@@ -229,6 +229,16 @@ ul, ol {
 }
 
 /**
+ * ag-interval-switch
+ */
+[ag-interval-switch] {
+  button {
+    width: 66px;
+  }
+  float: right;
+}
+
+/**
  * The main content wrapper
  */
 [ui-view="main"] {

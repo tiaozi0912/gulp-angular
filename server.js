@@ -11,7 +11,7 @@
   var apiRouter = express.Router();
   var logger = require('morgan');
 
-  var PORT = 9001,
+  var PORT = 9000,
       VIEW_PATH = __dirname + '/app',
       webConfig, vendorsConfig, voiceOnlineConfig;
 

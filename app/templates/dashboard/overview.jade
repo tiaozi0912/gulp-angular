@@ -1,7 +1,12 @@
 .overview
-  .controls
-    div(ag-interval-switch="")
-  canvas#overview-chart(width="960", height="400")
+  .row
+    .col-sm-3
+      h3 Total minutes used this month:
+      h1.text-green {{minutesUsage | number:0}}
+    .col-sm-9
+      .controls
+        div(ag-interval-switch="")
+      canvas#overview-chart(width="660", height="350")
   .map-container
     .ag-ip-map(ag-ip-map="", data-ip-locations="ipLocations")
 

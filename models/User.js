@@ -18,6 +18,26 @@
   });
 
   /**
+   * Get the datetime of the start of the month in UTC
+   *
+   * @return {Date} startDatetime
+   */
+  function getMonthStartDatetime() {
+    var currDatetime = new Date(),
+        currMonth = currDatetime.getMonth() + 1,
+        currYear = currDatetime.getFullYear(),
+        monthStart;
+
+    if (currMonth < 10) {
+      currMonth = '0' + currMonth;
+    }
+
+    monthStart = [currYear,currMonth, '01'].join('-') + 'T00:00:00Z';
+
+    return new Date(monthStart);
+  }
+
+  /**
    * Generating a hash
    */
   User.generateHash = function(password) {
@@ -48,6 +68,21 @@
    */
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.data.password);
+  };
+
+  User.prototype.getCurrMonthMinutesUsage = function(cb) {
+    var start = getMonthStartDatetime().getTime() / 1000,
+        end = new Date().getTime() / 1000;
+
+    // @todo: remove this
+    start = 1417420800;
+    end= 1420012800;
+
+    this.getMinutesUsage(cb, start, end);
+  };
+
+  User.prototype.getMinutesUsage = function(cb, start, end) {
+    Channel.query("SELECT SUM(duration / 60) AS 'minutes', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?", [this.data.vendor_id, start, end], cb);
   };
 
   /**

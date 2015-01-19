@@ -129,18 +129,30 @@
           start = req.param('start'),
           //start = new Date('2014-12-17T23:59:59').getTime(),
           end = req.param('end'),
-          interval = req.param('interval');
+          interval = req.param('interval'),
+          minutes = 0;
           //end = new Date('2014-12-18T23:59:59').getTime();
 
-      currentUser.getVoiceUsage(function(err, data) {
+      currentUser.getCurrMonthMinutesUsage(function(err, minutesUsage) {
         if (err) {
-          return _genErrHandler(res, err);
+          return _genErrHandler
         }
 
-        res.send({
-          data: data
-        });
-      }, start, end, interval);
+        if (minutesUsage[0] && minutesUsage[0].minutes) {
+          minutes = minutesUsage[0].minutes;
+        }
+
+        currentUser.getVoiceUsage(function(err, data) {
+          if (err) {
+            return _genErrHandler(res, err);
+          }
+
+          res.send({
+            data: data,
+            minutesUsage: minutes
+          });
+        }, start, end, interval);
+      });
     });
 
     router.get('/auth/channel_users', function(req, res) {
