@@ -16,11 +16,19 @@
           chart = new agChart(canvas);
 
       function cachedData(key, data) {
-        if (data) {
-          dataStore[key][$scope.query.interval] = data;
-        }
+        if (key === 'currMonthMinutes') {
+          if (data) {
+            dataStore[key] = data;
+          }
 
-        return dataStore[key][$scope.query.interval];
+          return dataStore[key];
+        } else {
+          if (data) {
+            dataStore[key][$scope.query.interval] = data;
+          }
+
+          return dataStore[key][$scope.query.interval];
+        }
       }
 
       function draw(data) {
@@ -30,6 +38,7 @@
       function onSuccessGetVoiceUsage(res) {
         $scope.minutesUsage = res.minutesUsage;
 
+        cachedData('currMonthMinutes', res.minutesUsage);
         cachedData('usage', res.data);
         draw(res.data);
       }
@@ -62,6 +71,7 @@
             .success(onSuccessGetVoiceUsage)
             .error(onErrorGetVoiceUsage);
         } else {
+          $scope.minutesUsage = cachedData('currMonthMinutes');
           draw(cachedData('usage'));
         }
       }

@@ -13,8 +13,8 @@
     this.data = {
       overview: {
         usage: { day: null, hourly: null },
-        //channelUsers: { day: null, hourly: null }
-        ipLocations: { day: null, hourly: null }
+        ipLocations: { day: null, hourly: null },
+        currMonthMinutes: null
       },
       participants: {
         usage: { day: null, hourly: null },
