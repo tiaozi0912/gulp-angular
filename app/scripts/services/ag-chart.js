@@ -10,20 +10,21 @@
      */
     var agChart = function(canvas, options) {
       this.settings = {
-        config: {
-          fillColor: 'rgba(220,220,220,0.2)',
-          strokeColor: 'rgba(220,220,220,1)',
-          pointColor: 'rgba(220,220,220,1)',
-          pointStrokeColor: '#fff',
-          pointHighlightFill: '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)'
+        lineOptions: {
+          strokeColor: '#2ecc71',
+          pointColor: '#2ecc71',
+          pointHighlightFill: 'white',
+        },
+        chartOptions: {
+          pointHitDetectionRadius: 5,
+          datasetFill: false,
+          pointDotStrokeWidth: 0,
+          responsive: true
         },
         CONSTANT: {
           DAY: 'day',
           HOUR: 'hourly'
         },
-        height: 400,
-        width: 960,
         labelsCount: 4
       };
 
@@ -60,7 +61,7 @@
       if (interval === this.settings.CONSTANT.DAY) {
         this.domain = agTime.getDatesRange(start, end);
         domain = this.domain.map(function(m) {
-          return m.format(agTime.dateFormat);
+          return m.format(agTime.dateDisplayFormat);
         });
       }
 
@@ -160,13 +161,11 @@
       data.datasets = _.map(rawData, function(ds) {
         dataset = {};
         dataset.data = _this.getRange(ds, mapping, interval);
-        dataset = _.extend(dataset, _this.settings.config);
+        dataset = _.extend(dataset, _this.settings.lineOptions);
         return dataset;
       });
 
-      console.log(data.datasets);
-
-      this.chart = new Chart(this.ctx).Line(data);
+      this.chart = new Chart(this.ctx).Line(data, this.settings.chartOptions);
 
       return this.chart;
     };

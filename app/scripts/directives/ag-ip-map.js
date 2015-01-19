@@ -13,13 +13,13 @@
   var zoom = 8,
       circleOptions = {
         stroke: {
-          color: '#08B21F',
+          color: '#1aa1e5',
           weight: 2,
           opacity: 1
         },
         fill: {
-          color: '#08B21F',
-          opacity: 0.5
+          color: '#1aa1e5',
+          opacity: 0.95
         },
         geodesic: true, // optional: defaults to false
         clickable: true, // optional: defaults to true
