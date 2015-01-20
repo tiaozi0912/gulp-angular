@@ -26,7 +26,8 @@
     app.use(express.static(__dirname + '/.tmp'))
       .use(express.static(__dirname + '/app'))
       .use('/bower_components', express.static(__dirname + '/bower_components'));
-
+   
+    // @todo: move this to a seperate config file
     webConfig = {
       user: 'root',
       database: 'agora_development'
@@ -40,6 +41,30 @@
     voiceOnlineConfig = {
       user: 'root',
       database: 'agora_voice_online'
+    };
+  }
+  
+  // @todo: move this to a seperate config file
+  if (app.get('env') === 'production') {
+    webConfig = {
+      user: 'root',
+      database: 'web',
+      port: '3506',
+      host: '127.0.0.1'
+    };
+
+    vendorsConfig = {
+      user: 'root',
+      database: 'vendors',
+      port: '3313',
+      host: '127.0.0.1'
+    };
+
+    voiceOnlineConfig = {
+      user: 'root',
+      database: 'voice_online',
+      port: '3312',
+      host: '127.0.0.1'
     };
   }
 
