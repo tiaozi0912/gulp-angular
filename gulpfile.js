@@ -6,7 +6,7 @@ var sprite = require('css-sprite').stream;
 var $ = require('gulp-load-plugins')();
 
 var nodemonOpt = {
-  script: 'server.js',
+  script: 'app.js',
   ext: 'js',
   env: {
     NODE_ENV: 'development'
