@@ -5,4 +5,13 @@
             "database": "agora_development",
             "driver": "mysql"
           }
+},
+{
+  "production": {
+    "host": "127.0.0.1",
+    "user": "root",
+    "database": "web",
+    "driver": "mysql",
+    "port": "3506"
+  }
 }
