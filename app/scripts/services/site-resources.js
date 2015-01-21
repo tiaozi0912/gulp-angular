@@ -54,8 +54,6 @@
                     ];
 
   var siteResources = function() {
-    var _this = this;
-
     this.sidebarNavs = sideBarNavs;
     this.headerNavs = headerNavs;
 

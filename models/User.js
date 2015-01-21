@@ -82,7 +82,7 @@
   };
 
   User.prototype.getMinutesUsage = function(cb, start, end) {
-    Channel.query("SELECT SUM(duration / 60) AS 'minutes', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?", [this.data.vendor_id, start, end], cb);
+    Channel.query('SELECT SUM(duration / 60) AS \'minutes\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?', [this.data.vendor_id, start, end], cb);
   };
 
   /**
@@ -100,11 +100,11 @@
     interval = interval || 'day';
 
     if (interval === 'day') {
-      Channel.query("SELECT SUM(duration) AS 'usage', DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d') AS 'datetime', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime", [vendorId, start, end], cb);
+      Channel.query('SELECT SUM(duration) AS \'usage\', DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'%Y-%m-%d\') AS \'datetime\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime', [vendorId, start, end], cb);
     }
 
     if (interval === 'hourly') {
-      Channel.query("SELECT SUM(duration) AS 'usage', DATE_FORMAT(FROM_UNIXTIME(`destroy`), '%Y-%m-%d %H') AS 'datetime', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime", [vendorId, start, end], cb);
+      Channel.query('SELECT SUM(duration) AS \'usage\', DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'%Y-%m-%d %H\') AS \'datetime\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime', [vendorId, start, end], cb);
     }
   };
 
@@ -123,11 +123,11 @@
     interval = interval || 'day';
 
     if (interval === 'day') {
-      ChannelUser.query("SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d') AS 'datetime', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?", [vendorId, start, end], cb);
+      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], cb);
     }
 
     if (interval === 'hourly') {
-      ChannelUser.query("SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), '%Y-%m-%d %H') AS 'datetime', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?", [vendorId, start, end], cb);
+      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d %H\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], cb);
     }
   };
 

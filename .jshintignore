@@ -1,2 +1,3 @@
 app/scripts/templates.js
 app/scripts/vendors/*.js
+models/IP.js

@@ -1,5 +1,5 @@
 /* jshint devel:true */
-(function($, moment) {
+(function($) {
   'use strict';
 
   // Config Chart global settings
@@ -458,4 +458,4 @@
       });
   });
 
-})(window.Zepto, window.moment);
+})(window.Zepto);

@@ -76,7 +76,7 @@
      * @param {Array} groups - sorted array of numbers indicating the borders for each group
      * @return {Number} value - a number between 0 - groups.length indicating which group d belongs to
      */
-    this._calGroupValue = function(d, groups) {  [0]
+    this._calGroupValue = function(d, groups) {
       var len = groups.length;
 
       if ((0 <= d && groups[0] > d) || groups[0] === 0) {
@@ -228,9 +228,7 @@
     this.getParticipants = function(groupBy, interval) {
       var data = this.data.participants.channelUsers[interval],
           callLengthGroups = [10, 30, 60, 300],
-          _this = this,
-          res = {},
-          track = {}; // channel: {cid1: 1, cid2:1}
+          _this = this;
 
       data = _.groupBy(data, function(d) {
         return d.datetime;
@@ -258,9 +256,7 @@
       var data = this.data.calls.channelUsers[interval],
           callLengthGroups = [10, 30, 60, 300],
           participantsNumberGroups = [3, 5, 10],
-          _this = this,
-          res = {},
-          track = {}; // channel: {cid1: 1, cid2:1}
+          _this = this;
 
       data = _.groupBy(data, function(d) {
         return d.datetime;

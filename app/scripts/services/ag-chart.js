@@ -110,7 +110,7 @@
           d;
 
       // Turn raw data into hash
-      _.each(rawData, function(obj, i) {
+      _.each(rawData, function(obj) {
         rawDataHash[obj.datetime] = obj;
       });
 
@@ -173,7 +173,6 @@
             labels: domain,
             datasets: []
           },
-          range,
           dataset,
           legend;
 

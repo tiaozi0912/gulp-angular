@@ -30,39 +30,37 @@
   /**
    * Not used
    */
-  function calCenterLongAndLat(circles) {
-    var center = {
-          longitude: 0,
-          latitude: 0
-        },
-        len = circles.length,
-        sortedCircles;
+  // function calCenterLongAndLat(circles) {
+  //   var center = {
+  //         longitude: 0,
+  //         latitude: 0
+  //       },
+  //       len = circles.length,
+  //       sortedCircles;
 
-    if (circles.length === 0) {
-      return center;
-    }
+  //   if (circles.length === 0) {
+  //     return center;
+  //   }
 
-    //center = circles[parseInt(len / 2)].center;
+  //   //center = circles[parseInt(len / 2)].center;
 
-    // average longitutde and latitude
-    var sortedCircles;
+  //   // average longitutde and latitude
+  //   sortedCircles = _.sortBy(circles, function(c) {
+  //     return c.center.longitude;
+  //   });
 
-    sortedCircles = _.sortBy(circles, function(c) {
-      return c.center.longitude;
-    });
+  //   center.longitude = (sortedCircles[0].center.longitude + sortedCircles[len - 1].center.longitude);
 
-    center.longitude = (sortedCircles[0].center.longitude + sortedCircles[len - 1].center.longitude);
+  //   sortedCircles = _.sortBy(circles, function(c) {
+  //     return c.center.latitude;
+  //   });
 
-    sortedCircles = _.sortBy(circles, function(c) {
-      return c.center.latitude;
-    });
+  //   center.latitude = (sortedCircles[0].center.latitude + sortedCircles[len - 1].center.latitude) / 2;
 
-    center.latitude = (sortedCircles[0].center.latitude + sortedCircles[len - 1].center.latitude) / 2;
+  //   console.log('latitude:' + center.latitude + ' longitude:' + center.longitude) / 2;
 
-    console.log('latitude:' + center.latitude + ' longitude:' + center.longitude) / 2;
-
-    return center;
-  }
+  //   return center;
+  // }
 
   function fitBounds(map, bounds, circle) {
     if (bounds && !_.isEmpty(map) && circle) {

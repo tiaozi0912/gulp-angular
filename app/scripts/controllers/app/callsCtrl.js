@@ -6,7 +6,7 @@
       $scope.query = {
         interval: 'day',
         groupBy: 'total'
-      },
+      };
       $scope.groupByBtns = [
         { label: 'total', value: 'total' },
         { label: 'call length', value: 'call length' },
@@ -80,7 +80,7 @@
       $scope.groupBy = function() {
         chart.clear();
         drawChart();
-      }
+      };
 
       init();
     };
