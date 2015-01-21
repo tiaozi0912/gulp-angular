@@ -1,19 +1,21 @@
 .overview
-  .row
-    .col-sm-8
-      h3.pull-left.chart-title
-        span Usage in the past 30 days &nbsp;
-        span.text-muted (in min)
-      .controls
-        div(ag-interval-switch="")
-      .usage-chart-container
-        canvas#overview-chart
-    .col-sm-4
-      .usage-text-container
-        h1.text-green.total-minutes {{minutesUsage | number:0}}
-        .text-lead minutes used this month
+  .usage-text-container
+    h3.total-minutes
+      span.text-green.text-lead
+        i.fa.fa-clock-o
+        span &nbsp; {{minutesUsage | number:0}}
+      span &nbsp; minutes used this month
+
+  h3.chart-title
+    span Usage in the past {{query.interval | intervalDisplay}} &nbsp;
+    span.text-muted (in min)
+  .controls
+    div(ag-interval-switch="")
+  .usage-chart-container
+    canvas#overview-chart
+
 
   .map-container
-    h3.chart-title IP Locations
+    h3.chart-title IP Locations in the past 30 days
     .ag-ip-map(ag-ip-map="", data-ip-locations="ipLocations")
 

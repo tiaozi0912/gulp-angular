@@ -98,7 +98,7 @@
       var l = 0,
           r = Infinity;
 
-      if (_.isEqual(groups, [0])) {
+      if (!_.isEqual(groups, [0])) {
         if (value > 0) {
           l = groups[value - 1];
         }
@@ -275,7 +275,7 @@
       }
 
       if (groupBy === 'participants number') {
-        data = _this._getGroupsData(data, 'participants_number', callLengthGroups, this._countCalls);
+        data = _this._getGroupsData(data, 'participants_number', participantsNumberGroups, this._countCalls);
       }
 
       return data;

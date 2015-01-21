@@ -1,5 +1,6 @@
 .overview
+  h3.chart-title Number of users in the past {{query.interval | intervalDisplay}}
   .controls
     div(ag-interval-switch="")
     div(ag-switch="", onselect="groupBy()", btns="groupByBtns", value="query", field="groupBy")
-  canvas#participants-chart(width="960",height="400")
+  canvas#participants-chart

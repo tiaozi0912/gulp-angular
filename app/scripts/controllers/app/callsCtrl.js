@@ -62,7 +62,6 @@
       function init() {
         onDay();
         drawChart();
-        drawMap();
       }
 
       $scope.onSelect = function() {

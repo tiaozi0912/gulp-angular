@@ -4,7 +4,7 @@
   var time = function() {
     this.dateFormat = 'YYYY-MM-DD';
 
-    this.dateDisplayFormat = 'MM-DD';
+    this.dateDisplayFormat = 'MMM DD';
 
     this.hourFormat = 'YYYY-MM-DD HH';
 

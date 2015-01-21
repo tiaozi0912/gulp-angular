@@ -19,13 +19,15 @@
           pointHitDetectionRadius: 5,
           datasetFill: false,
           pointDotStrokeWidth: 0,
-          responsive: true
+          responsive: true,
+          scaleShowVerticalLines: false
         },
         CONSTANT: {
           DAY: 'day',
           HOUR: 'hourly'
         },
-        labelsCount: 4
+        labelsCount: 4,
+        colors: ['#2ecc71', '#1aa1e5', '#2c3e50', '#bdc3c7', '#e67e22']
       };
 
       this.canvas = canvas;
@@ -130,6 +132,27 @@
     };
 
     /**
+     * Get label for a dataset to display
+     */
+    agChart.prototype.getLabel = function(data) {
+      var range = data[0].range;
+
+      if (!range) {
+        return '';
+      }
+
+      if (range[0] === 0) {
+        return '< ' + range[1];
+      }
+
+      if (range[1] === Infinity) {
+        return '>' + range[0];
+      }
+
+      return range.join(' - ');
+    };
+
+    /**
      * Draw the line chart
      *
      * @param {Object} ctx
@@ -149,28 +172,41 @@
           data = {
             labels: domain,
             datasets: []
-            // datasets: [{
-            //   data: range
-            // }]
           },
           range,
-          dataset;
+          dataset,
+          legend;
 
       data.labels = this.filterDomain(domain, this.settings.labelsCount);
 
-      data.datasets = _.map(rawData, function(ds) {
+      data.datasets = _.map(rawData, function(ds, i) {
         dataset = {};
-        dataset.data = _this.getRange(ds, mapping, interval);
+
+        dataset.label = _this.getLabel(ds);
+
+        _this.settings.lineOptions.strokeColor =  _this.settings.colors[i];
+        _this.settings.lineOptions.pointColor =  _this.settings.colors[i];
+
         dataset = _.extend(dataset, _this.settings.lineOptions);
+
+        dataset.data = _this.getRange(ds, mapping, interval);
+
         return dataset;
       });
 
       this.chart = new Chart(this.ctx).Line(data, this.settings.chartOptions);
 
+      if (data.datasets.length > 1) {
+        legend = this.chart.generateLegend();
+        $($(this.canvas).parent().append(legend));
+      }
+
       return this.chart;
     };
 
     agChart.prototype.clear = function() {
+      $(this.canvas).parent().find('.line-legend').remove();
+
       if (this.chart) {
         this.chart.destroy();
       }
