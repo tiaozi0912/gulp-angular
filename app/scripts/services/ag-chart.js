@@ -1,4 +1,4 @@
-(function(moment, Chart) {
+(function() {
   'use strict';
 
   var chartService = function(agTime) {
@@ -214,5 +214,5 @@
     return agChart;
   };
 
-  window.angular.module('AgoraApp').factory('agChart', chartService);
-})(window.moment, window.Chart);
+  angular.module('AgoraApp').factory('agChart', chartService);
+})();

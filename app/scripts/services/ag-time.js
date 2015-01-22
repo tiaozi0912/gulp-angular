@@ -1,4 +1,4 @@
-(function(moment) {
+(function() {
   'use strict';
 
   var time = function() {
@@ -57,5 +57,5 @@
     return this;
   };
 
-  window.angular.module('AgoraApp').service('agTime', time);
-})(window.moment);
+  angular.module('AgoraApp').service('agTime', time);
+})();

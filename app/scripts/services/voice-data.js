@@ -280,5 +280,5 @@
     return this;
   };
 
-  window.angular.module('AgoraApp').service('voiceData', voiceData);
+  angular.module('AgoraApp').service('voiceData', voiceData);
 })();

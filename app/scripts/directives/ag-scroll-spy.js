@@ -1,4 +1,4 @@
-(function(angular, $) {
+(function($) {
   'use strict';
 
   /**
@@ -147,4 +147,4 @@
   };
 
   angular.module('AgoraApp').directive('agScrollSpy', dir);
-})(window.angular, window.Zepto);
+})(window.Zepto);

@@ -19,6 +19,7 @@
     "angular": false,
     "_": false,
     "moment": false,
-    "google": false
+    "google": false,
+    "Chart": false
   }
 }

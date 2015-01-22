@@ -8,8 +8,7 @@
     ul.nav.navbar-nav
       li(ng-class="{active:nav.active}", ng-repeat="nav in navs")
         a.cap(href="{{nav.url}}") {{nav.label}}
-      li(ng-if="user.id")
-        a(ui-sref="root.dashboard") {{user.name}}
-      li(ng-if="!user.id")
-        a(ng-click="showSigninModal()") Sign In
+  .secondary-nav.pull-right.hidden-xs
+    a.link(ui-sref="root.dashboard.overview", ng-if="user.id") {{user.name}}
+    a.link(ng-click="showSigninModal()", ng-if="!user.id") Sign In
 

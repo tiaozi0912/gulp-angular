@@ -11,7 +11,7 @@
  * @param {Object} value       - the value that actually changed by the switch
  * @param {String} field      - the value field whose value is changed to the selected button's value
  */
-(function(angular) {
+(function() {
   'use strict';
 
   var ctrl = function($scope) {
@@ -43,4 +43,4 @@
   };
 
   angular.module('AgoraApp').directive('agSwitch', dir);
-})(window.angular);
+})();

@@ -6,7 +6,7 @@
  * Usage:
  * <div ag-auth-form data-role="signup">Sign up</div>
  */
-(function(angular) {
+(function() {
   'use strict';
 
   var ctrl = function($scope, $rootScope, Auth, AUTH_EVENTS, $state) {
@@ -16,6 +16,7 @@
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       window.console.log('signup successfully. set user:');
       window.console.log(user);
+      $state.go('root.dashboard.overview');
     }
 
     function onSignupError(res) {
@@ -27,7 +28,7 @@
       $scope.processing = false;
       $rootScope.currentUser = user;
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-      $state.go('root.dashboard');
+      $state.go('root.dashboard.overview');
     }
 
     function onSigninError(res) {
@@ -72,4 +73,4 @@
   };
 
   angular.module('AgoraApp').directive('agAuthForm', dirForm);
-})(window.angular);
+})();

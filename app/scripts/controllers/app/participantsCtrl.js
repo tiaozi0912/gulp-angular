@@ -1,4 +1,4 @@
-(function(moment) {
+(function() {
   'use strict';
 
   var ctrl = function($scope, $rootScope, $http, agTime, agChart, voiceData) {
@@ -84,5 +84,5 @@
       init();
     };
 
-    window.angular.module('AgoraApp').controller('participantsCtrl', ctrl);
-})(window.moment);
+    angular.module('AgoraApp').controller('participantsCtrl', ctrl);
+})();

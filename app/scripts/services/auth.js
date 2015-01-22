@@ -1,4 +1,4 @@
-(function(angular) {
+(function() {
   'use strict';
 
   var Auth = function($http, Session) {
@@ -52,4 +52,4 @@
   };
 
   angular.module('AgoraApp').service('Auth', Auth);
-})(window.angular);
+})();

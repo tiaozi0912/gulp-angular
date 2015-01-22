@@ -1,4 +1,4 @@
-(function(angular, $) {
+(function($) {
   'use strict';
 
   var dir = function() {
@@ -37,4 +37,4 @@
 
   angular.module('AgoraApp').directive('agShowToggle', dir);
 
-})(window.angular, window.Zepto);
+})(window.Zepto);

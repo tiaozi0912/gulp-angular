@@ -1,4 +1,4 @@
-(function(angular) {
+(function() {
   'use strict';
 
   var ctrl = function($scope, AUTH_EVENTS) {
@@ -32,4 +32,4 @@
   };
 
   angular.module('AgoraApp').directive('agSigninModal', dir);
-})(window.angular);
+})();

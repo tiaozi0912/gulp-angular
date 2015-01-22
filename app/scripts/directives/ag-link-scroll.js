@@ -46,6 +46,6 @@
     };
   };
 
-  window.angular.module('AgoraApp').directive('agLinkScroll', dir);
+  angular.module('AgoraApp').directive('agLinkScroll', dir);
 
 })(window.Zepto);

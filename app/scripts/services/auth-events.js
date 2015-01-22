@@ -1,4 +1,4 @@
-(function(angular) {
+(function() {
   'use strict';
 
   var AUTH_EVENTS = {
@@ -11,4 +11,4 @@
   };
 
   angular.module('AgoraApp').constant('AUTH_EVENTS', AUTH_EVENTS);
-})(window.angular);
+})();

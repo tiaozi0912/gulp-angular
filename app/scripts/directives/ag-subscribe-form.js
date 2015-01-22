@@ -1,4 +1,4 @@
-(function(angular, ga) {
+(function(ga) {
   'use strict';
 
   function sendUserInGA(user) {
@@ -49,4 +49,4 @@
   };
 
   angular.module('AgoraApp').directive('agSubscribeForm', dirForm);
-})(window.angular, window.ga);
+})(window.ga);

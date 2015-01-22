@@ -9,7 +9,7 @@
  * <div ag-interval-switch></div>
  *
  */
-(function(angular) {
+(function() {
   'use strict';
 
   var ctrl = function($scope) {
@@ -28,4 +28,4 @@
   };
 
   angular.module('AgoraApp').directive('agIntervalSwitch', dir);
-})(window.angular);
+})();
