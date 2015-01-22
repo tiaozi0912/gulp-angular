@@ -8,6 +8,7 @@
   var readline = require('readline');
   var stream = require('stream');
   var IP = require('./models/IP');
+  var csv = require('fast-csv');
 
   var mockIPLocations = require('./data/mock_ip_locations');
 
@@ -312,6 +313,22 @@
       rl.on('close', function() {
         loadDataToDB(ipInfos);
       });
+    });
+
+    router.get('/download', function(req, res) {
+      var filename = 'my.csv',
+           mimetype = 'text/csv';
+
+      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+      res.setHeader('Content-type', mimetype);
+
+      csv
+        .write([
+           ["a", "b"],
+           ["a1", "b1"],
+           ["a2", "b2"]
+        ], {headers: true})
+        .pipe(res);
     });
   };
 })();

@@ -49,6 +49,7 @@
     "serve-index": "^1.1.4",
     "serve-static": "^1.4.0",
     "underscore": "^1.7.0",
-    "wiredep": "^2.0.0"
+    "wiredep": "^2.0.0",
+    "fast-csv": "^0.5.4"
   }
 }
