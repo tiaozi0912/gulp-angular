@@ -135,10 +135,12 @@
      * Get label for a dataset to display
      */
     agChart.prototype.getLabel = function(data) {
-      var range = data[0].range;
+      var range;
 
-      if (!range) {
+      if (!data[0] || !data[0].range) {
         return '';
+      } else {
+        range = data[0].range;
       }
 
       if (range[0] === 0) {

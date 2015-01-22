@@ -230,6 +230,10 @@
           callLengthGroups = [10, 30, 60, 300],
           _this = this;
 
+      if (!data || !data.length) {
+        return [];
+      }
+
       data = _.groupBy(data, function(d) {
         return d.datetime;
       });
@@ -257,6 +261,10 @@
           callLengthGroups = [10, 30, 60, 300],
           participantsNumberGroups = [3, 5, 10],
           _this = this;
+
+      if (!data || !data.length) {
+        return [];
+      }
 
       data = _.groupBy(data, function(d) {
         return d.datetime;
