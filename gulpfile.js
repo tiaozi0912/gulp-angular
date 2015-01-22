@@ -74,11 +74,11 @@ gulp.task('html', ['sprite', 'views', 'styles', 'templates'], function () {
 
 gulp.task('images', function () {
   return gulp.src('app/images/**/*')
-    .pipe($.filter('**/*.{jpg,jpeg,svg,gif,png}'))
-    .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true
-    })))
+    // .pipe($.filter('**/*.{jpg,jpeg,svg,gif,png}'))
+    // .pipe($.cache($.imagemin({
+    //   progressive: true,
+    //   interlaced: true
+    // })))
     .pipe(gulp.dest('dist/images'));
 });
 
