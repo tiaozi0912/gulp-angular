@@ -315,20 +315,46 @@
       });
     });
 
-    router.get('/download', function(req, res) {
-      var filename = 'my.csv',
-           mimetype = 'text/csv';
+    // router.get('/download', function(req, res) {
+    //   var filename = 'my.csv',
+    //        mimetype = 'text/csv';
 
-      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-      res.setHeader('Content-type', mimetype);
+    //   res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+    //   res.setHeader('Content-type', mimetype);
 
-      csv
-        .write([
-           ["a", "b"],
-           ["a1", "b1"],
-           ["a2", "b2"]
-        ], {headers: true})
-        .pipe(res);
+    //   csv
+    //     .write([
+    //        ["a", "b"],
+    //        ["a1", "b1"],
+    //        ["a2", "b2"]
+    //     ], {headers: true})
+    //     .pipe(res);
+    // });
+
+    router.get('/auth/data_download', function(req, res) {
+      var mimetype = 'text/csv',
+          start = req.query.start,
+          end = req.query.end,
+          interval = req.query.interval,
+          currentUser = new User(req.session.currentUser),
+          filename;
+
+      currentUser.getCompleteData(function(err, data) {
+        if (err) {
+          return _genErrHandler(res, err);
+        }
+
+        if (!data && !data.length) {
+          // Return empty array if there is no data
+          return res.send({data: []});
+        }
+        
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+
+        csv.write(data, {headers: true})
+          .pipe(res);
+      }, start, end, interval);
     });
   };
 })();

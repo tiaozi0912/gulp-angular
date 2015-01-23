@@ -130,6 +130,15 @@
       ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d %H\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], cb);
     }
   };
+  
+  /**
+   * Get complete data for downloading
+   * 
+   * @param {String} interval - ''
+   */
+  User.prototype.getCompleteData = function(cb, start, end, interval) {
+
+  };
 
   module.exports = User;
 })();
