@@ -1,0 +1,24 @@
+.account
+  form.form-horizontal
+    .form-group
+      label.control-label.col-sm-2 name
+      .col-sm-10
+        input.form-control(type="text" name="name" ng-model="user.name" placeholder="required" required="")
+    .form-group
+      label.control-label.col-sm-2 email
+      .col-sm-10
+        input.form-control(type="email" name="email" ng-model="user.email" placeholder="required" required="")
+    .form-group
+      label.control-label.col-sm-2 phone
+      .col-sm-10
+        input.form-control(type="text" name="phone" ng-model="user.phone" placeholder="optional")
+    .form-group
+      label.control-label.col-sm-2 company name
+      .col-sm-10
+        input.form-control(type="text" name="company_name" ng-model="user.company_name" placeholder="optional")
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        button.btn.btn-primary(type="button" ng-disabled="processing" ng-click="submit($event)")
+          span Save
+          i.fa.fa-spin.fa-spinner
+

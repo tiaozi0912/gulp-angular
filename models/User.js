@@ -5,6 +5,7 @@
   var DBModel = require('./DBModel');
   var Channel = require('./Channel');
   var ChannelUser = require('./ChannelUser');
+  var _ = require('underscore');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -12,7 +13,8 @@
     validates: {
       email: { presence: true, regex: EMAIL_REGEX, minLength: 3 },
       name: { presence: true, minLength: 2},
-      company_name: { presence: true, minLength: 2},
+      company_name: { presence: false, minLength: 2},
+      phone: { presence: false, minLength: 10 },
       password: { presence: true, minLength: 6 }
     }
   });
@@ -61,13 +63,24 @@
   };
 
   /**
+   * Properties that won't save in session
+   */
+  User._privateProperties = ['password'];
+
+  User.saveInSession = function(session, userJSON) {
+    session.currentUser = _.omit(userJSON, User._privateProperties);
+
+    return session.currentUser;
+  };
+
+  /**
    * Check if the password is valid
    *
    * @param {String} password - unhashed password
    * @return {Boolean} isValid
    */
-  User.prototype.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.data.password);
+  User.prototype.validPassword = function(password, hashedPassword) {
+    return bcrypt.compareSync(password, hashedPassword);
   };
 
   User.prototype.getCurrMonthMinutesUsage = function(cb) {
@@ -138,6 +151,10 @@
    */
   User.prototype.getCompleteData = function(cb, start, end, interval) {
 
+  };
+
+  User.prototype.isAdmin = function() {
+    return this.data.role === 1;
   };
 
   module.exports = User;

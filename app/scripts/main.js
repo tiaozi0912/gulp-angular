@@ -80,9 +80,9 @@
                   $navbar = $('.site-header .header-collapse'),
                   hiddenCls = 'ag-hide';
 
-              $scope.navs = siteResources.headerNavs;
-
               $scope.user = $rootScope.currentUser;
+
+              $scope.navs = siteResources.headerNavs;
 
               $scope.showSigninModal = function() {
                 $rootScope.$broadcast('agAuthModal:show');
@@ -422,6 +422,7 @@
               return $templateCache.get('dashboard/index.html');
             },
             controller: function($scope, $rootScope) {
+              // $scop.user is accessible to all the dashboard view controllers
               $scope.user = $rootScope.currentUser;
             }
           },
@@ -455,6 +456,13 @@
           return $templateCache.get('dashboard/calls.html');
         },
         controller: 'callsCtrl'
+      })
+      .state('root.dashboard.account', {
+        url: '/account',
+        templateProvider: function($templateCache) {
+          return $templateCache.get('dashboard/account.html');
+        },
+        controller: 'accountCtrl'
       });
   });
 

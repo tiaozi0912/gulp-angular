@@ -1,8 +1,7 @@
 (function() {
   'use strict';
 
-  var ctrl = function($scope, $rootScope, $http, agTime, agChart, voiceData) {
-      $scope.user = $rootScope.currentUser;
+  var ctrl = function($scope, $http, agTime, agChart, voiceData) {
       $scope.query = {
         interval: 'day',
         groupBy: 'total'

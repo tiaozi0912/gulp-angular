@@ -43,10 +43,9 @@
                   return _genErrHandler(res, err);
                 }
 
-                createdUser = _.omit(params, 'password');
                 createdUser.id = result.insertId;
 
-                req.session.currentUser = createdUser;
+                User.saveInSession(req.session, createdUser);
 
                 res.send({
                   id: req.session.id,
@@ -75,7 +74,8 @@
       .post(function(req, res) {
         var params = req.param('user', {}),
             errMsg,
-            user;
+            user,
+            userJSON;
 
         User.query('SELECT * FROM users WHERE ?', {email: params.email}, function(err, users) {
           if (err) {
@@ -83,10 +83,13 @@
           }
 
           if (users.length) {
-            user = new User(users[0]);
-            if (user.validPassword(params.password)) {
+            userJSON = users[0];
+            user = new User(userJSON);
+
+            if (user.validPassword(params.password, userJSON.password)) {
+
               // Sign in user
-              req.session.currentUser = _.omit(user.data, 'password');
+              User.saveInSession(req.session, userJSON);
 
               return res.send({
                 id: req.session.id,
@@ -267,70 +270,6 @@
       }, start, end, interval);
     });
 
-    router.get('/load_ip_data', function(req, res) {
-      var path = '/Users/yujun/developer/Agora/IP2LOCATION-LITE-DB11.CSV.cpp.txt',
-          instream = fs.createReadStream(path),
-          rl = readline.createInterface({
-            input: instream,
-            output: null,
-            terminal: false
-          }),
-          fields = ['`start_ip`', '`end_ip`', '`country_code`', '`country`', '`province`', '`city`', '`lat`', '`long`', '`postcode`', '`timezone`'],
-          query = 'INSERT INTO ips (' + fields.join(',') + ') VALUES ?',
-          tmpQuery = '',
-          batchCount = 25000,
-          count = 0,
-          ipInfos = [],
-          ipInfosBatch = [];
-
-      function loadDataToDB(ipInfos) {
-        if (ipInfos.length) {
-          ipInfosBatch = ipInfos.splice(0, batchCount);
-
-          IP.query(query, [ipInfosBatch], function(err) {
-            if (err) {
-              return _genErrHandler(err);
-            }
-            count += 1;
-
-            console.log('=== ' + count * batchCount / 1000 + 'k lines loaded. ===');
-
-            loadDataToDB(ipInfos);
-          });
-        } else {
-          res.send("data loaded to db");
-        }
-      }
-
-      rl.on('line', function(line) {
-        if (!line || line.length === 0){
-          return;
-        }
-
-        ipInfos.push(line.split(' '));
-      });
-
-      rl.on('close', function() {
-        loadDataToDB(ipInfos);
-      });
-    });
-
-    // router.get('/download', function(req, res) {
-    //   var filename = 'my.csv',
-    //        mimetype = 'text/csv';
-
-    //   res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-    //   res.setHeader('Content-type', mimetype);
-
-    //   csv
-    //     .write([
-    //        ["a", "b"],
-    //        ["a1", "b1"],
-    //        ["a2", "b2"]
-    //     ], {headers: true})
-    //     .pipe(res);
-    // });
-
     router.get('/auth/data_download', function(req, res) {
       var mimetype = 'text/csv',
           start = req.query.start,
@@ -348,13 +287,98 @@
           // Return empty array if there is no data
           return res.send({data: []});
         }
-        
+
         res.setHeader('Content-disposition', 'attachment; filename=' + filename);
         res.setHeader('Content-type', mimetype);
 
         csv.write(data, {headers: true})
           .pipe(res);
       }, start, end, interval);
+    });
+
+    // router.get('/load_ip_data', function(req, res) {
+    //   var path = '/Users/yujun/developer/Agora/IP2LOCATION-LITE-DB11.CSV.cpp.txt',
+    //       instream = fs.createReadStream(path),
+    //       rl = readline.createInterface({
+    //         input: instream,
+    //         output: null,
+    //         terminal: false
+    //       }),
+    //       fields = ['`start_ip`', '`end_ip`', '`country_code`', '`country`', '`province`', '`city`', '`lat`', '`long`', '`postcode`', '`timezone`'],
+    //       query = 'INSERT INTO ips (' + fields.join(',') + ') VALUES ?',
+    //       tmpQuery = '',
+    //       batchCount = 25000,
+    //       count = 0,
+    //       ipInfos = [],
+    //       ipInfosBatch = [];
+
+    //   function loadDataToDB(ipInfos) {
+    //     if (ipInfos.length) {
+    //       ipInfosBatch = ipInfos.splice(0, batchCount);
+
+    //       IP.query(query, [ipInfosBatch], function(err) {
+    //         if (err) {
+    //           return _genErrHandler(err);
+    //         }
+    //         count += 1;
+
+    //         console.log('=== ' + count * batchCount / 1000 + 'k lines loaded. ===');
+
+    //         loadDataToDB(ipInfos);
+    //       });
+    //     } else {
+    //       res.send("data loaded to db");
+    //     }
+    //   }
+
+    //   rl.on('line', function(line) {
+    //     if (!line || line.length === 0){
+    //       return;
+    //     }
+
+    //     ipInfos.push(line.split(' '));
+    //   });
+
+    //   rl.on('close', function() {
+    //     loadDataToDB(ipInfos);
+    //   });
+    // });
+
+    router.put('/auth/users/:user_id', function(req, res) {
+      var userId = parseInt(req.params.user_id),
+         currentUser = new User(req.session.currentUser),
+         userData = req.body,
+         user;
+
+      if (userId === currentUser.data.id || currentUser.isAdmin()) {
+        User.query('SELECT * FROM users WHERE ?', {id: userId}, function(err, users) {
+          if (err || !users.length) {
+            return _genErrHandler(res, err);
+          }
+
+          userData.id = userId;
+
+          User.save(userData, function(err) {
+            if (err) {
+              return _genErrHandler(res, err);
+            }
+
+            // Update session.currentUser
+            // @readme: if updating for the other user, the other user' session may out of sync
+            if (userId === currentUser.data.id) {
+              _.extend(req.session.currentUser, userData);
+            }
+
+            res.send({
+              message: 'Saved successfully.'
+            });
+          });
+        });
+      } else {
+        res.status(401).send({
+          message: 'Failed. Not authorized.'
+        });
+      }
     });
   };
 })();

@@ -19,6 +19,10 @@
         },
         _this = this,
         Model = function(data) {
+          if (Model._privateProperties) {
+            data = _.omit(data, Model._privateProperties);
+          }
+
           this.data = data;
         },
         validator;
@@ -51,6 +55,7 @@
     };
 
     Model.save = function(data, cb) {
+      console.log(data);
       if (data.id) {
         Model.query('UPDATE ?? SET ? WHERE id = ?', [_this.name, data, data.id], cb);
       } else {
