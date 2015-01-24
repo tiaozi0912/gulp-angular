@@ -267,6 +267,14 @@ ul, ol {
   margin-top: $header-height;
 }
 
+.site-alert {
+  position: fixed;
+  width: 70%;
+  top: $section-padding-sm;
+  left: 15%;
+  z-index: 9999;
+}
+
 // for tablet and desktop
 @include mq($screen-sm) {
   [ui-view="main"] {
