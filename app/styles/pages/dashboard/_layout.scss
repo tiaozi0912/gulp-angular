@@ -1,3 +1,7 @@
+.dashboard-page {
+  background-color: $light-gray;
+}
+
 @include mq($screen-sm) {
   .site-sidebar {
     float: left;

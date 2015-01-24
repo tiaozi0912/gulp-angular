@@ -43,7 +43,7 @@
                   return _genErrHandler(res, err);
                 }
 
-                createdUser.id = result.insertId;
+                createdUser = result[0];
 
                 User.saveInSession(req.session, createdUser);
 
@@ -358,7 +358,7 @@
 
           userData.id = userId;
 
-          User.save(userData, function(err) {
+          User.save(userData, function(err, result) {
             if (err) {
               return _genErrHandler(res, err);
             }
@@ -366,7 +366,7 @@
             // Update session.currentUser
             // @readme: if updating for the other user, the other user' session may out of sync
             if (userId === currentUser.data.id) {
-              _.extend(req.session.currentUser, userData);
+              User.saveInSession(req.session, result[0]);
             }
 
             res.send({

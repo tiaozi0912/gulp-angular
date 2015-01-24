@@ -54,12 +54,28 @@
       });
     };
 
+    /**
+     * Notes:
+     * The result from UPDATE and INSERT is like:
+     * { fieldCount: 0,affectedRows: 1, insertId: 0 ...}
+     */
     Model.save = function(data, cb) {
-      console.log(data);
       if (data.id) {
-        Model.query('UPDATE ?? SET ? WHERE id = ?', [_this.name, data, data.id], cb);
+        Model.query('UPDATE ?? SET ? WHERE id = ?', [_this.name, data, data.id], function(err) {
+          if (err) {
+            cb(err, []);
+          } else {
+            Model.query('SELECT * FROM ?? WHERE id = ?', [_this.name, data.id], cb);
+          }
+        });
       } else {
-        Model.query('INSERT INTO ?? SET ?', [_this.name, data], cb);
+        Model.query('INSERT INTO ?? SET ?', [_this.name, data], function(err, res) {
+          if (err) {
+            cb(err, []);
+          } else {
+            Model.query('SELECT * FROM ?? WHERE id = ?', [_this.name, res.insertId], cb);
+          }
+        });
       }
     };
 

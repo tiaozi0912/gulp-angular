@@ -21,3 +21,25 @@
     background-color: $blue;
   }
 }
+
+button,
+button.btn-primary,
+button.btn-primary:hover,
+button.btn-primary:active,
+button.btn-primary:focus
+{
+  .fa-spin {
+    margin-left: 10px;
+    display: none;
+  }
+
+  &[disabled], &[disabled="disabled"],  &[disabled=""] {
+    border-color: $gray;
+    color: gray;
+    background-color: white;
+
+    .fa-spin {
+      display: inline;
+    }
+  }
+}

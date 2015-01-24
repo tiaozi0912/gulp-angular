@@ -12,9 +12,11 @@
 
       $http.put(url, $scope.user)
         .success(function(res) {
+          $scope.processing = false;
           console.log(res.message);
         })
         .error(function(res) {
+          $scope.processing = false;
           console.log(res.message);
         });
     };

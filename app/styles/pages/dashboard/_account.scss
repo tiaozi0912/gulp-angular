@@ -1,4 +1,14 @@
 .account {
+  background-color: white;
+  width: 700px;
+  margin: 0 auto;
+  padding: $section-padding;
+  border-radius: 5px;
+
+  .api-key {
+    margin-bottom: 20px;
+  }
+
   input.form-control {
     border-width: 1px;
   }

@@ -1,23 +1,27 @@
 .account
-  form.form-horizontal
+  .row.text-lead.api-key(ng-if="user.key")
+    .col-sm-3.right-text API KEY:
+    .col-sm-9
+      code {{user.key}}
+  form.form-horizontal.form-user-edit
     .form-group
-      label.control-label.col-sm-2 name
-      .col-sm-10
+      label.control-label.col-sm-3 name
+      .col-sm-9
         input.form-control(type="text" name="name" ng-model="user.name" placeholder="required" required="")
     .form-group
-      label.control-label.col-sm-2 email
-      .col-sm-10
+      label.control-label.col-sm-3 email
+      .col-sm-9
         input.form-control(type="email" name="email" ng-model="user.email" placeholder="required" required="")
     .form-group
-      label.control-label.col-sm-2 phone
-      .col-sm-10
+      label.control-label.col-sm-3 phone
+      .col-sm-9
         input.form-control(type="text" name="phone" ng-model="user.phone" placeholder="optional")
     .form-group
-      label.control-label.col-sm-2 company name
-      .col-sm-10
+      label.control-label.col-sm-3 company name
+      .col-sm-9
         input.form-control(type="text" name="company_name" ng-model="user.company_name" placeholder="optional")
     .form-group
-      .col-sm-offset-2.col-sm-10
+      .col-sm-offset-3.col-sm-9
         button.btn.btn-primary(type="button" ng-disabled="processing" ng-click="submit($event)")
           span Save
           i.fa.fa-spin.fa-spinner

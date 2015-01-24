@@ -5,6 +5,7 @@
   var DBModel = require('./DBModel');
   var Channel = require('./Channel');
   var ChannelUser = require('./ChannelUser');
+  var Vendor = require('./Vendor');
   var _ = require('underscore');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -39,6 +40,18 @@
     return new Date(monthStart);
   }
 
+  function getAPIKey(vendorId, userJSON, cb) {
+    Vendor.query('SELECT `key` FROM vendor_info WHERE ?', { vendor_id: vendorId }, function(err, res) {
+      console.log(err);
+      console.log(res);
+      if (!err && res[0]) {
+        userJSON.key = res[0].key;
+      }
+
+      cb(err, [userJSON]);
+    });
+  }
+
   /**
    * Generating a hash
    */
@@ -47,15 +60,46 @@
   };
 
   /**
+   * Store default model save method to User._save
+   */
+  User._save = User.save;
+
+  /**
+   * Override the default model save method
+   * Get the key in the result userJSON
+   */
+  User.save = function(data, cb) {
+    var userJSON;
+
+    User._save(data, function(err, res) {
+      userJSON = res[0];
+
+      if (!err && userJSON) {
+        getAPIKey(userJSON.vendor_id, userJSON, cb);
+      } else {
+        cb(err, res);
+      }
+    });
+  };
+
+  /**
    * Create a new user
    */
   User.create = function(data, cb) {
     var validation = User.validates(data);
+
     if ( validation === true ) {
       // Hash password
       data.password = User.generateHash(data.password);
 
-      User.save(data, cb);
+      User._save(data, function(err, res) {
+        if (res.id && !err) {
+          data.insertId = res.insertId;
+          getAPIKey(data.vendor_id, data, cb);
+        } else {
+          cb(err, [res]);
+        }
+      });
     } else {
       // throw the validation errors
       throw validation;
@@ -143,10 +187,10 @@
       ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d %H\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], cb);
     }
   };
-  
+
   /**
    * Get complete data for downloading
-   * 
+   *
    * @param {String} interval - ''
    */
   User.prototype.getCompleteData = function(cb, start, end, interval) {

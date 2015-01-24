@@ -1,5 +1,5 @@
 doctype html
-html.no-js(ng-app="AgoraApp", ng-controller="siteCtrl", ng-class="layout.name")
+html.no-js(ng-app="AgoraApp", ng-controller="siteCtrl")
   head
     meta(charset='utf-8')
     title Agora
@@ -20,7 +20,7 @@ html.no-js(ng-app="AgoraApp", ng-controller="siteCtrl", ng-class="layout.name")
     script(type="text/javascript") (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-57262777-1', 'auto');ga('send', 'pageview');
 
 
-  body
+  body(ng-class="layout.name")
     | <!--[if lt IE 10]>
     |     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     | <![endif]-->
