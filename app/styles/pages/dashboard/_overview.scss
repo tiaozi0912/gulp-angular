@@ -1,11 +1,11 @@
 .overview {
   .map-container {
     margin-top: $section-padding-sm;
+    //padding-bottom: $section-padding;
   }
 
   .total-minutes {
     margin-bottom: 0;
-    padding-bottom: 25px;
     border-bottom: 1px solid $light-gray;
 
     .text-lead {

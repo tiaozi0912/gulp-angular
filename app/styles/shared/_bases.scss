@@ -275,6 +275,12 @@ ul, ol {
   z-index: 9999;
 }
 
+.chart-container {
+  background-color: white;
+  border-radius: 5px;
+  padding: $section-padding * 0.5 $section-padding;
+}
+
 // for tablet and desktop
 @include mq($screen-sm) {
   [ui-view="main"] {

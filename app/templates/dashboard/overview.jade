@@ -3,19 +3,21 @@
     h3.total-minutes
       span.text-green.text-lead
         i.fa.fa-clock-o
-        span &nbsp; {{minutesUsage | number:0}}
+        span &nbsp; {{minutesUsage || 0 | number:0}}
       span &nbsp; minutes used this month
 
-  h3.chart-title
-    span Usage in the past {{query.interval | intervalDisplay}} &nbsp;
-    span.text-muted (in min)
-  .controls
-    div(ag-interval-switch="")
-  .usage-chart-container
-    canvas#overview-chart
+  section
+    h3.chart-title
+      span Usage in the past {{query.interval | intervalDisplay}} &nbsp;
+      span.text-muted (in min)
+    .chart-container
+      .controls
+        div(ag-interval-switch="")
+      .canvas-container
+        canvas#overview-chart
 
-
-  .map-container
+  section
     h3.chart-title IP Locations in the past 30 days
-    .ag-ip-map(ag-ip-map="", data-ip-locations="ipLocations")
+    .map-container.chart-container
+      .ag-ip-map(ag-ip-map="", data-ip-locations="ipLocations")
 

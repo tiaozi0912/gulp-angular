@@ -1,6 +1,9 @@
 .overview
-  h3.chart-title Number of calls in the past {{query.interval | intervalDisplay}}
-  .controls
-    div(ag-interval-switch="")
-    div(ag-switch="", onselect="groupBy()", btns="groupByBtns", value="query", field="groupBy")
-  canvas#calls-chart
+  section
+    h3.chart-title Number of calls in the past {{query.interval | intervalDisplay}}
+    .chart-container
+      .controls
+        div(ag-interval-switch="")
+        div(ag-switch="", onselect="groupBy()", btns="groupByBtns", value="query", field="groupBy")
+      .canvas-container
+        canvas#calls-chart

@@ -31,6 +31,7 @@
       };
 
       this.canvas = canvas;
+      this.canvas.height = this.canvas.width / 2.5;
 
       // To prevent to double the canvas size in retina
       // this.canvas.height = this.settings.height;

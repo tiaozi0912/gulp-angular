@@ -1,5 +1,9 @@
 .dashboard-page {
   background-color: $light-gray;
+
+  section {
+    margin-bottom: $section-padding;
+  }
 }
 
 @include mq($screen-sm) {
