@@ -42,6 +42,8 @@
   }
 
   function getAPIKey(vendorId, userJSON, cb) {
+    console.log('vendor id:' + vendorId);
+
     Vendor.query('SELECT `key` FROM vendor_info WHERE ?', { vendor_id: vendorId }, function(err, res) {
       console.log(err);
       console.log(res);
@@ -128,6 +130,22 @@
     session.currentUser = _.omit(userJSON, User._privateProperties);
 
     return session.currentUser;
+  };
+
+  /**
+   * Find the user by email. It will fetch the api key too
+   */
+  User.findByEmail = function(email, cb) {
+    var userJSON;
+
+    User.query('SELECT * FROM users where ?', {email: email}, function(err, users) {
+      userJSON = users[0];
+      if (err || !userJSON) {
+        cb(err, []);
+      } else {
+        getAPIKey(userJSON.vendor_id, userJSON, cb);
+      }
+    });
   };
 
   /**

@@ -79,7 +79,7 @@
             user,
             userJSON;
 
-        User.query('SELECT * FROM users WHERE ?', {email: params.email}, function(err, users) {
+        User.findByEmail(params.email, function(err, users) {
           if (err) {
             return _genErrHandler(res, err);
           }
