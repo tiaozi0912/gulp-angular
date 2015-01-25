@@ -43,9 +43,6 @@
                   return _genErrHandler(res, err);
                 }
 
-                console.log('fucking result:');
-                console.log(result);
-
                 createdUser = new User(result[0]);
 
                 createdUser.sendEmailVerification();

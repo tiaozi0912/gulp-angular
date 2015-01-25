@@ -34,7 +34,6 @@
           var user = $scope.user;
 
           if(user.name && user.email) {
-            window.console.log(user);
             sendUserInGA(user);
             onSuccess();
           } else {
