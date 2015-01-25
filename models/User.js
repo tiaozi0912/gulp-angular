@@ -52,6 +52,12 @@
     });
   }
 
+  User.STATUSES = {
+    0: 'email not verified',
+    1: 'email verified but API key not received',
+    2: 'API key received'
+  };
+
   /**
    * Generating a hash
    */
