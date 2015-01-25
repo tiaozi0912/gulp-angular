@@ -437,6 +437,13 @@
             controller: function($scope, $rootScope) {
               // $scop.user is accessible to all the dashboard view controllers
               $scope.user = $rootScope.currentUser;
+
+              if (!$scope.user.key) {
+                $scope.dashboardNotification = {
+                  content: 'Your account hasn\'t been activated yet. Our representative will contact you shortly to grant the API key.',
+                  type: 'info'
+                };
+              }
             }
           },
           'site-sidebar@root.dashboard': {
