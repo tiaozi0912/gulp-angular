@@ -4,6 +4,38 @@
   section {
     margin-bottom: $section-padding;
   }
+
+  .loader {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    color: $blue;
+  }
+
+  .chart-container {
+    background-color: white;
+    border-radius: 5px;
+    padding: $section-padding * 0.5 $section-padding;
+    position: relative;
+  }
+
+  .canvas-container {
+    position: relative;
+  }
+
+  .data-empty-state {
+    box-shadow: 0 0 2px 0 rgba(100, 100, 100, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    top: 35%;
+    left: 45%;
+  }
+
+  .controls {
+    @include clearfix();
+  }
 }
 
 @include mq($screen-sm) {

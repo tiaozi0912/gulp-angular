@@ -10,3 +10,8 @@
         div(ag-switch="", onselect="groupBy()", btns="groupByBtns", value="query", field="groupBy")
       .canvas-container
         canvas#calls-chart
+        .loader(ng-show="loading.channelUsers")
+          i.fa.fa-spin.fa-spinner.fa-4x
+        .data-empty-state(ng-hide="hasData.channelUsers")
+          i.fa.fa-folder-open-o
+          span &nbsp; No data yet

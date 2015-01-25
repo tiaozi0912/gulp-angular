@@ -1,7 +1,7 @@
 .overview {
   .map-container {
     margin-top: $section-padding-sm;
-    //padding-bottom: $section-padding;
+    min-height: 300px;
   }
 
   .total-minutes {
@@ -20,4 +20,10 @@
 
 .angular-google-map-container {
   height: 400px;
+}
+
+.ag-ip-map {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
