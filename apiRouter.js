@@ -43,13 +43,18 @@
                   return _genErrHandler(res, err);
                 }
 
-                createdUser = result[0];
+                console.log('fucking result:');
+                console.log(result);
 
-                User.saveInSession(req.session, createdUser);
+                createdUser = new User(result[0]);
+
+                createdUser.sendEmailVerification();
+
+                User.saveInSession(req.session, createdUser.data);
 
                 res.send({
                   id: req.session.id,
-                  user: createdUser,
+                  user: createdUser.data,
                   message: 'Account created succussfully.'
                 });
               });

@@ -7,6 +7,7 @@
   var ChannelUser = require('./ChannelUser');
   var Vendor = require('./Vendor');
   var _ = require('underscore');
+  var emailSender = require('../emailSender');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -65,6 +66,10 @@
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
   };
 
+  User.generateRandomString = function() {
+    return Math.random().toString(36).substring(2);
+  };
+
   /**
    * Store default model save method to User._save
    */
@@ -92,16 +97,18 @@
    * Create a new user
    */
   User.create = function(data, cb) {
-    var validation = User.validates(data);
+    var validation = User.validates(data),
+        userJSON;
 
     if ( validation === true ) {
       // Hash password
       data.password = User.generateHash(data.password);
 
       User._save(data, function(err, res) {
-        if (res.id && !err) {
-          data.insertId = res.insertId;
-          getAPIKey(data.vendor_id, data, cb);
+        userJSON = res[0];
+
+        if (userJSON && !err) {
+          getAPIKey(userJSON.vendor_id, userJSON, cb);
         } else {
           cb(err, [res]);
         }
@@ -205,6 +212,30 @@
 
   User.prototype.isAdmin = function() {
     return this.data.role === 1;
+  };
+
+  User.prototype.sendEmailVerification = function() {
+    var token = User.generateRandomString(),
+        host = 'http://localhost:3000',
+        subject = 'Verify your Agora account',
+        email = 'wyj0912@gmail.com', // this.data.email
+        url, content;
+
+    if (process.env.NODE_ENV === 'production') {
+      host = 'http://agora.io';
+    }
+
+    url = host + '/api/verify_email/' + token;
+
+    User.save({access_token: token, id: this.data.id}, function() {});
+
+    content = '<p>Hi ' + this.data.name + ':</p><br>' + '<p> Welcome to Agora! Please verify your email by clicking the following link: </p>' + '<a href="' + url + '">' + url + '</a><br>' + '<p> Best regards, </p>' + '<p>Agora Team</p><br>' + '<br><p>(If you did not request an Agora account, please ignore this message.)</p>';
+
+    emailSender.send(content, subject, [{
+      email: email,
+      name: this.data.name,
+      type: 'to'
+    }]);
   };
 
   module.exports = User;

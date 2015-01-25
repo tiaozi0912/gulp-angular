@@ -73,6 +73,7 @@
           if (err) {
             cb(err, []);
           } else {
+            console.log('insertId:' + res.insertId);
             Model.query('SELECT * FROM ?? WHERE id = ?', [_this.name, res.insertId], cb);
           }
         });

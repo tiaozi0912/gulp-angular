@@ -14,7 +14,8 @@ var nodemonOpt = {
   watch: [
     'models/',
     'server.js',
-    'apiRouter.js'
+    'apiRouter.js',
+    'emailSender.js'
   ]
 };
 
