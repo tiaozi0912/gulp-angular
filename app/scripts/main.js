@@ -29,15 +29,17 @@
             $rootScope.currentUser = user;
           }
 
-          if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
-            onNotAuthorized();
-          } else {
-            if (!$rootScope.currentUser.status) {
+          if (next.data && next.data.role === 'user') {
+            if (!Auth.isAuthenticated()) {
+              onNotAuthorized();
+              return;
+            } else if (!$rootScope.currentUser.status && next.name !== VERIFY_EMAIL_STATE) {
               $state.go(VERIFY_EMAIL_STATE);
-            } else {
-              $state.go(next.name);
+              return;
             }
           }
+
+          $state.go(next.name);
         });
       } else {
         if (next.data && next.data.role === 'user') {
