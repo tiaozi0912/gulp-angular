@@ -13,3 +13,24 @@
     border-width: 1px;
   }
 }
+
+.verify-email {
+  padding: $section-padding;
+
+  .well {
+    padding: $section-padding;
+
+    .alert-success {
+      margin-bottom: 40px;
+    }
+  }
+
+  .mail-icon {
+    vertical-align: top;
+    margin-right: 40px;
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
+}

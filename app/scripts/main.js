@@ -463,6 +463,12 @@
           return $templateCache.get('dashboard/account.html');
         },
         controller: 'accountCtrl'
+      })
+      .state('root.dashboard.verify_email', {
+        url: '/verify_email',
+        templateProvider: function($templateCache) {
+          return $templateCache.get('dashboard/verify_email.html');
+        }
       });
   });
 

@@ -16,7 +16,7 @@
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       window.console.log('signup successfully. set user:');
       window.console.log(user);
-      $state.go('root.dashboard.overview');
+      $state.go('root.dashboard.verify_email');
     }
 
     function onSignupError(res) {

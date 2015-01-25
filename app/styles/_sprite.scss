@@ -1,15 +1,16 @@
 $agora_logo: -2px -2px 120px 40px;
-$group_call: -2px -47px 100px 100px;
-$rocket: -2px -152px 100px 100px;
-$app_call: -2px -257px 100px 100px;
-$anonymous_call: -2px -362px 100px 100px;
-$file: -2px -467px 130px 144px;
-$layer: -2px -616px 179px 144px;
-$app_call_lg: -2px -765px 200px 200px;
-$group_call_lg: -2px -970px 200px 200px;
-$ribbon_lg: -2px -1175px 200px 200px;
-$anonymous_call_lg: -2px -1380px 200px 200px;
-$rocket_lg: -2px -1585px 200px 200px;
+$mail: -2px -47px 50px 50px;
+$rocket: -2px -102px 100px 100px;
+$app_call: -2px -207px 100px 100px;
+$group_call: -2px -312px 100px 100px;
+$anonymous_call: -2px -417px 100px 100px;
+$file: -2px -522px 130px 144px;
+$layer: -2px -671px 179px 144px;
+$group_call_lg: -2px -820px 200px 200px;
+$app_call_lg: -2px -1025px 200px 200px;
+$ribbon_lg: -2px -1230px 200px 200px;
+$anonymous_call_lg: -2px -1435px 200px 200px;
+$rocket_lg: -2px -1640px 200px 200px;
 
 @mixin sprite-width($sprite) {
   width: nth($sprite, 3);
@@ -49,6 +50,6 @@ $rocket_lg: -2px -1585px 200px 200px;
 @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
   .sprite-icon {
     background-image: url('/images/sprite@2x.png');
-    background-size: 205px 1788px;
+    background-size: 205px 1843px;
   }
 }
