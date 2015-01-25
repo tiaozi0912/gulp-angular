@@ -18,6 +18,8 @@
       $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
     }
 
+    var VERIFY_EMAIL_STATE = 'root.dashboard.verify_email';
+
     $rootScope.$on('$stateChangeStart', function(event, next) {
       if (isInit) {
         // Handling page refresh
@@ -30,12 +32,21 @@
           if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
             onNotAuthorized();
           } else {
-            $state.go(next.name);
+            if (!$rootScope.currentUser.status) {
+              $state.go(VERIFY_EMAIL_STATE);
+            } else {
+              $state.go(next.name);
+            }
           }
         });
       } else {
-        if (next.data && next.data.role === 'user' && !Auth.isAuthenticated()) {
-          onNotAuthorized(event);
+        if (next.data && next.data.role === 'user') {
+          if (!Auth.isAuthenticated()) {
+            onNotAuthorized(event);
+          } else if (!$rootScope.currentUser.status && next.name !== VERIFY_EMAIL_STATE) {
+            event.preventDefault();
+            $state.go(VERIFY_EMAIL_STATE);
+          }
         }
       }
 
