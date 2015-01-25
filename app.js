@@ -26,7 +26,7 @@
     app.use(express.static(__dirname + '/.tmp'))
       .use(express.static(__dirname + '/app'))
       .use('/bower_components', express.static(__dirname + '/bower_components'));
-   
+
     // @todo: move this to a seperate config file
     webConfig = {
       user: 'root',
@@ -43,7 +43,7 @@
       database: 'agora_voice_online'
     };
   }
-  
+
   // @todo: move this to a seperate config file
   if (app.get('env') === 'production') {
     webConfig = {
@@ -94,8 +94,45 @@
     maxAge: 60000 * 60 * 24 * 7 // expires in a week
   }));
 
+  // expose the "messages" local variable when views are rendered
+  app.use(function(req, res, next){
+    var msgs = req.session.messages || [];
+
+    // expose "messages" local variable
+    res.locals.messages = msgs;
+
+    // expose "hasMessages"
+    res.locals.hasMessages = !! msgs.length;
+
+    /* This is equivalent:
+     res.locals({
+       messages: msgs,
+       hasMessages: !! msgs.length
+     });
+    */
+
+    next();
+    // empty or "flush" the messages so they
+    // don't build up
+    req.session.messages = [];
+  });
+
   require('./apiRouter')(apiRouter);
   app.use('/api', apiRouter);
+
+  // define a custom res.message() method
+  // which stores messages in the session
+  // mgs:
+  //   content
+  //   type: 'error', 'success', 'warning', 'danger'
+  app.response.message = function(msg) {
+    // reference `req.session` via the `this.req` reference
+    var sess = this.req.session;
+    // simply add the msg to an array for later
+    sess.messages = sess.messages || [];
+    sess.messages.push(msg);
+    return this;
+  };
 
   app.listen(PORT);
   console.log('Started web server on http://localhost:' + PORT);

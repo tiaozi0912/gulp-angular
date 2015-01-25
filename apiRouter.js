@@ -155,7 +155,8 @@
 
           res.send({
             data: data,
-            minutesUsage: minutes
+            minutesUsage: minutes,
+            notifications: res.locals.messages
           });
         }, start, end, interval);
       });
@@ -381,6 +382,36 @@
           message: 'Failed. Not authorized.'
         });
       }
+    });
+
+    router.get('/verify_email/:token', function(req, res) {
+      var token = req.params.token,
+          redirect = '/dashboard/overview',
+          successMsg = 'Email is verified successfully.';
+
+      User.query('SELECT * FROM users WHERE ?', {access_token: token}, function(err, users) {
+        if (err) {
+          return _genErrHandler(res, err);
+        }
+
+        if (!users.length) {
+          res.send({
+            message: 'The link is wrong or expired.'
+          });
+        } else {
+          // Signin the user, clear the access_token and redirect to dashboard page
+          User.save({access_token: null, status: 1, id: users[0].id}, function(err, result) {
+            if (err || !result.length) {
+              return _genErrHandler(res, err);
+            }
+
+            User.saveInSession(req.session, result[0]);
+            res.message({ content:successMsg, type: 'success' });
+
+            res.redirect(redirect);
+          });
+        }
+      });
     });
   };
 })();

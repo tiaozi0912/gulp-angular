@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var ctrl = function($scope, $http, agTime, agChart, voiceData) {
+  var ctrl = function($scope, $http, agTime, agChart, voiceData, agNotification) {
       $scope.query = {
         interval: 'day'
       };
@@ -36,6 +36,14 @@
 
       function onSuccessGetVoiceUsage(res) {
         $scope.minutesUsage = res.minutesUsage;
+
+        // For now only show the last message in the array
+        if (res.notifications.length) {
+          var notification = res.notifications.pop();
+          new agNotification(notification.content, {
+            type: notification.type
+          });
+        }
 
         cachedData('currMonthMinutes', res.minutesUsage);
         cachedData('usage', res.data);

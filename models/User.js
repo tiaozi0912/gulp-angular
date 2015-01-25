@@ -216,7 +216,7 @@
 
   User.prototype.sendEmailVerification = function() {
     var token = User.generateRandomString(),
-        host = 'http://localhost:3000',
+        host = 'http://localhost:9000',
         subject = 'Verify your Agora account',
         email = 'wyj0912@gmail.com', // this.data.email
         url, content;
