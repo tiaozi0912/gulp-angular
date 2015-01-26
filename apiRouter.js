@@ -191,38 +191,41 @@
           ips = [],
           tracker = {},
           data;
+      
+      function processIPLocations(IPLocations) {
+        var data = _.reject(IPLocations, function(location) {
+          return !_.isNumber(location.long) || !_.isNumber(location.lat);
+        });
 
-      // Process data
-      data = _.reject(mockIPLocations, function(location) {
-        return !_.isNumber(location.long) || !_.isNumber(location.lat);
-      });
+        data = _.groupBy(data, function(d) {
+          return d.city;
+        });
 
-      data = _.groupBy(data, function(d) {
-        return d.city;
-      });
+        data = _.map(data, function(arr, city) {
+          arr[0].count = arr.length;
+          return arr[0];
+        });
 
-      data = _.map(data, function(arr, city) {
-        arr[0].count = arr.length;
-        return arr[0];
-      });
+        return data;
+      }
 
-      return res.send({
-        data: data
-      });
+      // return res.send({
+      //   data: processIPLocations(mockIPLocations);
+      // });
 
       currentUser.getChannelUsersInfo(function(err, users) {
         if (err) {
           return _genErrHandler(res, err);
         }
 
-        _.each(users, function(u) {
-          if (!tracker[u.ip]) {
-            tracker[u.ip] = 1;
-            ips.push(u.ip);
-          } else {
-            tracker[u.ip] += 1;
-          }
-        });
+        // _.each(users, function(u) {
+        //   if (!tracker[u.ip]) {
+        //     tracker[u.ip] = 1;
+        //     ips.push(u.ip);
+        //   } else {
+        //     tracker[u.ip] += 1;
+        //   }
+        // });
 
         //ipLocationURL += ips.join(',');
 
@@ -240,9 +243,9 @@
             return _genErrHandler(res, err);
           }
 
-          console.log('output ip locations number: ' + ipLocations.length);
-
-          res.send({data: ipLocations});
+          res.send({
+            data: processIPLocations(ipLocations)
+          });
         });
       }, start, end, interval);
     });
