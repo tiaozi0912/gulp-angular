@@ -1,0 +1,19 @@
+.container.page-container.text-black.admin-users-page
+  section
+    table.table
+      thead
+        tr
+          th name
+          th email
+          th phone
+          th company
+          th status
+          th API key
+      tbody
+        tr(ng-repeat="user in users track by user.id" id="user-{{user.id}}")
+          td {{user.name}}
+          td {{user.email}}
+          td {{user.phone}}
+          td {{user.company_name}}
+          td {{user.status}}
+          td {{user.key}}

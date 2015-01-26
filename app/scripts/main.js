@@ -423,6 +423,17 @@
           }
         }
       })
+      .state('root.admin', {
+        url: '/admin/users',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('admin/users.html');
+            },
+            controller: 'adminUsersCtrl'
+          }
+        }
+      })
       .state('root.dashboard', {
         url: '/dashboard',
         data: {
