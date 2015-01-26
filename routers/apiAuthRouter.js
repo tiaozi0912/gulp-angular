@@ -14,6 +14,13 @@
   var IP = require('../models/IP');
   var csv = require('fast-csv');
   
+  // Helper functions
+  function _genErrHandler(res, err, msg) {
+    msg = msg || 'Something went wrong. Please try later.';
+    console.log(err);
+    return res.status(400).send({ message: msg });
+  }
+  
   /** --- Define before filter for authenticate --- */
 
   function requireAuth(req, res, next) {

@@ -173,7 +173,20 @@
     User.query('SELECT * FROM users where ?', {email: email}, function(err, users) {
       userJSON = users[0];
       if (err || !userJSON) {
-        cb(err, []);
+        cb(err, users);
+      } else {
+        getAPIKey(userJSON.vendor_id, userJSON, cb);
+      }
+    });
+  };
+
+  User.findAll = function(cb) {
+    var userJSON;
+
+    User.query('SELECT * FROM users', function(err, users) {
+      userJSON = users[0];
+      if (err || !userJSON) {
+        cb(err, users);
       } else {
         getAPIKey(userJSON.vendor_id, userJSON, cb);
       }

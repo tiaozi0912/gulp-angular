@@ -12,6 +12,7 @@
 
   var apiAuthRouter = require('./routers/apiAuthRouter');
   var apiNoAuthRouter = require('./routers/apiNoAuthRouter');
+  var apiAdminRouter = require('./routers/apiAdminRouter');
 
   var PORT = 9000,
       VIEW_PATH = __dirname + '/app',
@@ -121,6 +122,7 @@
 
   // require('./apiRouter')(apiRouter);
   // app.use('/api', apiRouter);
+  app.use('/api/admin', apiAdminRouter);
   app.use('/api/auth', apiAuthRouter);
   app.use('/api', apiNoAuthRouter);
 
