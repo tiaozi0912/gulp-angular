@@ -2,12 +2,13 @@
   {{dashboardNotification.content}}
 
 .overview
-  .usage-text-container
-    h3.total-minutes
+  .usage-text-container.clearfix
+    h3.total-minutes.pull-left
       span.text-green.text-lead
         i.fa.fa-clock-o
         span &nbsp; {{minutesUsage || 0 | number:0}}
       span &nbsp; minutes used this month
+    .pull-right(ag-download-data-dropdown="")
 
   section
     h3.chart-title

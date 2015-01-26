@@ -38,6 +38,17 @@
   }
 }
 
+.ag-download-data-dropdown {
+  a {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    display: block;
+    padding: 20px;
+  }
+}
+
 @include mq($screen-sm) {
   .site-sidebar {
     float: left;

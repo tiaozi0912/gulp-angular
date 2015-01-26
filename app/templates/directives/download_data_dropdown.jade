@@ -1,0 +1,9 @@
+.ag-download-data-dropdown.dropdown
+  a.link.dropdown-toggle(ng-click="toggleDropdownMenu()") <i class="fa fa-cloud-download"></i> Download data <span class="caret"></span>
+  form.dropdown-menu(ng-show="showDropdownMenu")
+    .form-group
+      label.control-label Select data period
+      select.form-control(name="data_period" ng-model="form.period" ng-options="periodOption.value as periodOption.label for periodOption in periodOptions" ng-change="select()")
+      .text-info(ng-show="processing") Downloading ...
+      .text-success(ng-show="downloaded") Downloaded successfully
+    button.btn.btn-primary(type="button" ng-click="toggleDropdownMenu()") Cancel
