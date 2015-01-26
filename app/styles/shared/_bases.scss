@@ -19,6 +19,8 @@ ul, ol {
 }
 
 .link {
+  cursor: pointer;
+
   &:hover {
     opacity: 0.85;
     text-decoration: none;

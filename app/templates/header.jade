@@ -9,6 +9,12 @@
       li(ng-class="{active:nav.active}", ng-repeat="nav in navs")
         a.cap(href="{{nav.url}}") {{nav.label}}
   .secondary-nav.pull-right.hidden-xs
-    a.link(ui-sref="root.dashboard.overview", ng-if="user.id") {{user.name}}
-    a.link(ng-click="showSigninModal()", ng-if="!user.id") Sign In
+    a.link.primary-link(ng-click="showSigninModal()", ng-if="!user.id") Sign In
+    .dropdown
+      a.link.dropdown-toggle.primary-link(ag-show-toggle="" target=".dropdown-menu") {{user.name}} <span class="caret"></span>
+      ul.dropdown-menu
+        li
+          a(ui-sref="root.dashboard.overview") dashboard
+        li
+          a(href="/api/signout") sign out
 

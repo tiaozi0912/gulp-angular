@@ -110,9 +110,7 @@
 
     router.get('/signout', function(req, res) {
       req.session.currentUser = null;
-      res.send({
-        message: 'Signed out successfully.'
-      });
+      res.redirect('/');
     });
 
     router.get('/reauthorize', function(req, res) {
@@ -266,8 +264,6 @@
           // Return empty array if there is no data
           return res.send({data: []});
         }
-
-        console.log(data);
 
         res.setHeader('Content-disposition', 'attachment; filename=' + filename);
         res.setHeader('Content-type', mimetype);

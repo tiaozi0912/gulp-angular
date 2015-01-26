@@ -36,10 +36,21 @@
   }
 
   .secondary-nav {
-    a {
+    .primary-link {
       padding-top: 15px;
       display: block;
       line-height: 20px;
+    }
+
+    .dropdown-menu {
+      display: block;
+      border-width: 0;
+      padding: 10px 0;
+      transition: max-height ease 0.1s, opacity ease 0.1s;
+
+      &.ag-hide {
+        padding: 0;
+      }
     }
   }
 }
