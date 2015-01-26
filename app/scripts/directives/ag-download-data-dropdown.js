@@ -41,6 +41,7 @@
           }
         },
         url = '/api/auth/data_download',
+        urlPreDownload = '/api/auth/pre_data_download',
         MESSAGES = {
           downloaded: 'Dowloaded.',
           downloading: 'Downloading',
@@ -80,11 +81,9 @@
 
         _.extend($scope.form, getPeriod[$scope.form.period]());
 
-        return location.href = url + '?' + $.param($scope.form);
-
-        $http.get(url, {params: $scope.form})
+        $http.get(urlPreDownload, {params: $scope.form})
           .success(function(res) {
-            if (res.data && !res.data.length) {
+            if (!res.data) {
               $scope.message = {
                 content: MESSAGES.noData,
                 type: 'warning'
@@ -94,6 +93,8 @@
                 content: MESSAGES.downloaded,
                 type: 'success'
               };
+
+              location.href = url + '?' + $.param($scope.form);
             }
           })
           .error(function() {

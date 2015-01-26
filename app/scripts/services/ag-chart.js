@@ -26,7 +26,7 @@
           DAY: 'day',
           HOUR: 'hourly'
         },
-        labelsCount: 4,
+        labelsCount: 10,
         colors: ['#2ecc71', '#1aa1e5', '#2c3e50', '#bdc3c7', '#e67e22']
       };
 

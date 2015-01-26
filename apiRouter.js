@@ -2,6 +2,7 @@
   'use strict';
 
   var User = require('./models/User');
+  var ChannelUser = require('./models/ChannelUser');
   var _ = require('underscore');
   var request = require('request');
   var fs = require('fs');
@@ -274,6 +275,21 @@
         csv.write(data, {headers: true})
           .pipe(res);
       }, start, end, period);
+    });
+
+    router.get('/auth/pre_data_download', function(req, res) {
+      var start = req.query.start,
+          end = req.query.end,
+          period = req.query.period,
+          currentUser = req.session.currentUser;
+
+      ChannelUser.query('SELECT COUNT(*) AS count FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [currentUser.vendor_id, start, end], function(err, result) {
+        if (err) {
+          return _genErrHandler(res, err);
+        }
+
+        res.send({data: result[0].count});
+      });
     });
 
     // router.get('/load_ip_data', function(req, res) {
