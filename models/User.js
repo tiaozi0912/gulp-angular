@@ -7,7 +7,7 @@
   var ChannelUser = require('./ChannelUser');
   var Vendor = require('./Vendor');
   var _ = require('underscore');
-  var emailSender = require('../lib/mailer');
+  var mailer = require('../lib/mailer');
   var dataFormatter = require('../lib/dataFormatter');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -343,27 +343,12 @@
   };
 
   User.prototype.sendEmailVerification = function() {
-    var token = User.generateRandomString(),
-        host = 'http://localhost:9000',
-        subject = 'Verify your Agora account',
-        email = 'wyj0912@gmail.com', // this.data.email
-        url, content;
-
-    if (process.env.NODE_ENV === 'production') {
-      host = 'http://agora.io';
-    }
-
-    url = host + '/api/verify_email/' + token;
-
+    var token = User.generateRandomString();
+    
+    // @readme: may result to bug if the token is not saved scucessfully.
     User.save({access_token: token, id: this.data.id}, function() {});
-
-    content = '<p>Hi ' + this.data.name + ':</p><br>' + '<p> Welcome to Agora! Please verify your email by clicking the following link: </p>' + '<a href="' + url + '">' + url + '</a><br>' + '<p> Best regards, </p>' + '<p>Agora Team</p><br>' + '<br><p>(If you did not request an Agora account, please ignore this message.)</p>';
-
-    emailSender.send(content, subject, [{
-      email: email,
-      name: this.data.name,
-      type: 'to'
-    }]);
+    
+    mailer.sendEmailVerification(this.data, token);
   };
 
   module.exports = User;

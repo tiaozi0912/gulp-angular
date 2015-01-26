@@ -13,6 +13,7 @@
   var stream = require('stream');
   var IP = require('../models/IP');
   var csv = require('fast-csv');
+  var mailer = require('../lib/mailer');
   
   // Helper functions
   function _genErrHandler(res, err, msg) {
@@ -255,6 +256,8 @@
           if (err || !result.length) {
             return _genErrHandler(res, err);
           }
+          
+          mailer.sendEmailVerifiedNotification(result[0]);
 
           User.saveInSession(req.session, result[0]);
           res.message({ content:successMsg, type: 'success' });
