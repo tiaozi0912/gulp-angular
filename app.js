@@ -8,8 +8,10 @@
   var session = require('cookie-session');
   var serveStatic = require('serve-static');
   var serveIndex = require('serve-index');
-  var apiRouter = express.Router();
   var logger = require('morgan');
+
+  var apiAuthRouter = require('./routers/apiAuthRouter');
+  var apiNoAuthRouter = require('./routers/apiNoAuthRouter');
 
   var PORT = 9000,
       VIEW_PATH = __dirname + '/app',
@@ -117,8 +119,10 @@
     req.session.messages = [];
   });
 
-  require('./apiRouter')(apiRouter);
-  app.use('/api', apiRouter);
+  // require('./apiRouter')(apiRouter);
+  // app.use('/api', apiRouter);
+  app.use('/api/auth', apiAuthRouter);
+  app.use('/api', apiNoAuthRouter);
 
   // define a custom res.message() method
   // which stores messages in the session
