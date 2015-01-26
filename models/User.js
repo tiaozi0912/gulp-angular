@@ -7,7 +7,7 @@
   var ChannelUser = require('./ChannelUser');
   var Vendor = require('./Vendor');
   var _ = require('underscore');
-  var emailSender = require('../lib/emailSender');
+  var emailSender = require('../lib/mailer');
   var dataFormatter = require('../lib/dataFormatter');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
