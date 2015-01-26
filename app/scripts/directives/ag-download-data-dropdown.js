@@ -35,8 +35,8 @@
                 dt = moment().subtract(interval.value, interval.name);
 
             return {
-              start: dt.startOf().unix(),
-              end: yesterday.endOf().unix()
+              start: dt.startOf('day').unix(),
+              end: yesterday.endOf('day').unix()
             };
           }
         },
@@ -52,7 +52,7 @@
       { value: 'yesterday', label: 'yesterday' },
       { value: 'past_7_days', label: 'past 7 days' },
       { value: 'past_30_days', label: 'past 30 days' },
-      { value: 'past_12_months-monthly', label: 'past 12 months - monthly' },
+      //{ value: 'past_12_months-monthly', label: 'past 12 months - monthly' },
       { value: 'past_12_months-yearly', label: 'past 12 months - yearly' }
     ];
 
