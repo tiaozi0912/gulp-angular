@@ -5,9 +5,6 @@
   }
 
   .total-minutes {
-    margin-bottom: 0;
-    border-bottom: 1px solid $light-gray;
-
     .text-lead {
       font-size: 2em;
     }
@@ -15,10 +12,11 @@
 
   .usage-text-container {
     margin-bottom: 25px;
+    border-bottom: 1px solid $gray;
   }
 
   .ag-download-data-dropdown {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 }
 
