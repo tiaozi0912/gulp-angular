@@ -6,10 +6,7 @@
       return $http
         .post('/api/signup', {user: user})
         .then(function(res) {
-          window.console.log(res);
-
-          Session.create(res.data.id, res.data.user.id,
-                         res.data.user.role);
+          Session.create(res.data.user, res.data.id, r.id);
           return res.data.user;
         });
     };
@@ -18,8 +15,7 @@
       return $http
         .post('/api/signin', {user: credentials})
         .then(function (res) {
-          Session.create(res.data.id, res.data.user.id,
-                         res.data.user.role);
+          Session.create(res.data.user, res.data.id);
           return res.data.user;
         });
     };
@@ -28,16 +24,26 @@
       return $http
         .get('/api/reauthorize')
         .then(function (res) {
-          Session.create(res.data.id, res.data.user.id,
-                         res.data.user.role);
+          Session.create(res.data.user, res.data.id);
           return res.data.user;
         }, function() {
           return false;
         });
     };
 
+    this.signout = function() {
+      return $http
+        .get('/api/signout').then(function() {
+          Session.destroy();
+
+          return true;
+        }, function() {
+          return false;
+        });
+    };
+
     this.isAuthenticated = function () {
-      return Session.userId !== null && typeof Session.userId !== 'undefined';
+      return Session.currentUser !== null && typeof Session.currentUser !== 'undefined';
     };
 
     this.isAuthorized = function (authorizedRoles) {
@@ -45,7 +51,7 @@
         authorizedRoles = [authorizedRoles];
       }
 
-      return (this.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
+      return (this.isAuthenticated() && authorizedRoles.indexOf(Session.currentUser.role) !== -1);
     };
 
     return this;

@@ -11,7 +11,6 @@
 
   var ctrl = function($scope, $rootScope, Auth, AUTH_EVENTS, $state) {
     function onSignupSuccess(user) {
-      $rootScope.currentUser = user;
       $scope.processing = false;
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       window.console.log('signup successfully. set user:');
@@ -26,7 +25,6 @@
 
     function onSigninSuccess(user) {
       $scope.processing = false;
-      $rootScope.currentUser = user;
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $state.go('root.dashboard.overview');
     }

@@ -1,16 +1,16 @@
 (function() {
   'use strict';
 
-  var Session = function() {
-    this.create = function (sessionId, userId, userRole) {
-      this.id = sessionId;
-      this.userId = userId;
-      this.userRole = userRole;
+  var Session = function($rootScope) {
+    this.create = function (user, sessionId) {
+      $rootScope.currentUser = user;
+      this.sessionId = sessionId;
+      this.currentUser = user;
     };
     this.destroy = function () {
-      this.id = null;
-      this.userId = null;
-      this.userRole = null;
+      $rootScope.currentUser = null;
+      this.sessionId = null;
+      this.currentUser = null;
     };
     return this;
   };
