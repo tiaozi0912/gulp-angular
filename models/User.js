@@ -222,10 +222,10 @@
   /**
    * Get complete data for downloading
    *
-   * @param {String} interval - ''
+   * @param {String} period - 'yesterday', 'past_7_days', 'past_30_days', 'past_12_months-monthly', 'past_12_months-yearly'
    */
-  User.prototype.getCompleteData = function(cb, start, end, interval) {
-
+  User.prototype.getCompleteData = function(cb, start, end, period) {
+    cb(null, []);
   };
 
   User.prototype.isAdmin = function() {

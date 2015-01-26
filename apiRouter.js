@@ -277,7 +277,7 @@
       var mimetype = 'text/csv',
           start = req.query.start,
           end = req.query.end,
-          interval = req.query.interval,
+          period = req.query.period,
           currentUser = new User(req.session.currentUser),
           filename;
 
@@ -286,7 +286,7 @@
           return _genErrHandler(res, err);
         }
 
-        if (!data && !data.length) {
+        if (!data || !data.length) {
           // Return empty array if there is no data
           return res.send({data: []});
         }
@@ -296,7 +296,7 @@
 
         csv.write(data, {headers: true})
           .pipe(res);
-      }, start, end, interval);
+      }, start, end, period);
     });
 
     // router.get('/load_ip_data', function(req, res) {
