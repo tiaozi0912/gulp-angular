@@ -176,31 +176,6 @@
           return _genErrHandler(res, err);
         }
 
-        // count the participants number in each channel
-        var count = {}, // {cid: count}
-            tracker = {},
-            c = 0;
-
-        var channelsHash = _.groupBy(data, function(d) {
-          return d.cid;
-        });
-
-        _.each(channelsHash, function(arr, cid) {
-          c = 0;
-          tracker = {};
-          _.each(arr, function(d) {
-            if (!tracker[d.uid]) {
-              c += 1;
-              tracker[d.uid] = 1;
-            }
-          });
-          count[cid] = c;
-        });
-
-        _.each(data, function(d) {
-          d.participants_number = count.hasOwnProperty(d.cid) ? count[d.cid] : 0;
-        });
-
         res.send({
           data: data
         });
@@ -279,7 +254,7 @@
           end = req.query.end,
           period = req.query.period,
           currentUser = new User(req.session.currentUser),
-          filename;
+          filename = period;
 
       currentUser.getCompleteData(function(err, data) {
         if (err) {
@@ -290,6 +265,8 @@
           // Return empty array if there is no data
           return res.send({data: []});
         }
+
+        console.log(data);
 
         res.setHeader('Content-disposition', 'attachment; filename=' + filename);
         res.setHeader('Content-type', mimetype);

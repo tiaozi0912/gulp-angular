@@ -1,4 +1,4 @@
-(function() {
+(function($) {
   'use strict';
 
   var ctrl = function($scope, $http) {
@@ -22,12 +22,12 @@
             });
           },
           'past_12_months-monthly': function() {
-            return this['past_12_months-yearly'];
+            return this['past_12_months-yearly']();
           },
           'past_12_months-yearly': function() {
             return this._getStartEnd({
               value: 12,
-              name: 'm'
+              name: 'M'
             });
           },
           _getStartEnd: function(interval) {
@@ -80,6 +80,8 @@
 
         _.extend($scope.form, getPeriod[$scope.form.period]());
 
+        return location.href = url + '?' + $.param($scope.form);
+
         $http.get(url, {params: $scope.form})
           .success(function(res) {
             if (res.data && !res.data.length) {
@@ -89,7 +91,7 @@
               };
             } else {
               $scope.message = {
-                content: MESSAGES.Dowloaded,
+                content: MESSAGES.downloaded,
                 type: 'success'
               };
             }
@@ -117,4 +119,4 @@
   };
 
   angular.module('AgoraApp').directive('agDownloadDataDropdown', dir);
-})();
+})(window.Zepto);

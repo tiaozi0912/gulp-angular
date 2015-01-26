@@ -1,5 +1,4 @@
-.alert.dashboard-alert(ng-if="dashboardNotification" class="alert-{{dashboardNotification.type}}")
-  {{dashboardNotification.content}}
+.alert.dashboard-alert(ng-if="dashboardNotification" class="alert-{{dashboardNotification.type}}") {{dashboardNotification.content}}
 
 .account
   .row.text-lead.api-key(ng-if="user.key")

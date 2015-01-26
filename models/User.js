@@ -7,7 +7,8 @@
   var ChannelUser = require('./ChannelUser');
   var Vendor = require('./Vendor');
   var _ = require('underscore');
-  var emailSender = require('../emailSender');
+  var emailSender = require('../lib/emailSender');
+  var dataFormatter = require('../lib/dataFormatter');
 
   var EMAIL_REGEX =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -53,6 +54,37 @@
 
       cb(err, [userJSON]);
     });
+  }
+
+  /**
+   * count the participants number in each channel
+   */
+  function countParticipantsNumber(data) {
+    var count = {}, // {cid: count}
+        tracker = {},
+        c = 0;
+
+    var channelsHash = _.groupBy(data, function(d) {
+      return d.cid;
+    });
+
+    _.each(channelsHash, function(arr, cid) {
+      c = 0;
+      tracker = {};
+      _.each(arr, function(d) {
+        if (!tracker[d.uid]) {
+          c += 1;
+          tracker[d.uid] = 1;
+        }
+      });
+      count[cid] = c;
+    });
+
+    _.each(data, function(d) {
+      d.participants_number = count.hasOwnProperty(d.cid) ? count[d.cid] : 0;
+    });
+
+    return data;
   }
 
   User.STATUSES = {
@@ -211,11 +243,25 @@
     interval = interval || 'day';
 
     if (interval === 'day') {
-      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], cb);
+      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], function(err, data) {
+        if (err || !data.length) {
+          cb(err, data);
+        } else {
+          countParticipantsNumber(data);
+          cb(null, data);
+        }
+      });
     }
 
     if (interval === 'hourly') {
-      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d %H\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], cb);
+      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d %H\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], function(err, data) {
+        if (err || !data.length) {
+          cb(err, data);
+        } else {
+          countParticipantsNumber(data);
+          cb(null, data);
+        }
+      });
     }
   };
 
@@ -225,7 +271,52 @@
    * @param {String} period - 'yesterday', 'past_7_days', 'past_30_days', 'past_12_months-monthly', 'past_12_months-yearly'
    */
   User.prototype.getCompleteData = function(cb, start, end, period) {
-    cb(null, []);
+    var dtFormatter = '%Y-%m-%d',
+        vendorId = this.data.vendor_id,
+        channelUserSQL = 'SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'' + dtFormatter + '\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?';
+
+    ChannelUser.query(channelUserSQL, [vendorId, start, end], function(err, data) {
+      if (err || !data.length) {
+        cb(err, data);
+      } else {
+        var dataDict = {},
+            groupsData,
+            matrix = [],
+            rows = [],
+            row = {};
+
+        var count = 0;
+
+        countParticipantsNumber(data);
+
+        dataDict[end] = data;
+
+        _.each(dataFormatter, function(obj, dataCategory) {
+          if (obj.groups) {
+            _.each(obj.groups, function(g, dataSubCategory) { // loop through groups
+              groupsData = dataFormatter.getGroupsData(dataDict, dataSubCategory, g.values, obj.count);
+
+              matrix.push(dataFormatter.formatData(groupsData, dataCategory, dataSubCategory));
+
+              count += 1;
+            });
+          }
+        });
+
+        // matrix -> rows: [ [{...}, ...], [...] ] -> [ {...}, ... ]
+        for (var i = 0; matrix[0][i]; i++) {
+          row = {};
+
+          _.each(matrix, function(dataset) {
+            _.extend(row, dataset[i]);
+          });
+
+          rows.push(row);
+        }
+
+        cb(null, rows);
+      }
+    });
   };
 
   User.prototype.isAdmin = function() {
