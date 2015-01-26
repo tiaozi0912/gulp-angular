@@ -45,10 +45,7 @@
     function onSuccessGetVoiceUsage(res) {
       $scope.minutesUsage = res.minutesUsage;
       $scope.loading.voiceUsage = false;
-
-      if (!res.data.length) {
-        $scope.hasData.voiceUsage = false;
-      }
+      $scope.hasData.voiceUsage = res.data.length > 0;
 
       // For now only show the last message in the array
       if (res.notifications.length) {
@@ -70,10 +67,7 @@
 
     function onSuccessGetIpLocations(res) {
       $scope.loading.ipLocations = false;
-
-      if (!res.data.length) {
-        $scope.hasData.ipLocations = false;
-      }
+      $scope.hasData.ipLocations = res.data.length > 0;
 
       console.log('IP location info');
       console.log(res.data);
@@ -100,9 +94,7 @@
         $scope.minutesUsage = cachedData('currMonthMinutes');
         $scope.loading.voiceUsage = false;
 
-        if (!cachedData('usage').length) {
-          $scope.hasData.voiceUsage = false;
-        }
+        $scope.hasData.voiceUsage = cachedData('usage').length > 0;
 
         draw(cachedData('usage'));
       }
@@ -119,18 +111,15 @@
       } else {
         $scope.loading.ipLocations = false;
         $scope.ipLocations = cachedData('ipLocations');
-
-        if (!$scope.ipLocations.length) {
-          $scope.hasData.ipLocations = false;
-        }
+        $scope.hasData.ipLocations = $scope.ipLocations.length > 0;
       }
     }
 
     function onDay() {
-      $scope.query.end = moment().unix();
-      $scope.query.start = moment().subtract(30, 'd').unix();
-      //$scope.query.start = moment('2014-12-01').unix();
-      //$scope.query.end = moment('2014-12-31').unix();
+      // $scope.query.end = moment().unix();
+      // $scope.query.start = moment().subtract(30, 'd').unix();
+      $scope.query.start = moment('2014-12-01').unix();
+      $scope.query.end = moment('2014-12-31').unix();
     }
 
     function onHourly() {

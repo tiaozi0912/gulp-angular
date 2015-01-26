@@ -39,14 +39,11 @@
 
     function onSuccess(res) {
       $scope.loading.channelUsers = false;
+      $scope.hasData.channelUsers = res.data.length > 0;
 
       cachedData(res.data);
       formatedData = voiceData.getParticipants($scope.query.groupBy, $scope.query.interval);
       draw(formatedData);
-
-      if (!res.data.length) {
-        $scope.hasData.channelUsers = false;
-      }
     }
 
     function drawChart() {
@@ -55,13 +52,10 @@
           .success(onSuccess);
       } else {
         $scope.loading.channelUsers = false;
+        $scope.hasData.channelUsers = cachedData().length > 0;
 
         formatedData = voiceData.getParticipants($scope.query.groupBy, $scope.query.interval);
         draw(formatedData);
-
-        if (!cachedData().length) {
-          $scope.hasData.channelUsers = false;
-        }
       }
     }
 
