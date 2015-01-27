@@ -131,6 +131,8 @@
   User.save = function(data, cb) {
     var userJSON;
 
+    data.updated_at = new Date().getTime() / 1000;
+
     User._save(data, function(err, res) {
       userJSON = res[0];
 
@@ -152,6 +154,8 @@
     if ( validation === true ) {
       // Hash password
       data.password = User.generateHash(data.password);
+      data.created_at = new Date().getTime() / 1000;
+      data.updated_at = data.created_at;
 
       User._save(data, function(err, res) {
         userJSON = res[0];
