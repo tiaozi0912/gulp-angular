@@ -1,23 +1,31 @@
 form.ag-auth-form(role="form", name="agAuthForm")
   .form-header
     .close(ng-show="isModal", ng-click="dismiss()") &times;
-    h3(ng-transclude="")
+    h3 {{title}}
   .form-body
-    .alert.alert-success(ng-show="success") Submitted
+    .alert(ng-show="message.content" class="alert-{{message.type}}") {{message.content}}
+
     .form-group(ng-show="role==='signup'")
       .input-wrapper
         input.form-control(type="text", name="name", placeholder="full name", ng-model="user.name", required=true)
       .input-wrapper
         input.form-control(type="email", name="email", placeholder="email address", ng-model="user.email", require=true)
       .input-wrapper
-        input.form-control(type="text", name="company_name", placeholder="company name", ng-model="user.company_name")
+        input.form-control(type="tel", name="phone", placeholder="phone number (optional)", ng-model="user.phone")
+      .input-wrapper
+        input.form-control(type="text", name="company_name", placeholder="company (optional)", ng-model="user.company_name")
       .input-wrapper
         input.form-control(type="password", name="password", placeholder="password", ng-model="user.password")
-    .form-group(ng-show="role==='signup'")
+    //.form-group(ng-show="role==='signup'")
       textarea.form-control(rows=3, name="company_description", placeholder="what do you do", ng-model="user.company_description")
+
     .form-group(ng-show="role==='signin'")
       .input-wrapper
         input.form-control(type="email", name="email", placeholder="email address", ng-model="user.email", require=true)
       .input-wrapper
         input.form-control(type="password", name="password", placeholder="password", ng-model="user.password")
-    button.btn.btn-primary.btn-lg.btn-block(type="button", ng-click="submit()", ng-disabled="processing") Submit
+    button.btn.btn-primary.btn-lg.btn-block.btn-action(type="button" ng-click="submit()" ng-disabled="processing")
+      span {{actionBtn()}}
+      i.fa.fa-spin.fa-spinner
+
+    a.link(ng-click="authSwitch()") {{reversedActionBtn()}}

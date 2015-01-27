@@ -21,7 +21,7 @@
         })
         .error(function(res) {
           $scope.processing = false;
-          new agNotification(res.message, {type: 'error'});
+          new agNotification(res.message, {type: 'danger'});
         });
     };
   };

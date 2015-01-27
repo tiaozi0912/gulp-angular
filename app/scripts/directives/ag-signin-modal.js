@@ -24,7 +24,7 @@
       replace: true,
       template: '<div id="signin-modal" class="fade ag-modal modal" role="dialog" ng-class="{in:visible}" tabindex="-1" aria-labelledby="signinModal" aria-hidden="true">' +
           '<div class="modal-dialog">' +
-            '<div ag-auth-form="modal" role="signin">SIGN IN</div>' +
+            '<div ag-auth-form="modal" data-role="signin" data-title="Sign in"></div>' +
           '</div>' +
         '</div>',
       controller: ctrl

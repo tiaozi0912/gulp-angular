@@ -130,7 +130,7 @@
   // which stores messages in the session
   // mgs:
   //   content
-  //   type: 'error', 'success', 'warning', 'danger'
+  //   type: 'success', 'warning', 'danger'
   app.response.message = function(msg) {
     // reference `req.session` via the `this.req` reference
     var sess = this.req.session;

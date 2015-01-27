@@ -180,5 +180,11 @@
         margin-bottom: $section-padding;
       }
     }
+
+    .signup-section {
+      [ag-auth-form] {
+        min-height: 432px;
+      }
+    }
   }
 }
