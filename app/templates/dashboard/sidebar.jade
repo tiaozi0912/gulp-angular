@@ -1,6 +1,6 @@
 .site-sidebar-inner
   a.sidebar-brand(ui-sref="root.dashboard.overview")
-    i.sprite-icon.agora-logo-icon
+    i.sprite-icon.agora-logo-dashboard-icon
   ul.list-plain
     li(ng-repeat="nav in navs", ng-class="{active:nav.active}")
       a(ui-sref="root.dashboard.{{nav.state}}")

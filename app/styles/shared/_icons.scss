@@ -35,7 +35,11 @@
 }
 
 .agora-logo-icon {
-  @include sprite($agora-logo);
+  @include sprite($agora_logo);
+}
+
+.agora-logo-dashboard-icon {
+  @include sprite($agora_logo_dashboard);
 }
 
 .layer-icon {
