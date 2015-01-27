@@ -65,6 +65,13 @@
   .navbar-header {
     display: none;
   }
+
+  .secondary-nav {
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+    }
+  }
 }
 
 

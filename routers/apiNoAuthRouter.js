@@ -54,7 +54,7 @@
         } catch (e) { // Validation errors
           if (_.isArray(e) && e[0].message) {
             errMsg = _.map(e, function(error) {
-              return error.message
+              return error.message;
             }).join(' ');
           } else {
             errMsg = e.toString();
@@ -70,7 +70,6 @@
 
   function signinCtrl(req, res) {
     var params = req.param('user', {}),
-        errMsg,
         user,
         userJSON;
 
@@ -119,9 +118,9 @@
       });
     }
   }
-  
+
   /** --- Hook controllers up with paths --- */
-  
+
   router.post('/signup', signupCtrl);
   router.post('/signin', signinCtrl);
   router.get('/signout', signoutCtrl);

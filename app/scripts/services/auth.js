@@ -6,7 +6,7 @@
       return $http
         .post('/api/signup', {user: user})
         .then(function(res) {
-          Session.create(res.data.user, res.data.id, r.id);
+          Session.create(res.data.user, res.data.id);
           return res.data.user;
         });
     };

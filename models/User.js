@@ -43,8 +43,6 @@
   }
 
   function getAPIKey(vendorId, userJSON, cb) {
-    console.log('vendor id:' + vendorId);
-
     Vendor.query('SELECT `key` FROM vendor_info WHERE ?', { vendor_id: vendorId }, function(err, res) {
       console.log(err);
       console.log(res);
@@ -53,6 +51,27 @@
       }
 
       cb(err, [userJSON]);
+    });
+  }
+
+  /**
+   * Get API Key in bulk
+   *
+   * @param  {Array}   vendorIds  - array of vendor IDs
+   * @param  {Array}   userJSONs  - array of userJSON data
+   * @param  {Function} cb
+   */
+  function batchGetAPIKey(vendorIds, userJSONs, cb) {
+    Vendor.query('SELECT `key` FROM vendor_info WHERE vendor_id IN ?', [[vendorIds]], function(err, res) {
+      console.log(err);
+      console.log(res);
+      if (!err && res.length) {
+        _.each(userJSONs, function(u, i) {
+          u.key = res[i] && res[i].key;
+        });
+      }
+
+      cb(err, userJSONs);
     });
   }
 
@@ -181,14 +200,17 @@
   };
 
   User.findAll = function(cb) {
-    var userJSON;
+    var vendorIds;
 
     User.query('SELECT * FROM users', function(err, users) {
-      userJSON = users[0];
-      if (err || !userJSON) {
+      if (err || !users.length) {
         cb(err, users);
       } else {
-        getAPIKey(userJSON.vendor_id, userJSON, cb);
+        vendorIds = users.map(function(u) {
+          return u.vendor_id;
+        });
+
+        batchGetAPIKey(vendorIds, users, cb);
       }
     });
   };
@@ -344,10 +366,10 @@
 
   User.prototype.sendEmailVerification = function() {
     var token = User.generateRandomString();
-    
+
     // @readme: may result to bug if the token is not saved scucessfully.
     User.save({access_token: token, id: this.data.id}, function() {});
-    
+
     mailer.sendEmailVerification(this.data, token);
   };
 

@@ -10,11 +10,13 @@
         a.cap(href="{{nav.url}}") {{nav.label}}
   .secondary-nav.pull-right.hidden-xs
     a.link.primary-link(ng-click="showSigninModal()", ng-if="!user.id") Sign In
-    .dropdown
+    .dropdown(ng-if="user.id")
       a.link.dropdown-toggle.primary-link(ag-show-toggle="" target=".dropdown-menu") {{user.name}} <span class="caret"></span>
       ul.dropdown-menu
         li
           a(ui-sref="root.dashboard.overview") dashboard
+        li(ng-if="user.role === 1")
+          a(ui-sref="root.admin") admin
         li
           a(href="/api/signout" ag-signout-link="") sign out
 

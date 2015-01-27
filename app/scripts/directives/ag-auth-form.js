@@ -24,6 +24,7 @@
     }
 
     function onSigninSuccess(user) {
+      console.log(user);
       $scope.processing = false;
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $state.go('root.dashboard.overview');

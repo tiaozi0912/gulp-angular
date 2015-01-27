@@ -7,21 +7,17 @@
   var User = require('../models/User');
   var ChannelUser = require('../models/ChannelUser');
   var _ = require('underscore');
-  var request = require('request');
-  var fs = require('fs');
-  var readline = require('readline');
-  var stream = require('stream');
   var IP = require('../models/IP');
   var csv = require('fast-csv');
   var mailer = require('../lib/mailer');
-  
+
   // Helper functions
   function _genErrHandler(res, err, msg) {
     msg = msg || 'Something went wrong. Please try later.';
     console.log(err);
     return res.status(400).send({ message: msg });
   }
-  
+
   /** --- Define before filter for authenticate --- */
 
   function requireAuth(req, res, next) {
@@ -36,8 +32,6 @@
     next();
   }
 
-  1422314120773
-  
   /** --- Define controllers --- */
 
   function voiceUsageCtrl(req, res) {
@@ -52,7 +46,7 @@
 
     currentUser.getCurrMonthMinutesUsage(function(err, minutesUsage) {
       if (err) {
-        return _genErrHandler
+        return _genErrHandler(res, err);
       }
 
       if (minutesUsage[0] && minutesUsage[0].minutes) {
@@ -97,11 +91,10 @@
         start = req.param('start'),
         end = req.param('end'),
         interval = req.param('interval'),
-        ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
+        //ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
         ips = [],
-        tracker = {},
-        data;
-    
+        tracker = {};
+
     function processIPLocations(IPLocations) {
       var data = _.reject(IPLocations, function(location) {
         return !_.isNumber(location.long) || !_.isNumber(location.lat);
@@ -111,7 +104,7 @@
         return d.city;
       });
 
-      data = _.map(data, function(arr, city) {
+      data = _.map(data, function(arr) {
         arr[0].count = arr.length;
         return arr[0];
       });
@@ -128,14 +121,19 @@
         return _genErrHandler(res, err);
       }
 
-      // _.each(users, function(u) {
-      //   if (!tracker[u.ip]) {
-      //     tracker[u.ip] = 1;
-      //     ips.push(u.ip);
-      //   } else {
-      //     tracker[u.ip] += 1;
-      //   }
-      // });
+      if (!users.length) {
+        return res.send({data: []});
+      }
+
+      // Push ip into ips array and count each ip
+      _.each(users, function(u) {
+        if (!tracker[u.ip]) {
+          tracker[u.ip] = 1;
+          ips.push(u.ip);
+        } else {
+          tracker[u.ip] += 1;
+        }
+      });
 
       //ipLocationURL += ips.join(',');
 
@@ -189,7 +187,7 @@
   function preDataDownloadCtrl(req, res) {
     var start = req.query.start,
         end = req.query.end,
-        period = req.query.period,
+        //period = req.query.period,
         currentUser = req.session.currentUser;
 
     ChannelUser.query('SELECT COUNT(*) AS count FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [currentUser.vendor_id, start, end], function(err, result) {
@@ -204,8 +202,7 @@
   function usersUpdateCtrl(req, res) {
     var userId = parseInt(req.params.user_id),
        currentUser = new User(req.session.currentUser),
-       userData = req.body,
-       user;
+       userData = req.body;
 
     if (userId === currentUser.data.id || currentUser.isAdmin()) {
       User.query('SELECT * FROM users WHERE ?', {id: userId}, function(err, users) {
@@ -258,7 +255,7 @@
           if (err || !result.length) {
             return _genErrHandler(res, err);
           }
-          
+
           mailer.sendEmailVerifiedNotification(result[0]);
 
           User.saveInSession(req.session, result[0]);
@@ -269,11 +266,11 @@
       }
     });
   }
-  
+
   /** --- Check authentication before passing to other controllers --- */
 
   router.use(requireAuth);
-  
+
   /** --- Hook controllers up with paths --- */
 
   router.get('/voice_usage', voiceUsageCtrl);

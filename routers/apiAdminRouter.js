@@ -5,7 +5,6 @@
   var router = express.Router();
 
   var User = require('../models/User');
-  var _ = require('underscore');
 
   // Helper functions
   function _genErrHandler(res, err, msg) {
@@ -29,7 +28,7 @@
   }
 
   /** --- Define controllers --- */
-  
+
   // @todo: pagination
   function usersCtrl(req, res) {
     User.findAll(function(err, users) {
@@ -44,9 +43,9 @@
   /** --- Check authentication before passing to other controllers --- */
 
   router.use(requireAdminAuth);
-  
+
   /** --- Hook controllers up with paths --- */
-  
+
   router.get('/users', usersCtrl);
 
   module.exports = router;

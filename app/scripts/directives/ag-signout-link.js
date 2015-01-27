@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  
+
   var dir = function(Auth, $state, agNotification) {
     return function(scope, element) {
     	element.on('click', function(e) {
@@ -18,5 +18,5 @@
     };
   };
 
-  angular.module('AgoraApp').directvie('agSignoutLink', dir);
+  angular.module('AgoraApp').directive('agSignoutLink', dir);
 })();
