@@ -44,12 +44,12 @@
 
     .dropdown-menu {
       display: block;
-      border-width: 0;
       padding: 10px 0;
       transition: max-height ease 0.1s, opacity ease 0.1s;
 
       &.ag-hide {
         padding: 0;
+        border-width: 0;
       }
     }
   }

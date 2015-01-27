@@ -88,31 +88,7 @@
             templateProvider: function($templateCache) {
               return $templateCache.get('header.html');
             },
-            controller: function($scope, $location, $rootScope, siteResources) {
-              var $navbarToggleBtn = $('.navbar-header .navbar-toggle'),
-                  $navbar = $('.site-header .header-collapse'),
-                  hiddenCls = 'ag-hide';
-
-              $scope.user = $rootScope.currentUser;
-
-              $scope.navs = siteResources.headerNavs;
-
-              $scope.showSigninModal = function() {
-                $rootScope.$broadcast('agAuthModal:show');
-              };
-
-              // When page changes
-              // @todo: move this to app.run()
-              $scope.$on('$locationChangeSuccess', function() {
-
-                // Hide the dropdown navs in mobile and scroll top
-                if ($navbarToggleBtn.css('display') !== 'none') {
-                  $navbar.addClass(hiddenCls);
-                }
-
-                $(window).scrollTop(0);
-              });
-            }
+            controller: 'siteHeaderCtrl'
           },
           footer: {
             templateProvider: function($templateCache) {
