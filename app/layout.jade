@@ -8,7 +8,6 @@ html.no-js(ng-app="AgoraApp", ng-controller="siteCtrl")
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel="icon", type="image/png", href="favicon-32x32.png", sizes="32x32")
     link(rel="icon", type="image/png", href="favicon-16x16.png", sizes="16x16")
-    link(href='http://fonts.googleapis.com/css?family=Lato:100,300,400',rel='stylesheet',type='text/css')
     // Place favicon.ico and apple-touch-icon.png in the root directory
 
     // build:css styles/main.css
@@ -22,7 +21,7 @@ html.no-js(ng-app="AgoraApp", ng-controller="siteCtrl")
 
   body(ng-class="layout.name")
     | <!--[if lt IE 10]>
-    |     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    |     <p class="browsehappy alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     | <![endif]-->
 
     block content
