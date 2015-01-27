@@ -9,6 +9,7 @@
           th company
           th status
           th API key
+          th signed up at
       tbody
         tr(ng-repeat="user in users track by user.id" id="user-{{user.id}}")
           td {{user.name}}
@@ -17,3 +18,4 @@
           td {{user.company_name}}
           td {{user.status}}
           td {{user.key}}
+          td {{user.created_at | datetimeDisplay}}

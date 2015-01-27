@@ -86,7 +86,7 @@
         if (user.validPassword(params.password, userJSON.password)) {
 
           // Sign in user
-          User.saveInSession(req.session, userJSON);
+          User.saveInSession(req.session, user.data);
 
           return res.send({
             id: req.session.id,

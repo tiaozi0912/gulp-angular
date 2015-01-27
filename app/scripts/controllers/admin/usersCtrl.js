@@ -4,7 +4,9 @@
   var usersCtrl = function($scope, $http) {
     $http.get('/api/admin/users')
       .success(function(res) {
-        $scope.users = res.data;
+        $scope.users = _.sortBy(res.data, function(u) {
+          return -u.created_at;
+        });
       });
   };
 

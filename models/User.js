@@ -223,6 +223,10 @@
         batchGetAPIKey(vendorIds, usersWithVendorId, function(err, users) {
           users = users.concat(usersWithoutVendorId);
 
+          users = users.map(function(u) {
+            return _.omit(u, User._privateProperties);
+          });
+
           cb(err, users);
         });
       }

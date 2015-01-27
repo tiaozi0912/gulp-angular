@@ -2,8 +2,8 @@ var dbm = require('db-migrate');
 var type = dbm.dataType;
 
 exports.up = function(db, callback) {
-  db.addColumn('users', 'created_at', {type: 'timestamp'}, function() {
-    db.addColumn('users', 'updated_at', {type: 'timestamp'}, callback);
+  db.addColumn('users', 'created_at', {type: 'bigint'}, function() {
+    db.addColumn('users', 'updated_at', {type: 'bigint'}, callback);
   })
 };
 
