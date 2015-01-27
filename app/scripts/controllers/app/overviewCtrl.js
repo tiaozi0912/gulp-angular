@@ -116,10 +116,10 @@
     }
 
     function onDay() {
-      // $scope.query.end = moment().unix();
-      // $scope.query.start = moment().subtract(30, 'd').unix();
-      $scope.query.start = moment('2014-12-01').unix();
-      $scope.query.end = moment('2014-12-31').unix();
+      $scope.query.end = moment().unix();
+      $scope.query.start = moment().subtract(30, 'd').unix();
+      // $scope.query.start = moment('2014-12-01').unix();
+      // $scope.query.end = moment('2014-12-31').unix();
     }
 
     function onHourly() {

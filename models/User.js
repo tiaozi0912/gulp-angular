@@ -44,8 +44,6 @@
 
   function getAPIKey(vendorId, userJSON, cb) {
     Vendor.query('SELECT `key` FROM vendor_info WHERE ?', { vendor_id: vendorId }, function(err, res) {
-      console.log(err);
-      console.log(res);
       if (!err && res[0]) {
         userJSON.key = res[0].key;
       }
@@ -63,8 +61,6 @@
    */
   function batchGetAPIKey(vendorIds, userJSONs, cb) {
     Vendor.query('SELECT `key` FROM vendor_info WHERE vendor_id IN ?', [[vendorIds]], function(err, res) {
-      console.log(err);
-      console.log(res);
       if (!err && res.length) {
         _.each(userJSONs, function(u, i) {
           u.key = res[i] && res[i].key;
@@ -200,17 +196,31 @@
   };
 
   User.findAll = function(cb) {
-    var vendorIds;
+    var vendorIds,
+        usersWithVendorId,
+        usersWithoutVendorId;
 
     User.query('SELECT * FROM users', function(err, users) {
       if (err || !users.length) {
         cb(err, users);
       } else {
-        vendorIds = users.map(function(u) {
+        usersWithVendorId = _.filter(users, function(u) {
           return u.vendor_id;
         });
 
-        batchGetAPIKey(vendorIds, users, cb);
+        usersWithoutVendorId = _.filter(users, function(u) {
+          return !u.vendor_id;
+        });
+
+        vendorIds = usersWithVendorId.map(function(u) {
+          return u.vendor_id;
+        });
+
+        batchGetAPIKey(vendorIds, usersWithVendorId, function(err, users) {
+          users = users.concat(usersWithoutVendorId);
+
+          cb(err, users);
+        });
       }
     });
   };
@@ -230,8 +240,8 @@
         end = new Date().getTime() / 1000;
 
     // @todo: remove this
-    start = 1417420800;
-    end= 1420012800;
+    // start = 1417420800;
+    // end= 1420012800;
 
     this.getMinutesUsage(cb, start, end);
   };
@@ -312,6 +322,8 @@
         //usageSQL = 'SELECT SUM(duration) / 60 AS \'total minutes\', DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'' + dtFormatter + '\') AS \'datetime\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime';
         usageSQL = 'SELECT SUM(duration) / 60 AS \'total minutes\' FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?';
 
+    console.log(period);
+
     ChannelUser.query(channelUserSQL, [vendorId, start, end], function(err, data) {
       if (err || !data.length) {
         cb(err, data);
@@ -344,9 +356,9 @@
         for (var i = 0; matrix[0][i]; i++) {
           row = {};
 
-          _.each(matrix, function(dataset) {
-            _.extend(row, dataset[i]);
-          });
+          for (var j = 0; matrix[j]; j++) {
+            _.extend(row, matrix[j][i]);
+          }
 
           rows.push(row);
         }
