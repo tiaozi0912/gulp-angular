@@ -10,6 +10,8 @@
   var IP = require('../models/IP');
   var csv = require('fast-csv');
 
+  var mockIPLocations = require('../data/mock_ip_locations');
+
   // Helper functions
   function _genErrHandler(res, err, msg) {
     msg = msg || 'Something went wrong. Please try later.';
@@ -111,9 +113,9 @@
       return data;
     }
 
-    // return res.send({
-    //   data: processIPLocations(mockIPLocations);
-    // });
+    return res.send({
+      data: mockIPLocations
+    });
 
     currentUser.getChannelUsersInfo(function(err, users) {
       if (err) {

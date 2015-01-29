@@ -27,41 +27,6 @@
         baseRadius: 10000
       };
 
-  /**
-   * Not used
-   */
-  // function calCenterLongAndLat(circles) {
-  //   var center = {
-  //         longitude: 0,
-  //         latitude: 0
-  //       },
-  //       len = circles.length,
-  //       sortedCircles;
-
-  //   if (circles.length === 0) {
-  //     return center;
-  //   }
-
-  //   //center = circles[parseInt(len / 2)].center;
-
-  //   // average longitutde and latitude
-  //   sortedCircles = _.sortBy(circles, function(c) {
-  //     return c.center.longitude;
-  //   });
-
-  //   center.longitude = (sortedCircles[0].center.longitude + sortedCircles[len - 1].center.longitude);
-
-  //   sortedCircles = _.sortBy(circles, function(c) {
-  //     return c.center.latitude;
-  //   });
-
-  //   center.latitude = (sortedCircles[0].center.latitude + sortedCircles[len - 1].center.latitude) / 2;
-
-  //   console.log('latitude:' + center.latitude + ' longitude:' + center.longitude) / 2;
-
-  //   return center;
-  // }
-
   function fitBounds(map, bounds, circle) {
     if (bounds && !_.isEmpty(map) && circle) {
       var latLng = new google.maps.LatLng(circle.center.latitude, circle.center.longitude);
@@ -83,9 +48,25 @@
     return _.extend(circle, circleOptions);
   }
 
+  function setMarker(location) {
+    var marker = {
+      id: location.id,
+      latitude: location.lat,
+      longitude: location.long,
+      title: location.count || 1,
+      options: {
+        labelContent: location.count || 1,
+        labelAnchor: '0 60'
+      }
+    };
+
+    return marker;
+  };
+
   function updateMap(scope, ipLocations) {
     if (ipLocations && ipLocations.length) {
-      scope.circles = ipLocations.map(setCirlce);
+      //scope.circles = ipLocations.map(setCirlce);
+      scope.markers = ipLocations.map(setMarker);
 
       // scope.map = {
       //   center: calCenterLongAndLat(scope.circles),
@@ -98,16 +79,24 @@
     var bounds = new google.maps.LatLngBounds(),
         mapInstance;
 
-    $scope.options = {scrollwheel: false};
     $scope.map = {
       center: {
         longitude: 0,
         latitude: 0
       },
-      zoom: zoom
+      zoom: zoom,
+      options: {scrollwheel: false}
     };
 
+    $scope.markers = [];
+
     $scope.googleMap = {};
+
+    $scope.cluster = {
+      options: {
+        averageCenter: true
+      }
+    };
 
     function getMapInstance() {
       if ($scope.googleMap.getGMap) {
@@ -121,9 +110,9 @@
 
       updateMap($scope, $scope.ipLocations);
 
-      _.each($scope.circles, function(c) {
-        fitBounds(mapInstance, bounds, c);
-      });
+      // _.each($scope.circles, function(c) {
+      //   fitBounds(mapInstance, bounds, c);
+      // });
     });
   };
 
@@ -134,8 +123,11 @@
         ipLocations: '='
       },
       controller: ctrl,
-      template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" options="options" draggable="true" control="googleMap">' +
-                  '<ui-gmap-circle ng-repeat="c in circles" stroke="c.stroke" fill="c.fill" radius="c.radius" visible="c.visible" geodesic="c.geodesic" editable="c.editable" draggable="c.draggable" clickable="c.clickable" center="c.center">' +
+      // template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" options="options" draggable="true" control="googleMap">' +
+      //             '<ui-gmap-circle ng-repeat="c in circles" stroke="c.stroke" fill="c.fill" radius="c.radius" visible="c.visible" geodesic="c.geodesic" editable="c.editable" draggable="c.draggable" clickable="c.clickable" center="c.center">' +
+      //           '</ui-gmap-google-map>'
+      template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options" draggable="true">' +
+                  '<ui-gmap-markers models="markers" coords="\'self\'" fit="true" options="\'options\'" doCluster="true" clusterOptions="cluster.options">' +
                 '</ui-gmap-google-map>'
     };
   };
