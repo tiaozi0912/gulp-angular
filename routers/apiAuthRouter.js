@@ -6,6 +6,7 @@
 
   var User = require('../models/User');
   var ChannelUser = require('../models/ChannelUser');
+  var QualityReport = require('../models/QualityReport');
   var _ = require('underscore');
   var IP = require('../models/IP');
   var csv = require('fast-csv');
@@ -85,6 +86,15 @@
         data: data
       });
     }, start, end, interval);
+  }
+
+  function qualityReportCtrl(req, res) {
+    var vendorId = req.session.currentUser.vendor_id,
+        start = req.param('start'),
+        end = req.param('end'),
+        interval = req.param('interval');
+
+
   }
 
   function ipLocationsCtrl(req, res) {
@@ -244,6 +254,7 @@
 
   router.get('/voice_usage', voiceUsageCtrl);
   router.get('/channel_users', channelUsersCtrl);
+  router.get('/quality_report', qualityReportCtrl);
   router.get('/ip_locations', ipLocationsCtrl);
   router.get('/data_download', dataDownloadCtrl);
   router.get('/pre_data_download', preDataDownloadCtrl);
