@@ -58,7 +58,7 @@ gulp.task('templates', function() {
 gulp.task('html', ['sprite', 'views', 'styles', 'templates'], function () {
   var lazypipe = require('lazypipe');
   var cssChannel = lazypipe()
-    .pipe($.csso)
+    .pipe($.minifyCss)
     .pipe($.replace, 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts');
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 

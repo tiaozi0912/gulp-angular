@@ -51,6 +51,7 @@
     "underscore": "^1.7.0",
     "wiredep": "^2.0.0",
     "fast-csv": "^0.5.4",
-    "mandrill-api": "^1.0.41"
+    "mandrill-api": "^1.0.41",
+    "gulp-minify-css": "^0.4.3"
   }
 }
