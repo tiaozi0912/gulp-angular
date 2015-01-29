@@ -27,6 +27,7 @@
         baseRadius: 10000
       };
 
+  // Prob not need any more
   function fitBounds(map, bounds, circle) {
     if (bounds && !_.isEmpty(map) && circle) {
       var latLng = new google.maps.LatLng(circle.center.latitude, circle.center.longitude);

@@ -45,6 +45,14 @@
       user: 'root',
       database: 'agora_voice_online'
     };
+
+    qualityReportConfig = {
+      user: 'webquery',
+      database: 'quality_report',
+      port: '3310',
+      host: '70.39.189.65',
+      password: '!!123abc'
+    };
   }
 
   // @todo: move this to a seperate config file
@@ -68,6 +76,14 @@
       database: 'voice_online',
       port: '3312',
       host: '127.0.0.1'
+    };
+
+    qualityReportConfig = {
+      user: 'webquery',
+      database: 'quality_report',
+      port: '3310',
+      host: '70.39.189.65',
+      password: '!!123abc'
     };
   }
 
@@ -150,4 +166,5 @@
   global.poolCluster.add('web', webConfig);
   global.poolCluster.add('vendors', vendorsConfig);
   global.poolCluster.add('voice_online', voiceOnlineConfig);
+  global.poolCluster.add('quality_report', qualityReportConfig);
 })();
