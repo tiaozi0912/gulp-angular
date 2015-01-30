@@ -8,11 +8,18 @@
     $scope.user = {};
   	$scope.message = {};
   	$scope.processing = false;
-  	$scope.requestedCode = true;//false;
+  	$scope.requestedCode = false;
 
   	function onRequestCode() {
   		$scope.requestedCode = true;
-  		$scope.processing = false;
+  		$scope.message = {
+        type: 'success',
+        content: 'The security code is sent your email.'
+      };
+
+      $interval(function() {
+        $scope.message = {};
+      }, 3000);
   	}
 
   	function onResetPasswordSuccess(res) {
@@ -54,11 +61,9 @@
       	return;
       }
 
-      $scope.processing = true;
+      onRequestCode();
 
-      $http.post(sendCodeUrl, {email: $scope.user.email})
-        .success(onRequestCode)
-        .error(onRequestCode);
+      $http.post(sendCodeUrl, {email: $scope.user.email});
     };
 
     $scope.resetPassword = function(e) {
@@ -77,11 +82,12 @@
       	return;
       }
 
-      $scope.processing = true;
-
-      $http.post(resetPasswordUrl, $scope.user)
-        .success(onResetPasswordSuccess)
-        .error(onResetPasswordError);
+      if (!$scope.processing) {
+        $scope.processing = true;
+        $http.post(resetPasswordUrl, $scope.user)
+          .success(onResetPasswordSuccess)
+          .error(onResetPasswordError);
+      }
     };
   };
 
