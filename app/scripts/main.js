@@ -399,6 +399,17 @@
           }
         }
       })
+      .state('root.reset_password', {
+        url: '/reset_password',
+        views: {
+          'main@': {
+            templateProvider: function($templateCache) {
+              return $templateCache.get('reset_password/reset_password.html');
+            },
+            controller: 'resetPasswordCtrl'
+          }
+        }
+      })
       .state('root.admin', {
         url: '/admin/users',
         views: {

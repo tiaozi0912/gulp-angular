@@ -153,7 +153,7 @@
     });
   }
 
-  function resetPasswordCtrl(req, res) {
+  function resetPasswordCodeCtrl(req, res) {
     var email = req.body.email,
         user;
 
@@ -180,7 +180,8 @@
   router.get('/signout', signoutCtrl);
   router.get('/reauthorize', reauthorizeCtrl);
   router.get('/verify_email/:token', verifyEmailCtrl);
-  router.post('/reset_password', resetPasswordCtrl);
+  router.post('/reset_password_code', resetPasswordCodeCtrl);
+  //router.post('/reset_password', resetPasswordCtrl);
 
   module.exports = router;
 })();
