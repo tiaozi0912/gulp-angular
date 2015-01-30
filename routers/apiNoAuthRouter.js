@@ -159,7 +159,7 @@
 
     User.findByEmail(email, function(err, users) {
       if (!err && users.length) {
-        
+
         user = new User(users[0]);
 
         user.sendResetPasswordEmail();
@@ -177,7 +177,7 @@
     var email = req.body.email,
         password = req.body.password,
         token = req.body.access_token,
-        user, 
+        user,
         data;
 
     User.findByEmail(email, function(err, users) {
@@ -192,8 +192,8 @@
           password: User.generateHash(password),
           id: user.id
         };
-        
-        // Set email verified if isn't 
+
+        // Set email verified if isn't
         if (user.status === 0) {
           data.status = 1;
         }
@@ -205,7 +205,9 @@
 
           User.saveInSession(req.session, users[0]);
           res.send({
-            message: 'Password reset successfully.'
+            message: 'Password reset successfully.',
+            id: req.session.id,
+            user: req.session.currentUser
           });
         });
       } else {

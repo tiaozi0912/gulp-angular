@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  var ctrl = function($scope, $http) {
+  var ctrl = function($scope, $http, $rootScope, Session, AUTH_EVENTS, $state) {
   	var sendCodeUrl = '/api/reset_password_code',
   	    resetPasswordUrl = 'api/reset_password';
-    
+
     $scope.user = {};
   	$scope.message = {};
   	$scope.processing = false;
@@ -15,12 +15,19 @@
   		$scope.processing = false;
   	}
 
-  	function onResetPasswordSuccess() {
-
+  	function onResetPasswordSuccess(res) {
+      $scope.processing = false;
+      Session.create(res.user, res.id);
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      $state.go('root.dashboard.overview');
   	}
 
-  	function onResetPasswordError() {
-
+  	function onResetPasswordError(res) {
+      $scope.processing = false;
+      $scope.message = {
+        type: 'danger',
+        content: res.message
+      };
   	}
 
     $scope.sendCode = function(e) {
@@ -40,7 +47,7 @@
       }
 
       $scope.processing = true;
-      
+
       $http.post(sendCodeUrl, {email: $scope.user.email})
         .success(onRequestCode)
         .error(onRequestCode);
