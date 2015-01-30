@@ -22,7 +22,7 @@
 
     find.category = 3;
 
-    QualityReport.query('SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND reports_ts >= ?', [table, find.vendor_id, find.end, find,start], cb);
+    QualityReport.query('SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND reports_ts >= ?', [table, find.vendor_id, find.end, find.start], cb);
   };
 
 

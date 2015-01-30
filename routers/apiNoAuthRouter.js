@@ -190,7 +190,8 @@
       if (user.access_token === token) {
         data = {
           password: User.generateHash(password),
-          id: user.id
+          id: user.id,
+          access_token: null
         };
 
         // Set email verified if isn't

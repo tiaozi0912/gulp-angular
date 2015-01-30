@@ -404,7 +404,7 @@
         views: {
           'main@': {
             templateProvider: function($templateCache) {
-              return $templateCache.get('reset_password/reset_password.html');
+              return $templateCache.get('reset_password.html');
             },
             controller: 'resetPasswordCtrl'
           }

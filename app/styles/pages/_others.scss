@@ -96,6 +96,13 @@
   }
 }
 
+/**
+ * Reset password page
+ */
+.reset-password-page {
+  background-color: $light-gray;
+}
+
 @include mq($screen-sm) {
   .article {
     padding-right: $section-padding * 2;
@@ -162,6 +169,19 @@
   .about-page {
     .banner-section {
       padding-top: $section-padding * 2;
+    }
+  }
+
+  /**
+   * Reset password page
+   */
+  .reset-password-page {
+    .page-header {
+      margin-left: $section-padding * 1.2;
+    }
+
+    .form-reset-password {
+      padding: 0 $section-padding;
     }
   }
 }

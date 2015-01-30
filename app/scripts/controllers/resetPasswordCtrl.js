@@ -1,14 +1,14 @@
 (function() {
   'use strict';
 
-  var ctrl = function($scope, $http, $rootScope, Session, AUTH_EVENTS, $state) {
+  var ctrl = function($scope, $http, $rootScope, Session, AUTH_EVENTS, $state, $interval) {
   	var sendCodeUrl = '/api/reset_password_code',
-  	    resetPasswordUrl = 'api/reset_password';
+  	    resetPasswordUrl = '/api/reset_password';
 
     $scope.user = {};
   	$scope.message = {};
   	$scope.processing = false;
-  	$scope.requestedCode = false;
+  	$scope.requestedCode = true;//false;
 
   	function onRequestCode() {
   		$scope.requestedCode = true;
@@ -16,10 +16,18 @@
   	}
 
   	function onResetPasswordSuccess(res) {
-      $scope.processing = false;
-      Session.create(res.user, res.id);
-      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-      $state.go('root.dashboard.overview');
+      $scope.message = {
+        type: 'success',
+        content: res.message
+      };
+
+      // Login and redirect after 1 sec
+      $interval(function() {
+        $scope.processing = false;
+        Session.create(res.user, res.id);
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+        $state.go('root.dashboard.overview');
+      }, 1000);
   	}
 
   	function onResetPasswordError(res) {

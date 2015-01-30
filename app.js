@@ -16,7 +16,7 @@
 
   var PORT = 9000,
       VIEW_PATH = __dirname + '/app',
-      webConfig, vendorsConfig, voiceOnlineConfig;
+      webConfig, vendorsConfig, voiceOnlineConfig, qualityReportConfig;
 
   app.set('title', 'Agora');
   app.set(VIEW_PATH);
