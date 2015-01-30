@@ -173,6 +173,49 @@
     });
   }
 
+  function resetPasswordCtrl(req, res) {
+    var email = req.body.email,
+        password = req.body.password,
+        token = req.body.access_token,
+        user, 
+        data;
+
+    User.findByEmail(email, function(err, users) {
+      if (err || !users.length) {
+        return _genErrHandler(res, err);
+      }
+
+      user = users[0];
+
+      if (user.access_token === token) {
+        data = {
+          password: User.generateHash(password),
+          id: user.id
+        };
+        
+        // Set email verified if isn't 
+        if (user.status === 0) {
+          data.status = 1;
+        }
+
+        User.save(data, function(err, users) {
+          if (err || !users.length) {
+            return _genErrHandler(res, err);
+          }
+
+          User.saveInSession(req.session, users[0]);
+          res.send({
+            message: 'Password reset successfully.'
+          });
+        });
+      } else {
+        res.status(400).send({
+          message: 'Invalid security code.'
+        });
+      }
+    });
+  }
+
   /** --- Hook controllers up with paths --- */
 
   router.post('/signup', signupCtrl);
@@ -181,7 +224,7 @@
   router.get('/reauthorize', reauthorizeCtrl);
   router.get('/verify_email/:token', verifyEmailCtrl);
   router.post('/reset_password_code', resetPasswordCodeCtrl);
-  //router.post('/reset_password', resetPasswordCtrl);
+  router.post('/reset_password', resetPasswordCtrl);
 
   module.exports = router;
 })();
