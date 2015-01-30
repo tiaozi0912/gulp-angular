@@ -23,6 +23,7 @@
   .form-body {
     padding: $section-padding-sm;
     text-align: center;
+    position: relative;
   }
 
   .form-group:first-child {
@@ -62,4 +63,11 @@
   .btn-action {
     margin-bottom: 10px;
   }
+
+  .link-forget-password {
+    position: absolute;
+    right: 20px;
+    font-size: 0.8em;
+  }
 }
+

@@ -29,3 +29,4 @@ form.ag-auth-form(role="form", name="agAuthForm")
       i.fa.fa-spin.fa-spinner
 
     a.link(ng-click="authSwitch()") {{reversedActionBtn()}}
+    a.link.text-muted.link-forget-password(ui-sref="root.reset_password" ng-show="role==='signin'") Forget password
