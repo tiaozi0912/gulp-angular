@@ -393,5 +393,14 @@
     mailer.sendEmailVerification(this.data, token);
   };
 
+  User.prototype.sendResetPasswordEmail = function() {
+    var token = User.generateRandomString();
+
+    // @readme: may result to bug if the token is not saved scucessfully.
+    User.save({access_token: token, id: this.data.id}, function() {});
+    
+    mailer.sendResetPasswordEmail(this.data, token);
+  };
+
   module.exports = User;
 })();

@@ -153,6 +153,26 @@
     });
   }
 
+  function resetPasswordCtrl(req, res) {
+    var email = req.body.email,
+        user;
+
+    User.findByEmail(email, function(err, users) {
+      if (!err && users.length) {
+        
+        user = new User(users[0]);
+
+        user.sendResetPasswordEmail();
+
+        res.send({
+          message: 'Security token is sent to your email.'
+        });
+      } else {
+        _genErrHandler(res, err);
+      }
+    });
+  }
+
   /** --- Hook controllers up with paths --- */
 
   router.post('/signup', signupCtrl);
@@ -160,6 +180,7 @@
   router.get('/signout', signoutCtrl);
   router.get('/reauthorize', reauthorizeCtrl);
   router.get('/verify_email/:token', verifyEmailCtrl);
+  router.post('/reset_password', resetPasswordCtrl);
 
   module.exports = router;
 })();
