@@ -50,9 +50,21 @@
       e.preventDefault();
 
       $scope.message = {};
+
+      $scope.user.access_token = $scope.user.access_token && $scope.user.access_token.trim();
+
+      if (!$scope.user.access_token) {
+      	$scope.message = {
+      		type: 'danger',
+      		content: 'Please enter the security code sent to your email.'
+      	}
+
+      	return;
+      }
+
       $scope.processing = true;
 
-      $http.post(resetPasswordUrl, {password: $scope.user.password})
+      $http.post(resetPasswordUrl, $scope.user)
         .success(onResetPasswordSuccess)
         .error(onResetPasswordError);
     };
