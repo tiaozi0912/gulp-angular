@@ -1,0 +1,13 @@
+section
+  h3.chart-title {{title}} {{query.interval | intervalDisplay}}
+  .chart-container
+    .controls
+      div(ag-interval-switch="")
+      div(ag-switch="", onselect="selectView()", btns="viewBtns", value="query", field="groupBy")
+    .canvas-container
+      canvas#participants-chart
+      .loader(ng-show="loading.channelUsers")
+        i.fa.fa-spin.fa-spinner.fa-4x
+      .data-empty-state(ng-hide="hasData.channelUsers")
+        i.fa.fa-folder-open-o
+        span &nbsp; No data yet
