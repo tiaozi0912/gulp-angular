@@ -23,6 +23,11 @@
       calls: {
         usage: { day: null, hourly: null },
         channelUsers: { day: null, hourly: null }
+      },
+      quality: {
+        delay:  { day: null, hourly: null },
+        lost:  { day: null, hourly: null },
+        discontinuity: { day: null, hourly: null }
       }
     };
 
@@ -34,6 +39,11 @@
       },
       getChannelUsersInfo: function(params) {
         var url = '/api/auth/channel_users';
+
+        return $http.get(url, {params: params});
+      },
+      getQualityReport: function(reportType, params) {
+        var url = '/api/auth/quality_report?report_type=' + reportType;
 
         return $http.get(url, {params: params});
       },

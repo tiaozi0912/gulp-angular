@@ -24,7 +24,7 @@
     $scope.hasData = true;
   };
 
-  var dir = function($templateCache, agChart, voiceData) {
+  var dir = function($templateCache, agChart, voiceData, agNotification) {
     return {
       restrict: 'A',
       scope: {
@@ -32,9 +32,9 @@
       },
       replace: true,
       template: $templateCache.get('directives/chart_section.html'),
-      ctrl: ctrl,
+      controller: ctrl,
       link: function(scope, element) {
-            var canvas = element[0].getElementByTagName('canvas')[0],
+            var canvas = $(element[0]).find('canvas')[0],
                 chart = new agChart(canvas),
                 model = scope.chart,
                 dataCategory = model.cacheOption.category,
@@ -78,7 +78,7 @@
          * Fetch data from API and Draw the line chart
          */
         function getDataAndDrawChart() {
-          if (!cachedData(subCategory)) {
+          if (!cachedData(dataSubCategory)) {
             model.fetch(scope.query)
               .success(onFetchSuccess)
               .error(onFetchError);
@@ -110,7 +110,7 @@
           getDataAndDrawChart();
         }
 
-        $scope.onSelect = function() {
+        scope.onSelect = function() {
           if (scope.query.interval === chart.settings.CONSTANT.HOUR) {
             onHourly();
           }

@@ -89,12 +89,41 @@
   }
 
   function qualityReportCtrl(req, res) {
-    var vendorId = req.session.currentUser.vendor_id,
-        start = req.param('start'),
-        end = req.param('end'),
-        interval = req.param('interval');
+    var reportTypeToFnName = {
+          delay: 'getDelayData',
+          lost: 'getLostData',
+          discontinuity: 'getDiscontinuityData'
+        },
+        intervalMap = {
+          day: 'daily',
+          hourly: 'instant'
+        },
+        vendorId = req.session.currentUser.vendor_id,
+        start = req.query.start,
+        end = req.query.end,
+        reportType = req.query.report_type || 'delay_data',
+        interval = intervalMap[req.param('interval')] || 'instant',
+        find,
+        query;
 
+    start = new Date('2014-12-01T23:59:59').getTime() / 1000;
+    end = new Date('2014-12-02T23:59:59').getTime() / 1000;
 
+    find = {
+      vendor_id: vendorId,
+      start: start,
+      end: end
+    };
+
+    query = QualityReport[reportTypeToFnName[reportType]];
+
+    query(function(err, data) {
+      if (err) {
+        return _genErrHandler(res, err);
+      }
+
+      res.send({data: data});
+    }, interval, find);
   }
 
   function ipLocationsCtrl(req, res) {

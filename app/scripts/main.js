@@ -475,6 +475,13 @@
         },
         controller: 'callsCtrl'
       })
+      .state('root.dashboard.quality', {
+        url: '/quality',
+        templateProvider: function($templateCache) {
+          return $templateCache.get('dashboard/quality.html');
+        },
+        controller: 'qualityCtrl'
+      })
       .state('root.dashboard.account', {
         url: '/account',
         templateProvider: function($templateCache) {

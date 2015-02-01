@@ -24,6 +24,12 @@
                       icon: 'fa-comments-o'
                     },
                     {
+                      name: 'quality',
+                      url: '/quality',
+                      state: 'quality',
+                      icon: 'fa-signal'
+                    },
+                    {
                       name: 'account',
                       url: '/account',
                       state: 'account',

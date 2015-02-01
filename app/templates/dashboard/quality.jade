@@ -1,0 +1,5 @@
+.alert.dashboard-alert(ng-if="dashboardNotification" class="alert-{{dashboardNotification.type}}") {{dashboardNotification.content}}
+
+.quality
+  div(ng-repeat="report in reports track by report.name")
+    section(ag-chart-section data-chart="report")

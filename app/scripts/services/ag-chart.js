@@ -144,6 +144,10 @@
         range = data[0].range;
       }
 
+      if (data[0].label) {
+        return data[0].label;
+      }
+
       if (range[0] === 0) {
         return '< ' + range[1];
       }

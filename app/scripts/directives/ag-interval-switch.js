@@ -14,8 +14,8 @@
 
   var ctrl = function($scope) {
     $scope.btns = [
-      {label: 'day', value: 'day'},
-      {label: 'hourly', value: 'hourly'}
+      {label: '30 days', value: 'day'},
+      {label: '1 day', value: 'hourly'}
     ];
   };
 

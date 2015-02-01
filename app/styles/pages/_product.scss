@@ -89,6 +89,7 @@
 
       .content-container {
         @include vertical-align-middle();
+        padding: 0 10px;
       }
 
       .bg {
