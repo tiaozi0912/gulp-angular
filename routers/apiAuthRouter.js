@@ -102,7 +102,7 @@
         start = req.query.start,
         end = req.query.end,
         reportType = req.query.report_type || 'delay_data',
-        interval = intervalMap[req.param('interval')] || 'instant',
+        interval = intervalMap[req.query.interval] || 'instant',
         find,
         query;
 

@@ -143,7 +143,7 @@
     agChart.prototype.getLabel = function(data) {
       var range;
 
-      if (data[0].label) {
+      if (data[0] && data[0].label) {
         return data[0].label;
       }
 
@@ -189,7 +189,7 @@
           domain,
           legend;
 
-      data.labels = this.filterDomain(domain, this.settings.labelsCount);
+      //data.labels = this.filterDomain(domain, this.settings.labelsCount);
 
       data.datasets = _.map(rawData, function(ds, i) {
         dataset = {};

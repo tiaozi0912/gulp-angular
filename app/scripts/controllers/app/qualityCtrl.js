@@ -21,7 +21,7 @@
         name: 'discontinuity',
         title: 'Discontinuity in the past',
         getYValue: function(d) {
-          return d.y;
+          return d.discontinuity;
         }
       }
     ];
@@ -37,8 +37,6 @@
         return voiceData.resources.getQualityReport(report.name, params);
       };
     });
-
-    // Set fetch method
   };
 
   angular.module('AgoraApp').controller('qualityCtrl', ctrl);

@@ -8,7 +8,7 @@
 
     this.hourFormat = 'YYYY-MM-DD HH';
 
-    this.hourDisplayFormat = 'H';
+    this.hourDisplayFormat = 'H:mm';
 
     /**
      * Get the sets of dates between date1 and date2

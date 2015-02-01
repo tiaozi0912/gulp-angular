@@ -57,7 +57,10 @@
           scope.loading = false;
           scope.hasData = res.data.length > 0;
           cachedData(dataSubCategory, res.data);
-          draw(res.data);
+
+          if (scope.hasData) {
+            draw(res.data);
+          }
         }
 
         function onFetchError(res) {
@@ -80,7 +83,9 @@
 
             scope.hasData = cachedData(dataSubCategory).length > 0;
 
-            draw(cachedData(dataSubCategory));
+            if (scope.hasData) {
+              draw(cachedData(dataSubCategory));
+            }
           }
         }
 
@@ -94,8 +99,8 @@
         function onHourly() {
           scope.query.start = moment().subtract(24, 'h').unix();
           scope.query.end = moment().unix();
-          //$scope.query.start = moment('2014-12-18').startOf('day').unix();
-          //$scope.query.end = moment('2014-12-18').endOf('day').unix();
+          scope.query.start = moment('2014-12-18').startOf('day').unix();
+          scope.query.end = moment('2014-12-18').endOf('day').unix();
         }
 
         function init() {
