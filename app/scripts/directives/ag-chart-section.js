@@ -41,6 +41,30 @@
                 dataSubCategory = model.cacheOption.subCategory,
                 dataStore = voiceData.data[dataCategory];
 
+        /**
+         * Check if the data is empty. data may be [] or [[], []], which represent empty
+         *
+         * @param  {Array}  data
+         * @return {Boolean} flag
+         */
+        function hasData(data) {
+          var flag = false;
+
+          if (!data || !data.length) {
+            return false;
+          } else {
+            _.each(data, function(ds) {
+              if (_.isArray(ds)) {
+                flag = (flag || ds.length > 0);
+              } else {
+                flag = true;
+              }
+            });
+          }
+
+          return flag;
+        }
+
         function cachedData(key, data) {
           if (data) {
             dataStore[key][scope.query.interval] = data;
@@ -55,7 +79,7 @@
 
         function onFetchSuccess(res) {
           scope.loading = false;
-          scope.hasData = res.data.length > 0;
+          scope.hasData = hasData(res.data);
           cachedData(dataSubCategory, res.data);
 
           if (scope.hasData) {
@@ -81,7 +105,7 @@
           } else {
             scope.loading = false;
 
-            scope.hasData = cachedData(dataSubCategory).length > 0;
+            scope.hasData = hasData(cachedData(dataSubCategory));
 
             if (scope.hasData) {
               draw(cachedData(dataSubCategory));
@@ -99,8 +123,10 @@
         function onHourly() {
           scope.query.start = moment().subtract(24, 'h').unix();
           scope.query.end = moment().unix();
-          scope.query.start = moment('2014-12-18').startOf('day').unix();
-          scope.query.end = moment('2014-12-18').endOf('day').unix();
+          // scope.query.start = moment('2014-12-18').startOf('day').unix();
+          // scope.query.end = moment('2014-12-18').endOf('day').unix();
+          scope.query.start = moment().subtract(24, 'h').unix();
+          scope.query.end = moment().subtract(48, 'h').unix();
         }
 
         function init() {

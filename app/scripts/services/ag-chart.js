@@ -17,6 +17,7 @@
         },
         chartOptions: {
           pointHitDetectionRadius: 5,
+          animation: false,
           datasetFill: false,
           responsive: true,
           scaleShowVerticalLines: false,
@@ -89,16 +90,30 @@
      * Not showing every labels in the domain, only showing n labels
      */
     agChart.prototype.filterDomain = function(domain, n) {
-      var len = domain.length,
-          filteredDomain = domain.map(function() {
+      var filteredDomain = domain.map(function() {
             return '';
           }),
+          regex = /00$/;;
+
+      // Fucking hacky!
+      //
+      if (domain.length > 35) {
+        _.each(domain, function(label, i) {
+          if (label.match(regex)) {
+            filteredDomain[i] = label;
+          } else {
+            filteredDomain[i] = '';
+          }
+        });
+      } else {
+        var len = domain.length,
           step = parseInt(len / ( n - 1 )),
           i = 0;
 
-      while (domain[i]) {
-        filteredDomain[i] = domain[i];
-        i += step;
+        while (domain[i]) {
+          filteredDomain[i] = domain[i];
+          i += step;
+        }
       }
 
       return filteredDomain;
@@ -191,7 +206,7 @@
           domain,
           legend;
 
-      //data.labels = this.filterDomain(domain, this.settings.labelsCount);
+      data.labels = this.filterDomain(domain, this.settings.labelsCount);
 
       data.datasets = _.map(rawData, function(ds, i) {
         dataset = {};

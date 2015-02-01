@@ -27,8 +27,8 @@
   QualityReport.getDelayData = function(cb, interval, find) {
     var table = interval + '_vendor_delay1',
         groups = [
-          {name: 'delay400', label: 'delay less than 400ms'},
-          {name: 'delay800', label: 'delay less than 800ms'}
+          {name: 'delay400', label: 'percentage of users having delay less than 400ms'},
+          {name: 'delay800', label: 'percentage of users having delay less than 800ms'}
         ];
 
     QualityReport.query('SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ? AND category = 3', [table, find.vendor_id, find.end, find.start], function(err, data) {
@@ -50,8 +50,8 @@
   QualityReport.getLostData = function(cb, interval, find) {
     var table = interval + '_vendor_delay1',
         groups = [
-          {name: 'lost5', label: 'lost less than 5%'},
-          {name: 'lost10', label: 'lost less than 10%'}
+          {name: 'lost5', label: 'percentage of users having loss less than 5%'},
+          {name: 'lost10', label: 'percentage of users having loss less than 10%'}
         ];
 
     QualityReport.query('SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ? AND category = 3', [table, find.vendor_id, find.end, find.start], function(err, data) {
