@@ -24,7 +24,7 @@
     $scope.hasData = true;
   };
 
-  var dir = function($templateCache, agChart, voiceData, agNotification) {
+  var dir = function($templateCache, agChart, voiceData) {
     return {
       restrict: 'A',
       scope: {
@@ -50,21 +50,12 @@
         }
 
         function draw(data) {
-          chart.drawLineChart(moment.unix(scope.query.start), moment.unix(scope.query.end), data, model.getYValue, scope.query.interval);
+          chart.drawLineChart(null, null, data, model.getYValue, scope.query.interval);
         }
 
         function onFetchSuccess(res) {
-          //$scope.minutesUsage = res.minutesUsage;
           scope.loading = false;
           scope.hasData = res.data.length > 0;
-
-          // For now only show the last message in the array
-          if (res.notifications.length) {
-            var notification = res.notifications.pop();
-            new agNotification(notification.content, {
-              type: notification.type
-            });
-          }
           cachedData(dataSubCategory, res.data);
           draw(res.data);
         }
@@ -78,6 +69,8 @@
          * Fetch data from API and Draw the line chart
          */
         function getDataAndDrawChart() {
+          scope.loading = true;
+
           if (!cachedData(dataSubCategory)) {
             model.fetch(scope.query)
               .success(onFetchSuccess)

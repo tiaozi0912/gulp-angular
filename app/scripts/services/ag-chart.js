@@ -56,24 +56,29 @@
      * @param {String} interval - 'day' or 'hourly', default 'day'
      * @return {Array} domain
      */
-    agChart.prototype.getDomain = function(start, end, interval) {
-      var domain = [];
+    agChart.prototype.getDomain = function(start, end, interval, rawData) {
+      var format = interval === this.settings.CONSTANT.DAY ? agTime.dateDisplayFormat : agTime.hourDisplayFormat,
+          domain = [];
 
       interval = interval || this.settings.CONSTANT.DAY;
 
-      if (interval === this.settings.CONSTANT.DAY) {
-        this.domain = agTime.getDatesRange(start, end);
-        domain = this.domain.map(function(m) {
-          return m.format(agTime.dateDisplayFormat);
+      if (start === null) { // Get from rawData
+        this.domain = rawData[0].map(function(d) {
+          return moment.unix(d.datetime);
         });
+      } else {
+        if (interval === this.settings.CONSTANT.DAY) {
+          this.domain = agTime.getDatesRange(start, end);
+        }
+
+        if (interval === this.settings.CONSTANT.HOUR) {
+          this.domain = agTime.getHoursRange(start, end);
+        }
       }
 
-      if (interval === this.settings.CONSTANT.HOUR) {
-        this.domain = agTime.getHoursRange(start, end);
-        domain = this.domain.map(function(m) {
-          return m.format(agTime.hourDisplayFormat);
-        });
-      }
+      domain = this.domain.map(function(m) {
+        return m.format(format);
+      });
 
       return domain;
     };
@@ -138,14 +143,14 @@
     agChart.prototype.getLabel = function(data) {
       var range;
 
+      if (data[0].label) {
+        return data[0].label;
+      }
+
       if (!data[0] || !data[0].range) {
         return '';
       } else {
         range = data[0].range;
-      }
-
-      if (data[0].label) {
-        return data[0].label;
       }
 
       if (range[0] === 0) {
@@ -175,12 +180,13 @@
       }
 
       var _this = this,
-          domain = this.getDomain(start, end, interval),
+          domain = this.getDomain(start, end, interval, rawData),
           data = {
             labels: domain,
             datasets: []
           },
           dataset,
+          domain,
           legend;
 
       data.labels = this.filterDomain(domain, this.settings.labelsCount);
@@ -195,7 +201,13 @@
 
         dataset = _.extend(dataset, _this.settings.lineOptions);
 
-        dataset.data = _this.getRange(ds, mapping, interval);
+        if (start === null) {
+          dataset.data = ds.map(function(d) {
+            return mapping(d);
+          });
+        } else {
+          dataset.data = _this.getRange(ds, mapping, interval);
+        }
 
         return dataset;
       });

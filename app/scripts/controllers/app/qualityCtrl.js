@@ -7,21 +7,21 @@
         name: 'delay',
         title: 'Delay in the past',
         getYValue: function(d) {
-          return d / 10;
+          return d.y / 10;
         }
       },
       {
         name: 'lost',
         title: 'Lost in the past',
         getYValue: function(d) {
-          return d / 10;
+          return d.y / 10;
         }
       },
       {
         name: 'discontinuity',
         title: 'Discontinuity in the past',
         getYValue: function(d) {
-          return d;
+          return d.y;
         }
       }
     ];
