@@ -25,9 +25,7 @@
           {name: 'delay800', label: 'delay less than 800ms'}
         ];
 
-    find.category = 3;
-
-    QualityReport.query('SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ?', [table, find.vendor_id, find.end, find.start], function(err, data) {
+    QualityReport.query('SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ? AND category = 3', [table, find.vendor_id, find.end, find.start], function(err, data) {
       if (!err) {
         data = formatter.getGroupsDataForFields(data, groups);
       }
@@ -35,7 +33,6 @@
       cb(err, data);
     });
   };
-
 
   /**
    * Get lost data            - instant, daily
@@ -50,9 +47,7 @@
           {name: 'lost10', label: 'lost less than 10%'}
         ];
 
-    find.category = 3;
-
-    QualityReport.query('SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ?', [table, find.vendor_id, find.end, find.start], function(err, data) {
+    QualityReport.query('SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ? AND category = 3', [table, find.vendor_id, find.end, find.start], function(err, data) {
       if (!err) {
         data = formatter.getGroupsDataForFields(data, groups);
       }

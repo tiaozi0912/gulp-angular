@@ -106,9 +106,6 @@
         find,
         query;
 
-    start = new Date('2014-12-01T23:59:59').getTime() / 1000;
-    end = new Date('2014-12-02T23:59:59').getTime() / 1000;
-
     find = {
       vendor_id: vendorId,
       start: start,
