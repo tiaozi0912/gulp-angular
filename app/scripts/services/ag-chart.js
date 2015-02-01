@@ -18,9 +18,11 @@
         chartOptions: {
           pointHitDetectionRadius: 5,
           datasetFill: false,
-          pointDotStrokeWidth: 0,
           responsive: true,
-          scaleShowVerticalLines: false
+          scaleShowVerticalLines: false,
+          pointDot: true,
+          pointDotRadius: 2,
+          pointDotStrokeWidth: 0
         },
         CONSTANT: {
           DAY: 'day',
@@ -174,7 +176,7 @@
      * @param {String} interval - 'day' or 'hour', default 'day'
      * @param {Function} mapping   - Define the way of mapping of domain to range
      */
-    agChart.prototype.drawLineChart = function(start, end, rawData, mapping, interval) {
+    agChart.prototype.drawLineChart = function(start, end, rawData, mapping, interval, options) {
       if (!_.isArray(rawData[0])) {
         rawData = [rawData];
       }
