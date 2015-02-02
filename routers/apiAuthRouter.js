@@ -10,6 +10,7 @@
   var _ = require('underscore');
   var IP = require('../models/IP');
   var csv = require('fast-csv');
+  var request = require('request');
 
   var mockIPLocations = require('../data/mock_ip_locations');
 
@@ -18,6 +19,39 @@
     msg = msg || 'Something went wrong. Please try later.';
     console.log(err);
     return res.status(400).send({ message: msg });
+  }
+  
+  /**
+   * Recursively batch get ip locations info to assure not exceed the batch limit
+   *
+   * @param {Array} ips         - array of string ips
+   * @param {Array} ipLocations - initial value should be []
+   * @param {Function} cb       - callback function taking err and ipLocations
+   */
+  function _getIPLocations(ips, ipLocations, cb) {
+    var maxIPNum = 99,
+        processingIPs = [],
+        url = 'http://report.agoralab.co:8082/iplocation?ips=';
+
+    if (ips.length <= maxIPNum) {
+      request(url + ips.join(','), function(err, response, data) {
+        if (!err) {
+          ipLocations.concat(JSON.parse(data));
+        }
+
+        cb(err, ipLocations);
+      });
+    } else {
+      processingIPs = ips.splice(0, maxIPNum);
+      request(url + processingIPs.join(','), function(err, response, data) {
+        if (!err) {
+          ipLocations.concat(JSON.parse(data));
+          _getIPLocations(ips, ipLocations, cb);
+        } else {
+          cb(err, ipLocations);
+        }
+      });
+    }    
   }
 
   /** --- Define before filter for authenticate --- */
