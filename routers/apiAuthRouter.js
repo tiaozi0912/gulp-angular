@@ -213,7 +213,7 @@
         return res.send({data: []});
       }
 
-      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+      res.setHeader('Content-disposition', 'attachment; filename=' + filename + '.csv');
       res.setHeader('Content-type', mimetype);
 
       csv.write(data, {headers: true})
