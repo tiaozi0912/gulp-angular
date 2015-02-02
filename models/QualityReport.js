@@ -3,6 +3,7 @@
 
   var DBModel = require('./DBModel');
   var formatter = require('../lib/dataFormatter');
+  var _ = require('underscore');
 
   /*
    * @readme: quality_report is the db name. there is no table named as quality_report
@@ -31,6 +32,11 @@
           {name: 'delay800', label: 'percentage of users having delay less than 800ms'}
         ];
 
+    // debug
+    var sql = "SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %> AND category = 3";
+    find.table = table;
+    console.log(_.template(sql)(find));
+
     QualityReport.query('SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ? AND category = 3', [table, find.vendor_id, find.end, find.start], function(err, data) {
       if (!err) {
         data = distribute(data, interval, ['delay400', 'delay800']);
@@ -54,6 +60,11 @@
           {name: 'lost10', label: 'percentage of users having loss less than 10%'}
         ];
 
+    // debug
+    var sql = "SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %> AND category = 3";
+    find.table = table;
+    console.log(_.template(sql)(find));
+
     QualityReport.query('SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ? AND category = 3', [table, find.vendor_id, find.end, find.start], function(err, data) {
       if (!err) {
         data = distribute(data, interval, ['lost5', 'lost10']);
@@ -65,17 +76,22 @@
   };
 
   /**
-   * Get discontinuity data            - instant, daily
+   * Get jitter data            - instant, daily
    * @param  {Function} cb
    * @param  {String} interval - instant, daily
    * @param  {Dict}   find     - fields to look into: vendor_id, start, end
    */
-  QualityReport.getDiscontinuityData = function(cb, interval, find) {
+  QualityReport.getJitterData = function(cb, interval, find) {
     var table = interval + '_audio_report';
 
-    QualityReport.query('SELECT vendor_id, report_ts as datetime, ka as discontinuity FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ?', [table, find.vendor_id, find.end, find.start], function(err, data) {
+    // debug
+    var sql = "SELECT vendor_id, report_ts as datetime, ka FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %>";
+    find.table = table;
+    console.log(_.template(sql)(find));
+
+    QualityReport.query('SELECT vendor_id, report_ts as datetime, ka as jitter FROM ?? WHERE vendor_id = ? AND report_ts <= ? AND report_ts >= ?', [table, find.vendor_id, find.end, find.start], function(err, data) {
       if (!err) {
-        data = distribute(data, interval, ['discontinuity']);
+        data = distribute(data, interval, ['jitter']);
       }
 
       cb(err, data);

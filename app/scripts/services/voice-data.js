@@ -27,7 +27,7 @@
       quality: {
         delay:  { day: null, hourly: null },
         lost:  { day: null, hourly: null },
-        discontinuity: { day: null, hourly: null }
+        jitter: { day: null, hourly: null }
       }
     };
 

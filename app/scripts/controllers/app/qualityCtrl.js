@@ -12,16 +12,16 @@
       },
       {
         name: 'lost',
-        title: 'Lost in the past',
+        title: 'Loss in the past',
         getYValue: function(d) {
           return d.y / 10;
         }
       },
       {
-        name: 'discontinuity',
-        title: 'Discontinuity in the past',
+        name: 'jitter',
+        title: 'Jitter in the past',
         getYValue: function(d) {
-          return d.discontinuity;
+          return d.jitter;
         }
       }
     ];

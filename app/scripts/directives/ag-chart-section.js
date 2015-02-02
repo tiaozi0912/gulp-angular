@@ -125,8 +125,8 @@
           scope.query.end = moment().unix();
           // scope.query.start = moment('2014-12-18').startOf('day').unix();
           // scope.query.end = moment('2014-12-18').endOf('day').unix();
-          scope.query.start = moment().subtract(24, 'h').unix();
-          scope.query.end = moment().subtract(48, 'h').unix();
+          // scope.query.end = moment().subtract(24, 'h').unix();
+          // scope.query.start = moment().subtract(48, 'h').unix();
         }
 
         function init() {

@@ -92,7 +92,7 @@
     var reportTypeToFnName = {
           delay: 'getDelayData',
           lost: 'getLostData',
-          discontinuity: 'getDiscontinuityData'
+          jitter: 'getJitterData'
         },
         intervalMap = {
           day: 'daily',
