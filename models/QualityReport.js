@@ -33,7 +33,7 @@
         ];
 
     // debug
-    var sql = "SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %> AND category = 3";
+    var sql = 'SELECT vendor_id, report_ts as datetime, delay400, delay800 FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %> AND category = 3';
     find.table = table;
     console.log(_.template(sql)(find));
 
@@ -61,7 +61,7 @@
         ];
 
     // debug
-    var sql = "SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %> AND category = 3";
+    var sql = 'SELECT vendor_id, report_ts as datetime, lost5, lost10 FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %> AND category = 3';
     find.table = table;
     console.log(_.template(sql)(find));
 
@@ -85,7 +85,7 @@
     var table = interval + '_audio_report';
 
     // debug
-    var sql = "SELECT vendor_id, report_ts as datetime, ka FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %>";
+    var sql = 'SELECT vendor_id, report_ts as datetime, ka FROM <%= table %> WHERE vendor_id = <%= vendor_id %> AND report_ts <= <%= end %> AND report_ts >= <%= start %>';
     find.table = table;
     console.log(_.template(sql)(find));
 
