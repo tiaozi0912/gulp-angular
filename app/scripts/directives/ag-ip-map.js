@@ -62,7 +62,7 @@
     };
 
     return marker;
-  };
+  }
 
   function updateMap(scope, ipLocations) {
     if (ipLocations && ipLocations.length) {
@@ -76,8 +76,8 @@
     }
   }
 
-  var ctrl = function($scope) {
-    var bounds = new google.maps.LatLngBounds(),
+  var ctrl = function($scope, uiGmapGoogleMapApi) {
+    var bounds,
         mapInstance;
 
     $scope.map = {
@@ -105,6 +105,11 @@
       }
       return null;
     }
+
+    // Prob not used
+    uiGmapGoogleMapApi.then(function(maps) {
+      var bounds = new maps.LatLngBounds();
+    });
 
     $scope.$watchCollection('ipLocations', function() {
       mapInstance = mapInstance || getMapInstance();

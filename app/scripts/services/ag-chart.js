@@ -98,7 +98,7 @@
       var filteredDomain = domain.map(function() {
             return '';
           }),
-          regex = /00$/;;
+          regex = /00$/;
 
       // Fucking hacky!
       //
@@ -208,7 +208,6 @@
             datasets: []
           },
           dataset,
-          domain,
           legend;
 
       data.labels = this.filterDomain(domain, this.settings.labelsCount);

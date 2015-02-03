@@ -66,7 +66,13 @@
   });
 
   // routes:
-  app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+  app.config(function($stateProvider, $urlRouterProvider, $locationProvider, uiGmapGoogleMapApiProvider) {
+
+    uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+    });
 
     $locationProvider.html5Mode({
       enabled: true,

@@ -56,7 +56,7 @@
       	$scope.message = {
       		type: 'danger',
       		content: 'Please enter a valid email.'
-      	}
+      	};
 
       	return;
       }
@@ -77,7 +77,7 @@
       	$scope.message = {
       		type: 'danger',
       		content: 'Please enter the security code sent to your email.'
-      	}
+      	};
 
       	return;
       }
