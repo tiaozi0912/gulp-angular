@@ -43,6 +43,8 @@
     }
 
     .dropdown-menu {
+      left: auto;
+      right: 0;
       display: block;
       padding: 10px 0;
       transition: max-height ease 0.1s, opacity ease 0.1s;
@@ -64,13 +66,6 @@
 
   .navbar-header {
     display: none;
-  }
-
-  .secondary-nav {
-    .dropdown-menu {
-      left: auto;
-      right: 0;
-    }
   }
 }
 
