@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  var request = require('request');
+
   function ipToInt(ip) {
     var num = 0;
       ip = ip.split(".").map(function(str) {
@@ -69,27 +71,48 @@
     return IP.query(sql1 + sql2 + sql3, params, cb);
   };
 
-  IP.getIPLocations2 = function(ips,cb) {
-    var sql = 'SELECT COUNT(*) FROM ips WHERE ? >= ips.start_ip and ? <= ips.end_ip', // not ( ips.end_ip < min or ips.start_ip > max) ====> end >= min and start <= max
-        params = [],
-        ipMin, ipMax;
+  /**
+   * Recursively batch get ip locations info to assure not exceed the batch limit
+   *
+   * @param {Array} ips         - array of string ips
+   * @param {Array} ipLocations - initial value should be []
+   * @param {Function} cb       - callback function taking err and ipLocations
+   */
+  IP.getIPLocationsFromAPI = function(ips, ipLocations, cb) {
+    var maxIPNum = 99,
+        processingIPs = [],
+        url = 'http://report.agoralab.co:8082/iplocation?ips=';
 
-    // Convert ip to integer
-    ips = ips.map(function(ipStr) {
-      return ipToInt(ipStr);
-    });
+    if (ips.length <= maxIPNum) {
+      url = url + ips.join(',');
 
-    // Sort
-    ips = _.sortBy(ips, function(ipInt) {
-      return ipInt;
-    });
+      console.log('query url:');
+      console.log(url);
 
-    ipMin = ips[0] * 100;
-    ipMax = ips[ips.length - 1];
-    params.push(ipMax);
-    params.push(ipMin);
+      request(url, function(err, response, data) {
+        if (!err) {
+          ipLocations.concat(JSON.parse(data));
+        }
 
-    return IP.query(sql, params, cb);
+        cb(err, ipLocations);
+      });
+    } else {
+      processingIPs = ips.splice(0, maxIPNum);
+
+      url = url + processingIPs.join(',');
+
+      console.log('query url:');
+      console.log(url);
+
+      request(url, function(err, response, data) {
+        if (!err) {
+          ipLocations.concat(JSON.parse(data));
+          IP.getIPLocationsFromAPI(ips, ipLocations, cb);
+        } else {
+          cb(err, ipLocations);
+        }
+      });
+    }
   };
 
   module.exports = IP;

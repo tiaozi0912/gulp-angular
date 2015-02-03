@@ -10,7 +10,6 @@
   var _ = require('underscore');
   var IP = require('../models/IP');
   var csv = require('fast-csv');
-  var request = require('request');
 
   var mockIPLocations = require('../data/mock_ip_locations');
 
@@ -19,39 +18,6 @@
     msg = msg || 'Something went wrong. Please try later.';
     console.log(err);
     return res.status(400).send({ message: msg });
-  }
-  
-  /**
-   * Recursively batch get ip locations info to assure not exceed the batch limit
-   *
-   * @param {Array} ips         - array of string ips
-   * @param {Array} ipLocations - initial value should be []
-   * @param {Function} cb       - callback function taking err and ipLocations
-   */
-  function _getIPLocations(ips, ipLocations, cb) {
-    var maxIPNum = 99,
-        processingIPs = [],
-        url = 'http://report.agoralab.co:8082/iplocation?ips=';
-
-    if (ips.length <= maxIPNum) {
-      request(url + ips.join(','), function(err, response, data) {
-        if (!err) {
-          ipLocations.concat(JSON.parse(data));
-        }
-
-        cb(err, ipLocations);
-      });
-    } else {
-      processingIPs = ips.splice(0, maxIPNum);
-      request(url + processingIPs.join(','), function(err, response, data) {
-        if (!err) {
-          ipLocations.concat(JSON.parse(data));
-          _getIPLocations(ips, ipLocations, cb);
-        } else {
-          cb(err, ipLocations);
-        }
-      });
-    }    
   }
 
   /** --- Define before filter for authenticate --- */
@@ -166,6 +132,9 @@
         ips = [],
         tracker = {};
 
+    start = new Date('12-01-2014').getTime() / 1000;
+    end = new Date('12-30-2014').getTime() / 1000;
+
     function processIPLocations(IPLocations) {
       var data = _.reject(IPLocations, function(location) {
         return !_.isNumber(location.long) || !_.isNumber(location.lat);
@@ -183,9 +152,9 @@
       return data;
     }
 
-    return res.send({
-      data: mockIPLocations
-    });
+    // return res.send({
+    //   data: mockIPLocations
+    // });
 
     currentUser.getChannelUsersInfo(function(err, users) {
       if (err) {
@@ -206,18 +175,16 @@
         }
       });
 
-      //ipLocationURL += ips.join(',');
-
-      // request(ipLocationURL, function(error, response, data) {
-      //   if (!error && response.statusCode == 200) {
-      //     res.send({
-      //       data: JSON.parse(data)
-      //     });
-      //   } else {
-      //     _genErrHandler(res, error);
+      // IP.getIPLocations(ips, function(err, ipLocations) {
+      //   if (err) {
+      //     return _genErrHandler(res, err);
       //   }
+
+      //   res.send({
+      //     data: processIPLocations(ipLocations)
+      //   });
       // });
-      IP.getIPLocations(ips, function(err, ipLocations) {
+      IP.getIPLocationsFromAPI(ips, [], function(err, ipLocations) {
         if (err) {
           return _genErrHandler(res, err);
         }

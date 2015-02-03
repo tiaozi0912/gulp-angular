@@ -17,6 +17,11 @@
         },
         chartOptions: {
           pointHitDetectionRadius: 5,
+          scaleFontSize: 10,
+          scaleFontFamily: '\'LatoLight\', \'Helvetica Neue\', \'Helvetica\', \'Arial\', sans-serif',
+          scaleFontStyle: '300',
+          tooltipFontFamily: '\'LatoLight\', \'Helvetica Neue\', \'Helvetica\', \'Arial\', sans-serif',
+          tooltipFontStyle: '300',
           animation: false,
           datasetFill: false,
           responsive: true,
