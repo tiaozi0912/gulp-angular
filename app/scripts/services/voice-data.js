@@ -47,31 +47,6 @@
 
         return $http.get(url, {params: params});
       },
-      getIPInfo2: function(channelUsers) { // NOT USED
-        var url = 'http://report.agoralab.co:8082/iplocation?ips=',
-            tracker = {}, // {ip: count}
-            param = [];
-
-        _.each(channelUsers, function(u) {
-          if (!tracker[u.ip]) {
-            tracker[u.ip] = 1;
-            param.push(u.ip);
-          } else {
-            tracker[u.ip] += 1;
-          }
-        });
-
-        param = param.join(',');
-        param = '120.204.247.114,202.38.64.3';
-        url += param + '&jsonp=?';// + '&callback=JSON_CALLBACK';
-
-        //return $http.jsonp(url);
-        //
-        $.ajax({
-          url: url,
-          contentType: 'application/javascript'
-        });
-      },
       getIpLocations: function(params) {
         var url = '/api/auth/ip_locations';
 

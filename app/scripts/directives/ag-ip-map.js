@@ -56,10 +56,13 @@
       longitude: location.long,
       title: location.count || 1,
       options: {
-        labelContent: location.count || 1,
-        labelAnchor: '0 60'
+        labelContent: location.city || '',
+        labelAnchor: '20 60',
+        labelStyle: {color:'#1aa1e5', 'font-weight': '700', 'text-shadow': '1px 1px 1px rgba(250, 250, 250, 0.95)'}
       }
     };
+
+    console.log(marker);
 
     return marker;
   }

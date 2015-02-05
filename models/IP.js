@@ -81,17 +81,14 @@
   IP.getIPLocationsFromAPI = function(ips, ipLocations, cb) {
     var maxIPNum = 99,
         processingIPs = [],
-        url = 'http://report.agoralab.co:8082/iplocation?ips=';
+        url = 'http://70.39.189.65:8082/iplocation?ips=';
 
     if (ips.length <= maxIPNum) {
       url = url + ips.join(',');
 
-      console.log('query url:');
-      console.log(url);
-
       request(url, function(err, response, data) {
         if (!err) {
-          ipLocations.concat(JSON.parse(data));
+          ipLocations = ipLocations.concat(JSON.parse(data));
         }
 
         cb(err, ipLocations);
@@ -101,12 +98,9 @@
 
       url = url + processingIPs.join(',');
 
-      console.log('query url:');
-      console.log(url);
-
       request(url, function(err, response, data) {
         if (!err) {
-          ipLocations.concat(JSON.parse(data));
+          ipLocations = ipLocations.concat(JSON.parse(data));
           IP.getIPLocationsFromAPI(ips, ipLocations, cb);
         } else {
           cb(err, ipLocations);

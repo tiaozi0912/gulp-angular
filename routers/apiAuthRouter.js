@@ -130,26 +130,39 @@
         interval = req.param('interval'),
         //ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
         ips = [],
-        tracker = {};
+        tracker = {},
+        long,
+        lat;
 
     start = new Date('12-01-2014').getTime() / 1000;
     end = new Date('12-30-2014').getTime() / 1000;
 
     function processIPLocations(IPLocations) {
-      var data = _.reject(IPLocations, function(location) {
-        return !_.isNumber(location.long) || !_.isNumber(location.lat);
+      // add id to ipLocation
+      _.each(IPLocations, function(location, i) {
+        location.id = i;
+
+        long = Number(location.lat);
+        lat = Number(location.long);
+
+        location.lat = lat;
+        location.long = long;
       });
 
-      data = _.groupBy(data, function(d) {
-        return d.city;
-      });
+      // var data = _.reject(IPLocations, function(location) {
+      //   return !_.isNumber(location.long) || !_.isNumber(location.lat);
+      // });
 
-      data = _.map(data, function(arr) {
-        arr[0].count = arr.length;
-        return arr[0];
-      });
+      // data = _.groupBy(data, function(d) {
+      //   return d.city;
+      // });
 
-      return data;
+      // data = _.map(data, function(arr) {
+      //   arr[0].count = arr.length;
+      //   return arr[0];
+      // });
+
+      return IPLocations;
     }
 
     // return res.send({
@@ -188,6 +201,8 @@
         if (err) {
           return _genErrHandler(res, err);
         }
+
+        console.log(ipLocations);
 
         res.send({
           data: processIPLocations(ipLocations)
