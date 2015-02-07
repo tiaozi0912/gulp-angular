@@ -62,6 +62,9 @@
 
       // Set the current layout name
       siteResources.currLayout.name = siteResources.layouts[next.data.layout];
+
+      // Dimiss modals
+      $rootScope.$broadcast('agAuthModal:dismiss');
     });
   });
 
