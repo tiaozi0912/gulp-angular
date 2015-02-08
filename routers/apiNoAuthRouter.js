@@ -124,7 +124,8 @@
   function verifyEmailCtrl(req, res) {
     var token = req.params.token,
         redirect = '/dashboard/overview',
-        successMsg = 'Email is verified successfully.';
+        successMsg = 'Email is verified successfully.',
+        testVendorId = 2;
 
     User.query('SELECT * FROM users WHERE ?', {access_token: token}, function(err, users) {
       if (err) {
@@ -137,7 +138,7 @@
         });
       } else {
         // Signin the user, clear the access_token and redirect to dashboard page
-        User.save({access_token: null, status: 1, id: users[0].id}, function(err, result) {
+        User.save({access_token: null, status: 1, id: users[0].id, vendor_id: testVendorId}, function(err, result) {
           if (err || !result.length) {
             return _genErrHandler(res, err);
           }

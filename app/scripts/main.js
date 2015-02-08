@@ -445,9 +445,9 @@
               // $scop.user is accessible to all the dashboard view controllers
               $scope.user = $rootScope.currentUser;
 
-              if (!$scope.user.key) {
+              if ($scope.user.status === 1) {
                 $scope.dashboardNotification = {
-                  content: 'Your account hasn\'t been activated yet. Our representative will contact you shortly to grant the API key.',
+                  content: 'Our representative will contact you shortly to grant the API key. Meanwhile, you can find the test API key in your account and try the SDK.',
                   type: 'info'
                 };
               }

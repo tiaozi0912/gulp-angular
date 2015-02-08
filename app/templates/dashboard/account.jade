@@ -5,6 +5,8 @@
     .col-sm-3.right-text API KEY:
     .col-sm-9
       code {{user.key}}
+    .col-sm-9.col-sm-offset-3
+      small.text-muted(ng-if="user.status === 1") This is a test API key. You can use it to try the <a ui-sref="root.docs">SDK ></a>.
   form.form-horizontal.form-user-edit
     .form-group
       label.control-label.col-sm-3 name

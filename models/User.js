@@ -104,7 +104,7 @@
 
   User.STATUSES = {
     0: 'email not verified',
-    1: 'email verified but API key not received',
+    1: 'email verified and received testing API key not received',
     2: 'API key received'
   };
 
@@ -398,7 +398,7 @@
 
     // @readme: may result to bug if the token is not saved scucessfully.
     User.save({access_token: token, id: this.data.id}, function() {});
-    
+
     mailer.sendResetPasswordEmail(this.data, token);
   };
 
