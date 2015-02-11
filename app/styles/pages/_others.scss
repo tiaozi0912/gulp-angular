@@ -48,7 +48,7 @@
 }
 
 .pricing-page {
-  @include full-bg-image('/images/pricing/phone-smile.jpg');
+  @include full-bg-image('/images/pricing/banner.jpg');
 
   .content-container {
     @include banner-content-container();
