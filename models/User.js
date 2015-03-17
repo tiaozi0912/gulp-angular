@@ -291,30 +291,19 @@
    * @param {String} interval - 'day', 'hourly', default is 'day'
    */
   User.prototype.getChannelUsersInfo = function(cb, start, end, interval) {
+    start = new Date('2014-11-01').getTime() / 1000;
+    end = new Date('2014-12-30').getTime() / 1000;
+
     var vendorId = this.data.vendor_id;
 
     interval = interval || 'day';
 
     if (interval === 'day') {
-      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], function(err, data) {
-        if (err || !data.length) {
-          cb(err, data);
-        } else {
-          countParticipantsNumber(data);
-          cb(null, data);
-        }
-      });
+      ChannelUser.query('SELECT maxuser AS participants_number, duration, cid, DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'%Y-%m-%d\') AS \'datetime\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?', [vendorId, start, end], cb);
     }
 
     if (interval === 'hourly') {
-      ChannelUser.query('SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'%Y-%m-%d %H\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?', [vendorId, start, end], function(err, data) {
-        if (err || !data.length) {
-          cb(err, data);
-        } else {
-          countParticipantsNumber(data);
-          cb(null, data);
-        }
-      });
+      ChannelUser.query('SELECT maxuser AS participants_number, duration, cid, DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'%Y-%m-%d %H\') AS \'datetime\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?', [vendorId, start, end], cb);
     }
   };
 
