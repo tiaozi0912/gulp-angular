@@ -73,6 +73,7 @@
 
   /**
    * count the participants number in each channel
+   * @deprecated NOT USED
    */
   function countParticipantsNumber(data) {
     var count = {}, // {cid: count}
@@ -247,10 +248,6 @@
     var start = getMonthStartDatetime().getTime() / 1000,
         end = new Date().getTime() / 1000;
 
-    // @todo: remove this
-    // start = 1417420800;
-    // end= 1420012800;
-
     this.getMinutesUsage(cb, start, end);
   };
 
@@ -312,11 +309,9 @@
   User.prototype.getCompleteData = function(cb, start, end, period) {
     var dtFormatter = '%Y-%m-%d',
         vendorId = this.data.vendor_id,
-        channelUserSQL = 'SELECT users.duration, users.uid, users.cid, users.ip, DATE_FORMAT(FROM_UNIXTIME(`quit`), \'' + dtFormatter + '\') AS \'datetime\', users.vendorID, channels.duration AS channel_duration FROM users INNER JOIN channels ON channels.cid = users.cid WHERE users.vendorID = ? AND users.quit >= ? AND users.quit <= ?',
+        channelUserSQL = 'SELECT maxuser AS participants_number, duration, cid, DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'' + dtFormatter + '\') AS \'datetime\', vendorID, duration FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?',
         //usageSQL = 'SELECT SUM(duration) / 60 AS \'total minutes\', DATE_FORMAT(FROM_UNIXTIME(`destroy`), \'' + dtFormatter + '\') AS \'datetime\', vendorID FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ? GROUP BY datetime';
         usageSQL = 'SELECT SUM(duration) / 60 AS \'total minutes\' FROM channels WHERE vendorID = ? AND destroy >= ? AND destroy <= ?';
-
-    console.log(period);
 
     ChannelUser.query(channelUserSQL, [vendorId, start, end], function(err, data) {
       if (err || !data.length) {
@@ -330,7 +325,7 @@
 
         var count = 0;
 
-        countParticipantsNumber(data);
+        //countParticipantsNumber(data);
 
         dataDict[end] = data;
 

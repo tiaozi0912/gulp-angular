@@ -79,8 +79,6 @@
    * @param {Function} cb       - callback function taking err and ipLocations
    */
   IP.getIPLocationsFromAPI = function(ips, ipLocations, cb) {
-    console.log(ips)
-
     var maxIPNum = 99,
         processingIPs = [],
         url = 'http://70.39.189.65:8082/iplocation?ips=';
