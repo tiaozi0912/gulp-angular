@@ -130,12 +130,8 @@
         interval = req.param('interval'),
         //ipLocationURL = 'http://report.agoralab.co:8082/iplocation?ips=',
         ips = [],
-        tracker = {},
         long,
         lat;
-
-    start = new Date('12-01-2014').getTime() / 1000;
-    end = new Date('12-30-2014').getTime() / 1000;
 
     function processIPLocations(IPLocations) {
       // add id to ipLocation
@@ -149,27 +145,14 @@
         location.long = long;
       });
 
-      // var data = _.reject(IPLocations, function(location) {
-      //   return !_.isNumber(location.long) || !_.isNumber(location.lat);
-      // });
-
-      // data = _.groupBy(data, function(d) {
-      //   return d.city;
-      // });
-
-      // data = _.map(data, function(arr) {
-      //   arr[0].count = arr.length;
-      //   return arr[0];
-      // });
-
       return IPLocations;
     }
 
     // return res.send({
     //   data: mockIPLocations
     // });
-
-    currentUser.getChannelUsersInfo(function(err, users) {
+    //
+    ChannelUser.query('SELECT ip FROM users WHERE vendorID = ? AND quit >= ? AND quit <= ?', [currentUser.data.vendor_id, start, end], function(err, users) {
       if (err) {
         return _genErrHandler(res, err);
       }
@@ -178,37 +161,20 @@
         return res.send({data: []});
       }
 
-      // Push ip into ips array and count each ip
-      _.each(users, function(u) {
-        if (!tracker[u.ip]) {
-          tracker[u.ip] = 1;
-          ips.push(u.ip);
-        } else {
-          tracker[u.ip] += 1;
-        }
+      ips = users.map(function(u) {
+        return u.ip;
       });
 
-      // IP.getIPLocations(ips, function(err, ipLocations) {
-      //   if (err) {
-      //     return _genErrHandler(res, err);
-      //   }
-
-      //   res.send({
-      //     data: processIPLocations(ipLocations)
-      //   });
-      // });
       IP.getIPLocationsFromAPI(ips, [], function(err, ipLocations) {
         if (err) {
           return _genErrHandler(res, err);
         }
 
-        console.log(ipLocations);
-
         res.send({
           data: processIPLocations(ipLocations)
         });
       });
-    }, start, end, interval);
+    });
   }
 
   function dataDownloadCtrl(req, res) {

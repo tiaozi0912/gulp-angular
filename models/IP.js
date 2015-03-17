@@ -79,6 +79,8 @@
    * @param {Function} cb       - callback function taking err and ipLocations
    */
   IP.getIPLocationsFromAPI = function(ips, ipLocations, cb) {
+    console.log(ips)
+
     var maxIPNum = 99,
         processingIPs = [],
         url = 'http://70.39.189.65:8082/iplocation?ips=';
@@ -112,7 +114,4 @@
   module.exports = IP;
 })();
 
-
-
-//SELECT ip_locations_sub.*, ip_tab.ip_to_check FROM (SELECT * FROM ips WHERE 785951785 >= ips.start_ip and 21014502 <= ips.end_ip) AS ip_locations_sub INNER JOIN (SELECT 785951785 AS ip_to_check UNION SELECT 21014502 AS ip_to_check UNION SELECT 403119584 AS ip_to_check) AS ip_tab ON (ip_tab.ip_to_check >= ip_locations_sub.start_ip and ip_tab.ip_to_check <= ip_locations_sub.end_ip)
 
