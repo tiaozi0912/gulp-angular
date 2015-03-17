@@ -263,11 +263,11 @@
       });
 
       if (groupBy === 'total') {
-        data = _this._getGroupsData(data, 'channel_duration', [0], this._countCalls);
+        data = _this._getGroupsData(data, 'duration', [0], this._countCalls);
       }
 
       if (groupBy === 'call length') {
-        data = _this._getGroupsData(data, 'channel_duration', callLengthGroups, this._countCalls);
+        data = _this._getGroupsData(data, 'duration', callLengthGroups, this._countCalls);
       }
 
       if (groupBy === 'participants number') {
