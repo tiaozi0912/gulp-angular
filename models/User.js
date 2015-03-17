@@ -285,15 +285,12 @@
    * Get the channel users info from start date to the end date every interval(day, hour etc)
    *
    * @param {Function} cb - callback function, taking err and res as arguments
-   *   {Object} res - keys: duration, uid, datetime, vendorID, cid, ip, channel_duration
+   *   {Object} res - keys: duration, uid, datetime, vendorID, cid
    * @param {Int} start - unix timestamp in sec
    * @param {Int} end   - unix timestamp in sec
    * @param {String} interval - 'day', 'hourly', default is 'day'
    */
   User.prototype.getChannelUsersInfo = function(cb, start, end, interval) {
-    start = new Date('2014-11-01').getTime() / 1000;
-    end = new Date('2014-12-30').getTime() / 1000;
-
     var vendorId = this.data.vendor_id;
 
     interval = interval || 'day';

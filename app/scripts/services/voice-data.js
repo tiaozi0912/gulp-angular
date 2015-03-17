@@ -97,35 +97,6 @@
     };
 
     /**
-     * The logic to increase the count of participants in each group
-     *
-     * @param {Object} obj - data object
-     * @param {Object} count - passed by reference so its value got changed in the function; key: group value, value: count
-     * @param {Array}  groups - sorted array of numbers indicating the borders for each group
-     * @param {String} field - field name of the data object. it is used to determine which group it belongs to
-     * @param {Object} track - track if the participant is counted or not.
-     *                       - the uid in a channel(cid) is unique, but not globally uniqu
-     */
-    this._countParticipants = function(obj, field, count, groups, track) {
-      var group;
-
-      if (!track[obj.cid]) {
-        track[obj.cid] = {};
-        track[obj.cid][obj.uid] = 1;
-
-        group = this._calGroupValue(obj[field], groups);
-
-        count[group] += 1;
-      } else if(!track[obj.cid][obj.uid]) {
-        track[obj.cid][obj.uid] = 1;
-
-        group = this._calGroupValue(obj[field], groups);
-
-        count[group] += 1;
-      }
-    };
-
-    /**
      * The logic to increase the count of calls in each group
      *
      * @param {Object} obj - data object
@@ -141,6 +112,42 @@
         track[obj.cid] = 1;
         group = this._calGroupValue(obj[field], groups);
         count[group] += 1;
+      }
+    };
+
+    /**
+     * The logic to increase the count of participants in each group
+     *
+     * @param {Object} obj - data object
+     * @param {Object} count - passed by reference so its value got changed in the function; key: group value, value: count
+     * @param {Array}  groups - sorted array of numbers indicating the borders for each group
+     * @param {String} field - field name of the data object. it is used to determine which group it belongs to
+     * @param {Object} track - track if the participant is counted or not.
+     *                       - the uid in a channel(cid) is unique, but not globally uniqu
+     */
+    //this._countParticipants = this._countCalls;
+    this._countParticipants = function(obj, field, count, groups, track) {
+      var group;
+
+      // if (!track[obj.cid]) {
+      //   track[obj.cid] = {};
+      //   track[obj.cid][obj.uid] = 1;
+
+      //   group = this._calGroupValue(obj[field], groups);
+
+      //   count[group] += 1;
+      // } else if(!track[obj.cid][obj.uid]) {
+      //   track[obj.cid][obj.uid] = 1;
+
+      //   group = this._calGroupValue(obj[field], groups);
+
+      //   count[group] += 1;
+      // }
+
+      if (!track[obj.cid]) {
+        track[obj.cid] = 1;
+        group = this._calGroupValue(obj[field], groups);
+        count[group] += obj.participants_number;
       }
     };
 
